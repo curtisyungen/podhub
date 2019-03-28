@@ -73,7 +73,7 @@ class App extends Component {
   hidePodcasts = () => {
     this.setState({
       podcastSearch: ""
-    }, setTimeout(() => { this.checkContent() }, 500));
+    }, () => { this.checkContent() });
   }
 
   render() {
