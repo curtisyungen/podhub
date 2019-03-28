@@ -90,7 +90,6 @@ class App extends Component {
           <PodcastSearch
             podcasts={this.state.podcasts}
             show={this.state.showPodcasts}
-            handler={this.hidePodcasts}
           />
 
           <Container>
