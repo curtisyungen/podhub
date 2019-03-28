@@ -70,10 +70,11 @@ class App extends Component {
 
   // Passed to children as prop
   // Hides podcast search results
-  hidePodcasts = () => {
-    this.setState({
-      showPodcasts: "hidePodcasts"
-    })
+  hidePodcasts = setTimeout(() => {
+      this.setState({
+        showPodcasts: "hidePodcasts"
+      });
+    }, 250);
   }
 
   render() {
