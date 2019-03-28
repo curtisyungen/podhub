@@ -81,6 +81,7 @@ class UserSearch extends Component {
                         id="userInput"
                         value={this.state.userSearch}
                         onChange={this.handleInputChange}
+                        onFocus={this.handleInputChange}
                         name="userSearch"
                         autoComplete="off"
                         required

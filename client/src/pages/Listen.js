@@ -1,7 +1,7 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import Container from "../components/Container/container";
 import Row from "../components/Row/row";
-import { Link } from "react-router-dom";
 import Modal from "react-responsive-modal";
 import AudioPlayer from "../components/AudioPlayer/audioPlayer";
 import Portal from "../components/Portal/portal";
