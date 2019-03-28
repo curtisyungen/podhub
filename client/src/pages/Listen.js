@@ -91,22 +91,19 @@ class Listen extends Component {
         return (
             <Container>
                 <Row>
-                    <div>
-                        <h2>{this.state.podcastName}</h2>
-                        <Link
-                            to={{
-                                pathname: "/episodeList",
-                                state: {
-                                    podcastId: this.state.podcastId,
-                                    podcastName: this.state.podcastName,
-                                    podcastLogo: this.state.podcastLogo
-                                }
-                            }}
-                        >
-                            {this.state.podcastName}
-                        </Link>
-                        <img src={this.state.podcastLogo} alt="Podcast Logo" />
-                    </div>
+                    <Link
+                        to={{
+                            pathname: "/episodeList",
+                            state: {
+                                podcastId: this.state.podcastId,
+                                podcastName: this.state.podcastName,
+                                podcastLogo: this.state.podcastLogo
+                            }
+                        }}
+                    >
+                        {this.state.podcastName}
+                    </Link>
+                    <img src={this.state.podcastLogo} alt="Podcast Logo" />
                 </Row>
 
                 <Row>
