@@ -8,7 +8,7 @@ import { GoogleLogout } from 'react-google-login';
 
 library.add(faSearch);
 
-function Navbar({ podcastSearch, handleInputChange, logout }) {
+function Navbar({ podcastSearch, handleInputChange, hidePodcasts, logout }) {
 
   return (
 
@@ -62,6 +62,8 @@ function Navbar({ podcastSearch, handleInputChange, logout }) {
           </li>
         </ul>
 
+
+
         <ul className="navbar-nav">
           <form className="form-inline my-2 my-lg-0 searchPodcastForm">
             <input className="form-control mr-sm-2 searchPodcastInput"
@@ -70,8 +72,9 @@ function Navbar({ podcastSearch, handleInputChange, logout }) {
               aria-label="Search"
               id="podcastInput"
               value={podcastSearch}
-              onFocus={handleInputChange}
               onChange={handleInputChange}
+              onFocus={handleInputChange}
+              onFocusOut={hidePodcasts}
               name="podcastSearch"
               autoComplete="off"
               required
