@@ -72,7 +72,7 @@ function Navbar({ podcastSearch, handleInputChange, logout }) {
               aria-label="Search"
               id="podcastInput"
               value={podcastSearch}
-              onFocus={this.handleInputChange}
+              onFocus={handleInputChange}
               onChange={handleInputChange}
               name="podcastSearch"
               autoComplete="off"
