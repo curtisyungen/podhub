@@ -76,14 +76,6 @@ class App extends Component {
     });
   }
 
-  resetState = () => {
-    this.setState({
-      podcastSearch: ""
-    }, setTimeout(() => {
-      this.checkContent();
-    }, 1000));
-  }
-
   render() {
     return (
       <Router>
@@ -92,7 +84,6 @@ class App extends Component {
           <Navbar
             podcastSearch={this.podcastSearch}
             handleInputChange={this.handleInputChange}
-            resetState={this.resetState}
           />
 
           <PodcastSearch

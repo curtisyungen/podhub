@@ -8,7 +8,7 @@ import { GoogleLogout } from 'react-google-login';
 
 library.add(faSearch);
 
-function Navbar({ podcastSearch, handleInputChange, resetState, logout }) {
+function Navbar({ podcastSearch, handleInputChange, logout }) {
 
   return (
 
@@ -72,7 +72,6 @@ function Navbar({ podcastSearch, handleInputChange, resetState, logout }) {
               value={podcastSearch}           
               name="podcastSearch"
               autoComplete="off"
-              onBlur={resetState}
               onChange={handleInputChange}
               onFocus={handleInputChange}
               required
