@@ -74,7 +74,7 @@ function Navbar({ podcastSearch, handleInputChange, hidePodcasts, logout }) {
               value={podcastSearch}
               onChange={handleInputChange}
               onFocus={handleInputChange}
-              onFocusOut={hidePodcasts}
+              onBlur={hidePodcasts}
               name="podcastSearch"
               autoComplete="off"
               required
