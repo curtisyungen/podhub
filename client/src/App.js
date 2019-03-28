@@ -84,7 +84,6 @@ class App extends Component {
           <Navbar
             podcastSearch={this.podcastSearch}
             handleInputChange={this.handleInputChange}
-            handleBlur={}
           />
 
           <PodcastSearch
