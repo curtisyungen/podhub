@@ -62,8 +62,6 @@ function Navbar({ podcastSearch, handleInputChange, hidePodcasts, logout }) {
           </li>
         </ul>
 
-
-
         <ul className="navbar-nav">
           <form className="form-inline my-2 my-lg-0 searchPodcastForm">
             <input className="form-control mr-sm-2 searchPodcastInput"
@@ -74,7 +72,6 @@ function Navbar({ podcastSearch, handleInputChange, hidePodcasts, logout }) {
               value={podcastSearch}           
               name="podcastSearch"
               autoComplete="off"
-              onMouseDown={(event) => event.preventDefault()}
               onBlur={hidePodcasts}
               onChange={handleInputChange}
               onFocus={handleInputChange}
