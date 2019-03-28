@@ -79,7 +79,9 @@ class App extends Component {
   resetState = () => {
     this.setState({
       podcastSearch: ""
-    }, () => this.checkContent )
+    }, () => {
+      this.checkContent();
+    })
   }
 
   render() {
