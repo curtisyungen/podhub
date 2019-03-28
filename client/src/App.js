@@ -79,10 +79,12 @@ class App extends Component {
     }
   }
 
-  preventBlur = () => {
+  preventBlur = (event) => {
+    event.preventDefault();
     this.setState({
       preventBlur: true
     })
+    console.log(this.state);
   }
 
   render() {
@@ -97,8 +99,8 @@ class App extends Component {
           />
 
           <PodcastSearch
-            podcasts={this.state.podcasts}
             show={this.state.showPodcasts}
+            podcasts={this.state.podcasts}
             handler={this.preventBlur}
           />
 
