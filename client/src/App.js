@@ -72,8 +72,8 @@ class App extends Component {
   // Hides podcast search results
   hidePodcasts = () => {
     this.setState({
-      podcastSearch: ""
-    }, () => { this.checkContent() });
+      showPodcasts: "hidePodcasts"
+    });
   }
 
   render() {
@@ -84,11 +84,12 @@ class App extends Component {
           <Navbar
             podcastSearch={this.podcastSearch}
             handleInputChange={this.handleInputChange}
-            handleBlur={this.hidePodcasts}
+            handleBlur={}
           />
 
           <PodcastSearch
             show={this.state.showPodcasts}
+            hide={this.hidePodcasts}
             podcasts={this.state.podcasts}
           />
 

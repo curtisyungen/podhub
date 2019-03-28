@@ -11,7 +11,7 @@ import "./podcastSearch.css";
 // It will appear on the right side of the screen as a floating drop-down menu. 
 // It will only be visible if the user has typed/changed text in the Podcast Search box. 
 
-function PodcastSearch ({ show, podcasts }) {
+function PodcastSearch ({ show, hide, podcasts }) {
 
     return (
         <Container>
@@ -25,6 +25,7 @@ function PodcastSearch ({ show, podcasts }) {
                                 podcastName={podcast.title_original}
                                 podcastLogo={podcast.image}
                                 thumbnail={podcast.thumbnail}
+                                hide={hide}
                             />
                         )}       
                     </List>
