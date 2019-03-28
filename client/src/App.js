@@ -76,6 +76,14 @@ class App extends Component {
     })
   }
 
+  onBlurEvent = () => {
+    setTimeout(function() {
+      this.setState({
+        showPodcasts: "hidePodcasts"
+      })
+    }, 500);
+  }
+
   render() {
     return (
       <Router>
@@ -84,7 +92,7 @@ class App extends Component {
           <Navbar
             podcastSearch={this.podcastSearch}
             handleInputChange={this.handleInputChange}
-            hidePodcasts={this.hidePodcasts}
+            hidePodcasts={this.onBlurEvent}
           />
 
           <PodcastSearch
