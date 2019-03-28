@@ -75,7 +75,6 @@ class App extends Component {
         showPodcasts: "hidePodcasts"
       });
     }, 250);
-  }
 
   render() {
     return (
