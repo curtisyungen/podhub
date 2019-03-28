@@ -71,12 +71,13 @@ function Navbar({ podcastSearch, handleInputChange, hidePodcasts, logout }) {
               placeholder="Search for a podcast"
               aria-label="Search"
               id="podcastInput"
-              value={podcastSearch}
-              onChange={handleInputChange}
-              onFocus={handleInputChange}
-              onBlur={setTimeout(hidePodcasts, 250)}
+              value={podcastSearch}           
               name="podcastSearch"
               autoComplete="off"
+              onMouseDown={(event) => event.preventDefault()}
+              onBlur={hidePodcasts}
+              onChange={handleInputChange}
+              onFocus={handleInputChange}
               required
             />
           </form>
