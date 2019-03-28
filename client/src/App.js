@@ -17,8 +17,7 @@ class App extends Component {
   state = {
     podcastSearch: "",
     podcasts: [],
-    showPodcasts: "hidePodcasts",
-    preventBlur: false
+    showPodcasts: "hidePodcasts"
   };
 
   // Listen for when user enters text into Podcast search fields
@@ -72,19 +71,15 @@ class App extends Component {
   // Passed to children as prop
   // Hides podcast search results
   hidePodcasts = () => {
-    if (!this.state.preventBlur) {
-      this.setState({
-        showPodcasts: "hidePodcasts"
-      });
-    }
+    this.setState({
+      showPodcasts: "hidePodcasts"
+    });
   }
 
-  preventBlur = (event) => {
-    event.preventDefault();
+  resetState = () => {
     this.setState({
-      preventBlur: true
-    })
-    console.log(this.state);
+      podcastSearch: ""
+    }, () => { this.checkContent })
   }
 
   render() {
@@ -95,13 +90,12 @@ class App extends Component {
           <Navbar
             podcastSearch={this.podcastSearch}
             handleInputChange={this.handleInputChange}
-            hidePodcasts={this.hidePodcasts}
+            resetState={this.resetState}
           />
 
           <PodcastSearch
             show={this.state.showPodcasts}
             podcasts={this.state.podcasts}
-            handler={this.preventBlur}
           />
 
           <Container>
