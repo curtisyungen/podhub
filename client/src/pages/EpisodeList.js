@@ -20,16 +20,17 @@ class EpisodeList extends Component {
     // On page load, update State with Podcast ID and Logo url
     // Then call .getEpisodes
     componentDidMount = () => {
-        console.log(this.props.location.state);
         this.setState({
             podcastId: this.props.location.state.podcastId,
             podcastName: this.props.location.state.podcastName,
             podcastLogo: this.props.location.state.podcastLogo
         }, () => { this.getEpisodes() });
+        
     }
 
     // Get episodes for podcast by Podcast ID
     getEpisodes = () => {
+        console.log(this.props.location.state);
         API.getEpisodes(this.state.podcastId)
             .then(res =>
                 // console.log(res)
