@@ -13,6 +13,7 @@ import API from "../utils/API";
 class Listen extends Component {
 
     state = {
+        podcastId: "",
         podcastName: "",
         podcastLogo: "",
         episodeId: "",
@@ -27,6 +28,7 @@ class Listen extends Component {
 
     componentDidMount = () => {
         this.setState({
+            podcastId: this.props.location.state.podcastId,
             podcastName: this.props.location.state.podcastName,
             podcastLogo: this.props.location.state.podcastLogo,
             episodeId: this.props.location.state.episodeId,
@@ -91,6 +93,18 @@ class Listen extends Component {
                 <Row>
                     <div>
                         <h2>{this.state.podcastName}</h2>
+                        <Link
+                            to={{
+                                pathname: "/episodeList",
+                                state: {
+                                    podcastId: this.state.podcastId,
+                                    podcastName: this.state.podcastName,
+                                    podcastLogo: this.state.podcastLogo
+                                }
+                            }}
+                        >
+                            {this.state.podcastName}
+                        </Link>
                         <img src={this.state.podcastLogo} alt="Podcast Logo" />
                     </div>
                 </Row>

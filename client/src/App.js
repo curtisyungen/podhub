@@ -11,7 +11,6 @@ import Login from './pages/Login';
 import UserSearch from "./pages/UserSearch";
 import API from "./utils/API"
 import "./App.css";
-// import UserSearch from './components/UserSearch/userSearch';
 
 class App extends Component {
 

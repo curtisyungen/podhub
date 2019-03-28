@@ -106,6 +106,7 @@ class EpisodeList extends Component {
                                 {this.state.episodes.map(episode => (    
                                     <Episode
                                         key={episode.id}
+                                        podcastId={this.state.podcastId}
                                         podcastName={this.state.podcastName}
                                         podcastLogo={this.state.podcastLogo}
                                         episodeId={episode.id}
