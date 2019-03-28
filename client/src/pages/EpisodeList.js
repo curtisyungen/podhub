@@ -20,6 +20,7 @@ class EpisodeList extends Component {
     // On page load, update State with Podcast ID and Logo url
     // Then call .getEpisodes
     componentDidMount = () => {
+        console.log(this.props.location.state);
         this.setState({
             podcastId: this.props.location.state.podcastId,
             podcastName: this.props.location.state.podcastName,
