@@ -28,12 +28,14 @@ class EpisodeList extends Component {
         }, () => { this.getEpisodes() });
     }
 
+    // Update episode list when new podcast is selected
     componentDidUpdate(prevProps, prevState) {
         if (prevState.podcastId !== this.props.location.state.podcastId) {
             this.setState({
                 podcastId: this.props.location.state.podcastId,
                 podcastName: this.props.location.state.podcastName,
-                podcastLogo: this.props.location.state.podcastLogo
+                podcastLogo: this.props.location.state.podcastLogo,
+                episodes: []
             }, () => {this.getEpisodes() });
         }
     }
