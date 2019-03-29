@@ -32,7 +32,8 @@ class EpisodeList extends Component {
         this.setState({
             podcastId: this.props.location.state.podcastId,
             podcastName: this.props.location.state.podcastName,
-            podcastLogo: this.props.location.state.podcastLogo
+            podcastLogo: this.props.location.state.podcastLogo,
+            episodes: []
         }, () => { this.getEpisodes() });
     }
 
@@ -121,6 +122,7 @@ class EpisodeList extends Component {
         return (
             <Container>
                 <h1>Episodes</h1>
+                <h4>{this.state.podcastName}</h4>
                 <img
                     src={this.state.podcastLogo}
                     alt="Podcast Logo"
