@@ -82,7 +82,7 @@ class Listen extends Component {
         }, () => console.log(this.state));
     }
 
-    handleChange = (event) => {
+    changeSpeed = (event) => {
         this.setState({
             speed: event.target.value
         })
@@ -98,8 +98,7 @@ class Listen extends Component {
                             state: {
                                 podcastId: this.state.podcastId,
                                 podcastName: this.state.podcastName,
-                                podcastLogo: this.state.podcastLogo,
-                                refresh: false
+                                podcastLogo: this.state.podcastLogo
                             }
                         }}
                     >
@@ -122,7 +121,7 @@ class Listen extends Component {
                             min="1"
                             max="2.35"
                             value={this.state.speed}
-                            onChange={this.handleChange}
+                            onChange={this.changeSpeed}
                             step=".15"
                             list="steplist"
                         />
@@ -142,7 +141,11 @@ class Listen extends Component {
                 </Row>
 
                 {this.state.showPortal && (
-                    <Portal>
+                    <Portal
+                        changeSpeed={this.changeSpeed}
+                        speed={this.state.speed}
+                        togglePortal={this.togglePortal}
+                    >
                         <h4>{this.state.podcastName}</h4>
                         <p>{this.state.episodeName}</p>
 
@@ -155,7 +158,7 @@ class Listen extends Component {
                             min="1"
                             max="2.35"
                             value={this.state.speed}
-                            onChange={this.handleChange}
+                            onChange={this.changeSpeed}
                             step=".15"
                             list="steplist"
                         />
