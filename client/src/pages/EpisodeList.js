@@ -29,13 +29,15 @@ class EpisodeList extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevProps.podcastId !== this.props.location.state.podcastId) {
-            this.setState({
-                podcastId: this.props.location.state.podcastId,
-                podcastName: this.props.location.state.podcastName,
-                podcastLogo: this.props.location.state.podcastLogo
-            }, () => {this.getEpisodes() });
-        }
+        console.log(prevProps);
+        console.log(prevState);
+        // if (prevProps.podcastId !== this.props.location.state.podcastId) {
+        //     this.setState({
+        //         podcastId: this.props.location.state.podcastId,
+        //         podcastName: this.props.location.state.podcastName,
+        //         podcastLogo: this.props.location.state.podcastLogo
+        //     }, () => {this.getEpisodes() });
+        // }
     }
 
     // Get episodes for podcast by Podcast ID
