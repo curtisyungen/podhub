@@ -13,7 +13,7 @@ import API from "../utils/API";
 
 class Listen extends Component {
 
-    constructor() {
+    constructor(props) {
         super(props);
         this.togglePortal = this.togglePortal.bind(this);
     }
