@@ -15,7 +15,8 @@ class EpisodeList extends Component {
         podcastName: "",
         podcastLogo: "",
         episodes: [],
-        message: ""
+        message: "",
+        refresh: false
     };
 
     // On page load, update State with Podcast ID and Logo url
@@ -146,13 +147,13 @@ class EpisodeList extends Component {
                         </Container>
 
                     ) : (
-                        this.state.message !== "Loading..." ? (
-                            <h2 className="text-center">No Episodes found.</h2>
-                        ) :
-                        (
-                            <></>
-                        )
-                    )};
+                            this.state.message !== "Loading..." ? (
+                                <h2 className="text-center">No Episodes found.</h2>
+                            ) :
+                                (
+                                    <></>
+                                )
+                        )}
 
                     <h2 className="text-center">{this.state.message}</h2>
                 </Row>

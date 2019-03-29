@@ -17,7 +17,8 @@ function Podcast ({ podcastId, podcastName, podcastLogo, thumbnail, hide }) {
             state: {
                 podcastId: podcastId,
                 podcastName: podcastName,
-                podcastLogo: podcastLogo
+                podcastLogo: podcastLogo,
+                refresh: true
             }
             }} 
             className="podcast"
