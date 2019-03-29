@@ -25,7 +25,8 @@ class EpisodeList extends Component {
         this.setState({
             podcastId: this.props.location.state.podcastId,
             podcastName: this.props.location.state.podcastName,
-            podcastLogo: this.props.location.state.podcastLogo
+            podcastLogo: this.props.location.state.podcastLogo,
+            refresh: this.props.location.state.refresh
         }, () => { this.getEpisodes() });
     }
 
