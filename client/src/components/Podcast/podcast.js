@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Redirect } from "react-router";
 import "./podcast.css";
 
 // PODCAST COMPONENT
@@ -13,7 +12,7 @@ function Podcast ({ podcastId, podcastName, podcastLogo, thumbnail, hide }) {
 
     return (
         
-        <Redirect to={{
+        <Link to={{
             pathname: "/episodeList", 
             state: {
                 podcastId: podcastId,
@@ -26,7 +25,7 @@ function Podcast ({ podcastId, podcastName, podcastLogo, thumbnail, hide }) {
         >
         <span><img className="podcastLogoSmall" src={thumbnail} alt="Podcast Logo"/></span>
         <span><p className="podcastTitle">{podcastName}</p></span>
-        </Redirect>
+        </Link>
     );
 };
 

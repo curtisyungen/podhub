@@ -14,7 +14,8 @@ class EpisodeList extends Component {
         podcastId: "",
         podcastName: "",
         podcastLogo: "",
-        episodes: []
+        episodes: [],
+        message: ""
     };
 
     // On page load, update State with Podcast ID and Logo url
@@ -34,8 +35,12 @@ class EpisodeList extends Component {
         let numEpisodes = this.state.episodes.length;
 
         if (numEpisodes > 0) {
-            pagination = this.state.episodes[numEpisodes-1].pub_date_ms;
+            pagination = this.state.episodes[numEpisodes - 1].pub_date_ms;
         }
+
+        this.setState({
+            message: "Loading..."
+        });
 
         API.getEpisodes(this.state.podcastId, pagination)
             .then(res => {
@@ -45,7 +50,8 @@ class EpisodeList extends Component {
                 }
 
                 this.setState({
-                    episodes: res
+                    episodes: res,
+                    message: ""
                 })
             })
             .catch(() =>
@@ -111,7 +117,7 @@ class EpisodeList extends Component {
                     src={this.state.podcastLogo}
                     alt="Podcast Logo"
                 />
-                
+
                 <br />
                 <Row>
 
@@ -120,7 +126,7 @@ class EpisodeList extends Component {
                     {this.state.episodes.length ? (
                         <Container>
                             <List>
-                                {this.state.episodes.map(episode => (    
+                                {this.state.episodes.map(episode => (
                                     <Episode
                                         key={episode.id}
                                         podcastId={this.state.podcastId}
@@ -138,9 +144,12 @@ class EpisodeList extends Component {
                             <button className="btn btn-dark" onClick={this.getEpisodes}>Load More</button>
                             <button className="btn btn-light" onClick={this.scrollToTop}>Back to Top</button>
                         </Container>
+
                     ) : (
                             <h2 className="text-center">{this.state.message}</h2>
                         )}
+
+                    <h2 className="text-center">{this.state.message}</h2>
                 </Row>
             </Container>
         )
