@@ -13,6 +13,11 @@ import API from "../utils/API";
 
 class Listen extends Component {
 
+    constructor() {
+        super(props);
+        this.togglePortal = this.togglePortal.bind(this);
+    }
+
     state = {
         podcastId: "",
         podcastName: "",
@@ -168,7 +173,7 @@ class Listen extends Component {
                             className="btn btn-primary"
                             onClick={this.togglePortal}
                         >
-                            {this.state.podcastName}
+                            Close
                         </button>
                     </Portal>
                 )}
