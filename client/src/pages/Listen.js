@@ -81,6 +81,7 @@ class Listen extends Component {
     // Activates pop-out window with podcast audio
     togglePortal = event => {
         event.preventDefault();
+        console.log("Toggled");
         this.setState(state => ({
             showPortal: !state.showPortal
         }));
