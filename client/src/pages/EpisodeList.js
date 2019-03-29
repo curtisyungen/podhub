@@ -29,21 +29,7 @@ class EpisodeList extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevState.podcastId !== this.state.podcastId) {
-            this.setState({ 
-                podcastId: this.state.podcastId,
-                podcastName: this.state.podcastName,
-                podcastLogo: this.state.podcastLogo,
-                episodes: []
-             }, () => { this.getEpisodes() } ); 
-        }
-    }
-
-    static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.podcastId !== prevState.podcastId) {
-            return { podcastId: nextProps.podcastId };
-        }
-        else return null;
+        console.log(this.props);
     }
 
     // Get episodes for podcast by Podcast ID
