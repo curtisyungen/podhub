@@ -10,7 +10,7 @@ import "./podcast.css";
 
 function Podcast ({ podcastId, podcastName, podcastLogo, thumbnail, hide }) {
 
-    if (this.props.location.pathname == "/episodeList") {
+    if (window.location.pathname == "/episodeList") {
         return (
         
             <Link to={{
