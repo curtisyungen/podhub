@@ -79,7 +79,7 @@ class Listen extends Component {
         event.preventDefault();
         this.setState({
             showPortal: !this.state.showPortal
-        }, () => console.log(this.state));
+        });
     }
 
     changeSpeed = (event) => {
@@ -141,11 +141,7 @@ class Listen extends Component {
                 </Row>
 
                 {this.state.showPortal && (
-                    <Portal
-                        changeSpeed={this.changeSpeed}
-                        speed={this.state.speed}
-                        togglePortal={this.togglePortal}
-                    >
+                    <Portal>
                         <h4>{this.state.podcastName}</h4>
                         <p>{this.state.episodeName}</p>
 
@@ -153,6 +149,7 @@ class Listen extends Component {
                             audioLink={this.state.audioLink}
                             playbackRate={this.state.speed}
                         />
+
                         <input
                             type="range"
                             min="1"
@@ -162,19 +159,21 @@ class Listen extends Component {
                             step=".15"
                             list="steplist"
                         />
+
                         <label for="steplist">Speed</label>
 
                         <br />
+
                         <button
                             className="btn btn-primary"
                             onClick={this.togglePortal}
                         >
-                            Close
+                            {this.state.podcastName}
                         </button>
                     </Portal>
                 )}
 
-                <Modal open={this.state.showModal} onClose={this.togglePortal} center>
+                <Modal open={this.state.showModal} onClose={this.handleCloseModal} center>
 
                     <Container>
                         <div>
