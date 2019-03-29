@@ -44,7 +44,7 @@ export default {
                 .then((response => {
                     numEpisodes = response.data.episodes.length;
                     
-                    if (numEpisodes > 0 && episodes.length < 50) {
+                    if (numEpisodes > 0 && episodes.length < 100) {
 
                         pagination = response.data.episodes[numEpisodes-1].pub_date_ms;
                         return request(podcastId, pagination, episodes.concat(response.data.episodes));
@@ -62,7 +62,7 @@ export default {
     },
 
     getOrCreateUser: function (id_token) {
-        return axios.post("/api/users?id_token=" + id_token);
+        return axios.post("/api/users?id_token="  + id_token);
     },
 
     getFollowers: function (userId) {

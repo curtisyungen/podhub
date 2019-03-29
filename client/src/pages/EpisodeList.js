@@ -131,7 +131,6 @@ class EpisodeList extends Component {
                                 ))}
                             </List>
                             <button className="btn btn-dark" onClick={this.getEpisodes}>Load More</button>
-                            <a href="#">Back to top</a>
                         </Container>
                     ) : (
                             <h2 className="text-center">{this.state.message}</h2>
