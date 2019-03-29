@@ -10,27 +10,6 @@ import "./podcast.css";
 
 function Podcast ({ podcastId, podcastName, podcastLogo, thumbnail, hide }) {
 
-    if (window.location.pathname="/episodeList") {
-        return (
-        
-            <Link to={{
-                pathname: "/episodeList", 
-                state: {
-                    podcastId: podcastId,
-                    podcastName: podcastName,
-                    podcastLogo: podcastLogo
-                }
-                }} 
-                className="podcast"
-                onClick={hide}
-                target="_self"
-            >
-                <span><img className="podcastLogoSmall" src={thumbnail} alt="Podcast Logo"/></span>
-                <span><p className="podcastTitle">{podcastName}</p></span>
-            </Link>
-        );
-    }
-
     return (
         
         <Link to={{
