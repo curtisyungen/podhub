@@ -98,6 +98,11 @@ class EpisodeList extends Component {
         alert("Favorited!");
     }
 
+    // Scrolls to top of page
+    scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+
     render() {
         return (
             <Container>
@@ -131,6 +136,7 @@ class EpisodeList extends Component {
                                 ))}
                             </List>
                             <button className="btn btn-dark" onClick={this.getEpisodes}>Load More</button>
+                            <button className="btn btn-light" onClick={this.scrollToTop}>Back to Top</button>
                         </Container>
                     ) : (
                             <h2 className="text-center">{this.state.message}</h2>
