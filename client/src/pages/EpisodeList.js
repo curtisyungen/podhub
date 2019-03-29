@@ -123,7 +123,7 @@ class EpisodeList extends Component {
 
                     <button className="btn btn-danger" onClick={this.addToFavorites}>Favorite</button>
 
-                    {this.state.episodes.length ? (
+                    {this.state.episodes.length && this.state.message != "Loading..." ? (
                         <Container>
                             <List>
                                 {this.state.episodes.map(episode => (
@@ -146,8 +146,8 @@ class EpisodeList extends Component {
                         </Container>
 
                     ) : (
-                            <h2 className="text-center">{this.state.message}</h2>
-                        )}
+                        <h2 className="text-center">No Episodes found.</h2>
+                    )};
 
                     <h2 className="text-center">{this.state.message}</h2>
                 </Row>
