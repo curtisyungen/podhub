@@ -10,6 +10,27 @@ import "./podcast.css";
 
 function Podcast ({ podcastId, podcastName, podcastLogo, thumbnail, hide }) {
 
+    if (window.location == "/episodeList") {
+        return (
+        
+            <Link to={{
+                pathname: "/episodeList", 
+                state: {
+                    podcastId: podcastId,
+                    podcastName: podcastName,
+                    podcastLogo: podcastLogo,
+                    refresh: true,
+                }
+                }} 
+                className="podcast"
+                onClick={hide}
+            >
+                <span><img className="podcastLogoSmall" src={thumbnail} alt="Podcast Logo"/></span>
+                <span><p className="podcastTitle">{podcastName}</p></span>
+            </Link>
+        );
+    }
+
     return (
         
         <Link to={{
@@ -18,14 +39,14 @@ function Podcast ({ podcastId, podcastName, podcastLogo, thumbnail, hide }) {
                 podcastId: podcastId,
                 podcastName: podcastName,
                 podcastLogo: podcastLogo,
-                refresh: true
+                refresh: false,
             }
             }} 
             className="podcast"
             onClick={hide}
         >
-        <span><img className="podcastLogoSmall" src={thumbnail} alt="Podcast Logo"/></span>
-        <span><p className="podcastTitle">{podcastName}</p></span>
+            <span><img className="podcastLogoSmall" src={thumbnail} alt="Podcast Logo"/></span>
+            <span><p className="podcastTitle">{podcastName}</p></span>
         </Link>
     );
 };
