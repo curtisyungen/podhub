@@ -15,22 +15,21 @@ class Listen extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            podcastId: "",
+            podcastName: "",
+            podcastLogo: "",
+            episodeId: "",
+            episodeName: "",
+            date: "",
+            description: "",
+            audioLink: "",
+            showModal: false,
+            showPortal: false,
+            speed: 1.0,
+        };
         this.togglePortal = this.togglePortal.bind(this);
     }
-
-    state = {
-        podcastId: "",
-        podcastName: "",
-        podcastLogo: "",
-        episodeId: "",
-        episodeName: "",
-        date: "",
-        description: "",
-        audioLink: "",
-        showModal: false,
-        showPortal: false,
-        speed: 1.0,
-    };
 
     componentDidMount = () => {
         this.setState({
@@ -82,9 +81,9 @@ class Listen extends Component {
     // Activates pop-out window with podcast audio
     togglePortal = event => {
         event.preventDefault();
-        this.setState({
-            showPortal: !this.state.showPortal
-        });
+        this.setState(state => ({
+            showPortal: !state.showPortal
+        }));
     }
 
     changeSpeed = (event) => {
@@ -145,7 +144,7 @@ class Listen extends Component {
                     <button className="btn btn-dark" onClick={this.togglePortal}>Open Portal</button>
                 </Row>
 
-                {this.state.showPortal && (
+                {this.state.showPortal ? (
                     <Portal>
                         <h4>{this.state.podcastName}</h4>
                         <p>{this.state.episodeName}</p>
@@ -176,6 +175,8 @@ class Listen extends Component {
                             Close
                         </button>
                     </Portal>
+                ) : (
+                    <></>
                 )}
 
                 <Modal open={this.state.showModal} onClose={this.handleCloseModal} center>
