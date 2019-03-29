@@ -28,6 +28,14 @@ class EpisodeList extends Component {
         }, () => { this.getEpisodes() });
     }
 
+    componentWillReceiveProps = () => {
+        this.setState({
+            podcastId: this.props.location.state.podcastId,
+            podcastName: this.props.location.state.podcastName,
+            podcastLogo: this.props.location.state.podcastLogo
+        }, () => { this.getEpisodes() });
+    }
+
     // Get episodes for podcast by Podcast ID
     // Gets 100 episodes at a time
     getEpisodes = () => {
