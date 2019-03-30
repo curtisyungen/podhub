@@ -15,7 +15,7 @@ export default {
         return axios.get("api/getUsers", user)
     },
 
-    // Gets all episodes for a particular podcast
+ // Gets all episodes for a particular podcast
     getPodcasts: function (podcast) {
         var URL = "https://listennotes.p.rapidapi.com/api/v1/search?sort_by_date=0&type=podcast&only_in=title&language=English&q=" + podcast;
 
@@ -67,7 +67,7 @@ export default {
     },
 
     getOrCreateUser: function (id_token) {
-        return axios.post("/api/users?id_token="  + id_token);
+        return axios.post("/api/users?id_token=" + id_token);
     },
 
     getFollowers: function (userId) {
@@ -86,14 +86,19 @@ export default {
         return axios.post("/api/favorites", id);
     },
 
-    addEpisodeToFavorites: function (episodeId) {
+    addEpisodeToFavorites: function(episodeId) {
         // add episode to user's favorite episodes
         return episodeId;
     },
 
-    addPodcastToFavorites: function (podcastId) {
+    addPodcastToFavorites: function(podcastId) {
         // add podcast to user's favorite podcasts
         return podcastId;
+    },
+
+    getFollowingsPosts: function(userId) {
+        // Get all user and user followings posts latest-first 
+        return axios.get("/api/users/" + userId + "/followings/posts");
     }
 
 };
