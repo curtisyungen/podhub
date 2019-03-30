@@ -11,92 +11,117 @@ import "./Profile.css";
 class Home extends Component {
 
     state = {
-        posts: [
-            {
-                id: 1,
-                userProfileImage: "https://picsum.photos/200",
-                userName: "Vahe Minasyan",
-                date: "03/20/2019",
-                message: "Checkout this awesome podcast",
-                podcastIcon: "https://picsum.photos/200",
-                podcastEpisode: "Very Bad Wizards Episode 159: You have the right...",
-                episodeDescription: "Description",
-                link: "link",
-                likes: 10,
-                comments: 10,
-            },
-            {
-                id: 2,
-                userProfileImage: "https://picsum.photos/200",
-                userName: "John Smith",
-                date: "03/21/2019",
-                message: "Checkout this awesome podcast",
-                podcastIcon: "https://picsum.photos/200",
-                podcastEpisode: "Very Bad Wizards Episode 159: You have the right...",
-                episodeDescription: "Description",
-                link: "link",
-                likes: 10,
-                comments: 10,
-            },
-        ],
-       
-        followers: 5,
-        following: 10,
-        favorites: [
-            {
-                id: 1,
-                podcastIcon: "https://picsum.photos/100",
-                podcastTitle: "Favorite podcast 1",
-                podcastDescription: "Description",
-                link: "link",
-            },
-            {
-                id: 2,
-                podcastIcon: "https://picsum.photos/100",
-                podcastTitle: "Favorite podcast 2",
-                podcastDescription: "Description",
-                link: "link",
-            },
-            {
-                id: 3,
-                podcastIcon: "https://picsum.photos/100",
-                podcastTitle: "Favorite podcast 3",
-                podcastDescription: "Description",
-                link: "link",
-            }
-        ]
-    };
+        posts:[],
+        followers: 0,
+        following: 0,
+        favorites: []
+    }
 
-    // componentDidMount() {
-    //     this.getPostsOnlyByUser();
-    //     this.getFavorites();
-    //     this.getOrCreateUser();
-    //     this.getFollowers();
-    //     this.getFollowing();
+    // state = {
+    //     posts: [
+    //         {
+    //             id: 1,
+    //             userProfileImage: "https://picsum.photos/200",
+    //             userName: "Vahe Minasyan",
+    //             date: "03/20/2019",
+    //             message: "Checkout this awesome podcast",
+    //             podcastIcon: "https://picsum.photos/200",
+    //             podcastEpisode: "Very Bad Wizards Episode 159: You have the right...",
+    //             episodeDescription: "Description",
+    //             link: "link",
+    //             likes: 10,
+    //             comments: 10,
+    //         },
+    //         {
+    //             id: 2,
+    //             userProfileImage: "https://picsum.photos/200",
+    //             userName: "John Smith",
+    //             date: "03/21/2019",
+    //             message: "Checkout this awesome podcast",
+    //             podcastIcon: "https://picsum.photos/200",
+    //             podcastEpisode: "Very Bad Wizards Episode 159: You have the right...",
+    //             episodeDescription: "Description",
+    //             link: "link",
+    //             likes: 10,
+    //             comments: 10,
+    //         },
+    //     ],
+       
+    //     followers: 5,
+    //     following: 10,
+    //     favorites: [
+    //         {
+    //             id: 1,
+    //             podcastIcon: "https://picsum.photos/100",
+    //             podcastTitle: "Favorite podcast 1",
+    //             podcastDescription: "Description",
+    //             link: "link",
+    //         },
+    //         {
+    //             id: 2,
+    //             podcastIcon: "https://picsum.photos/100",
+    //             podcastTitle: "Favorite podcast 2",
+    //             podcastDescription: "Description",
+    //             link: "link",
+    //         },
+    //         {
+    //             id: 3,
+    //             podcastIcon: "https://picsum.photos/100",
+    //             podcastTitle: "Favorite podcast 3",
+    //             podcastDescription: "Description",
+    //             link: "link",
+    //         }
+    //     ]
     // };
 
+    componentDidMount() {
+        this.getPostsOnlyByUser();
+        this.getFavorites();
+        // this.getOrCreateUser();
+        this.getFollowers();
+        this.getFollowing();
+    };
+
     getPostsOnlyByUser = () => {
-        API.getPostsOnlyByUser(this.state.userId)
-            .then(res =>
-                this.setState({
-                    posts: res.data
-                })
-            )
+        API.getPostsOnlyByUser(this.props.user.id)
+            .then(res =>{
+                if (res.data.length === 0) {
+                    this.setState({
+                        posts: [],
+                        messageNoPodcast: "No posts found, post something."
+                    })
+                }
+                else {
+                    console.log(res.data)
+                    this.setState({
+                        posts: res.data
+                    })
+                }
+            })
             .catch(() =>
                 this.setState({
                     posts: [],
                     messageNoPodcast: "No posts found, post something."
                 })
+        
             );
     };
 
     getFavorites = () => {
-        API.getFavorites(this.state.userId)
-            .then(res =>
-                this.setState({
-                    favorites: res.data
-                })
-            )
+        API.getFavorites(this.props.user.id)
+            .then(res =>{
+                if (res.data.length === 0) {
+                    this.setState({
+                        favorites: [],
+                        messageNoFav: "No favorites found. Search for a podcast and add it to your favorites."
+                    })
+                }
+                else {
+                    this.setState({
+                        favorites: res.data
+                    })
+                }
+            })
             .catch(() =>
                 this.setState({
                     favorites: [],
@@ -115,12 +140,14 @@ class Home extends Component {
     };
 
     getFollowers = () => {
-        API.getFollowers(this.state.userId)
-            .then(res =>
+        API.getFollowers(this.props.user.id)
+            .then(res =>{
+                console.log(res)
+                console.log(res.data[0].count)
                 this.setState({
-                    followers: res.data
+                    followers: res.data[0].count
                 })
-            )
+            })
             .catch(() =>
                 this.setState({
                     followers: 0,
@@ -129,12 +156,14 @@ class Home extends Component {
     };
 
     getFollowing = () => {
-        API.getFollowing(this.state.userId)
-            .then(res =>
+        API.getFollowing(this.props.user.id)
+            .then(res =>{
+                console.log(res)
+                console.log(res.data[0].count)
                 this.setState({
-                    following: res.data
+                    following: res.data[0].count
                 })
-            )
+            })
             .catch(() =>
                 this.setState({
                     following: 0,
@@ -150,37 +179,43 @@ class Home extends Component {
     render() {
         console.log(this.props.user)
         return (
-            <Container >
-                <div className="row userProfile rounded bg-light">
-                    <div className="col-4">
+            <Container>
+                <div className="columns userProfile rounded bg-light">
+                    <div className="column is-narrow">
                         <img src={this.props.user.profileImage} alt="User" id="userMainProfileImage"/>
                     </div>
 
-                    <div className="col-8">
+                    <div className="column is-one-quarter">
                         <Row>
-                            <h2>{this.props.user.name}</h2>
+                            <h2 className="hcenter">{this.props.user.name}</h2>
                         </Row>
                         <Row>
+                            <h2 className="hcenter">
                             Posts:&nbsp; {this.state.posts.length} &nbsp; | &nbsp;
                             Followers:&nbsp;{this.state.followers}&nbsp; | &nbsp;
                             Following:&nbsp;{this.state.following}
+                            </h2>
                         </Row>
                     </div>
                 </div>
 
-                <div className="row favorites rounded">
-                    <h4>Favorites: </h4>
+                <Row>
+                    <div className="column is-one-third">
+                    <h2 className="is-size-3">Favorites: </h2>
+                    </div>
+                </Row>
+                <Row>
                     {this.state.favorites.length ? (
-                        <Container>
+                        <div className="column is-full">
                             {this.state.favorites.map(favorites => (
 
-                                <div className="row border rounded favorite" key={favorites.id}>
+                                <div key={favorites.id} className="columns is-mobile">
 
-                                    <div className="col-2 p-0">
+                                    <div className="column is-narrow">
 
-                                        <img src={favorites.podcastIcon} alt="Podcast Icon" id="favoriteIcon" />
+                                        <img src={favorites.podcastIcon} alt="Podcast Icon" id="inherit"/>
                                     </div>
-                                    <div className="col p-0">
+                                    <div className="column">
                                         <p>{favorites.podcastTitle}</p>
                                         <p>{favorites.podcastDescription}</p>
                                         <a href={favorites.link}>{favorites.link}</a> &nbsp;
@@ -194,17 +229,21 @@ class Home extends Component {
                                     </div>
                                 </div>
                             ))}
-                        </Container>
+                        </div>
                     ) : (
                             <div className="col">
                                 <h5 className="text-center">&nbsp;{this.state.messageNoFav}</h5>
                             </div>
                         )}
-                </div>
+                </Row>
                 <Row>
-                    <h4>Recent posts:</h4>
+                <div className="column">
+                    <h2 className="is-size-3">Recent Posts: </h2>
+                    </div>
+                </Row>
+                <Row>
                     {this.state.posts.length ? (
-                        <Container>
+                        <div>
                             {this.state.posts.map(post => (
                                 <PostCard
                                     key={post.id}
@@ -220,7 +259,7 @@ class Home extends Component {
                                     comments={post.comments}
                                 />
                             ))}
-                        </Container>
+                        </div>
                     ) : (
                             <div className="col">
                                 <h5 className="text-center">&nbsp;{this.state.messageNoPodcast}</h5>

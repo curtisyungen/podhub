@@ -25,9 +25,11 @@ class Listen extends Component {
         showModal: false,
         showPortal: false,
         speed: 1.0,
+        userMessage: ""
     };
 
     componentDidMount = () => {
+        
         this.setState({
             podcastId: this.props.location.state.podcastId,
             podcastName: this.props.location.state.podcastName,
@@ -35,7 +37,7 @@ class Listen extends Component {
             episodeId: this.props.location.state.episodeId,
             episodeName: this.props.location.state.episodeName,
             date: this.props.location.state.date,
-            description: this.props.location.state.description,
+            description: this.props.location.state.description.replace(/<\/?[^>]+(>|$)/g, ""),
             audioLink: this.props.location.state.audioLink
         });
     }
@@ -63,8 +65,32 @@ class Listen extends Component {
     handleShareEpisode = event => {
         event.preventDefault();
         this.handleCloseModal();
-        alert("shared");
+
+        // alert("shared");
+
         // Call Share Episode sequence
+        let userId = JSON.parse(localStorage.getItem("user")).id;
+
+        API.sharePodcast(
+            userId, 
+            this.state.podcastName, 
+            this.state.podcastLogo,
+            this.state.audioLink,
+            this.state.description,
+            this.state.userMessage
+        )
+            // .then(function(response) {
+            //     console.log(response);
+            // });
+        
+    }
+
+    handleInputChange = event => {
+        const { name, value } = event.target;
+
+        this.setState({
+            [name]: value
+        });
     }
 
     // Adds this episode to User's list of Favorite Episodes
@@ -90,6 +116,9 @@ class Listen extends Component {
     }
 
     render() {
+        var userId = JSON.parse(localStorage.getItem("user")).id;
+        // console.log(userId);
+
         return (
             <Container>
                 <Row>
@@ -116,19 +145,19 @@ class Listen extends Component {
                     <div>
                         <h4>{this.state.episodeName} &nbsp;|&nbsp; {this.state.date}</h4>
 
-                        {/* <AudioPlayer
+                        <AudioPlayer
                             audioLink={this.state.audioLink}
                             playbackRate={this.state.speed}
                             changeSpeed={this.changeSpeed}
                             initialSpeed={this.state.speed}
-                        /> */}
+                        />
 
                     </div>
                 </Row>
 
                 <Row>
                     <div>
-                        <p>{this.state.description.replace(/<\/?[^>]+(>|$)/g, "")}</p>
+                        <p>{this.state.description}</p>
                     </div>
 
                     <button className="btn btn-primary" onClick={this.handleShowModal}>Share</button>
@@ -168,15 +197,23 @@ class Listen extends Component {
                         </div>
 
                         <form>
-                            <input className="userPostInput" placeholder="Enter message"></input>
+                            <input 
+                                className="userPostInput" 
+                                name="userMessage" 
+                                onChange={this.handleInputChange}
+                                placeholder="Enter message"
+                                value={this.state.userMessage}
+                            >
+                            </input>
+                        
+                            <button
+                                className="btn btn-primary"
+                                onClick={this.handleShareEpisode}
+                                type="submit"
+                            >
+                                Share
+                            </button>
                         </form>
-
-                        <button
-                            className="btn btn-primary"
-                            onClick={this.handleShareEpisode}
-                        >
-                            Share
-                        </button>
                     </Container>
 
                 </Modal>

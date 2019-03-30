@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
-import Container from "./components/Container/container";
+// import Container from "./components/Container/container";
 import Navbar from "./components/Navbar/navbar";
 import PodcastSearch from "./components/PodcastSearch/podcastSearch";
 import Home from "./pages/Home";
@@ -11,7 +11,7 @@ import UserSearch from "./pages/UserSearch";
 import API from "./utils/API"
 import "./App.css";
 import Login from './pages/Login';
-import Error from "./pages/Error";
+// import Error from "./pages/Error";
 
 class App extends React.Component {
 
@@ -106,7 +106,7 @@ class App extends React.Component {
 
   logout = () => {
     this.setState({
-      user: [],
+      user: null,
       redirect: true
     });
     localStorage.clear();
@@ -116,20 +116,38 @@ class App extends React.Component {
     this.setState({ user: userData })
   }
 
-  componentDidMount(){
+  isLoggedIn = () => this.state.user != null;
+
+  loadUserFromLocalStorage() {
+    if (this.state.user){
+      return;
+    }
+    if (localStorage.getItem("user")) {
+      this.setState({
+        user: JSON.parse(localStorage.getItem("user"))
+      });
+    }
+  }
+
+  componentDidMount() {
     console.log("mount")
+    this.loadUserFromLocalStorage();
   }
 
 
   render() {
 
-    console.log(this.state.user)
-    console.log(localStorage.getItem("user"))
+    console.log("state user:", this.state.user)
+    console.log("localStorage user:", localStorage.getItem("user"))
 
     return (
       <Router>
-        <div className="wrapper">
-          {this.state.user == null
+        <div className="hero is-dark is-fullheight">
+        {this.state.redirect
+        ? <Redirect to= "/" />
+        : null
+        }
+          {!this.isLoggedIn()
             ? <Route
               render={() =>
                 <Login handleUser={this.handleUser}
@@ -158,7 +176,7 @@ class App extends React.Component {
                 />} />
                 <Route exact path="/episodeList" component={EpisodeList} />
                 <Route exact path="/listen" component={Listen} />
-                <Route exact path="/userSearch" component={UserSearch} />
+                <Route exact path="/userSearch" component={UserSearch} />                  
                 {/* <Route component={Error} /> */}
               </Switch>
             </>
