@@ -6,7 +6,7 @@ const axios = require('axios');
  */
 class UserController {
   /**
-   * Get the isFollowing by userId from database
+   * Get the isFollowing by userId from database <----- user Profile Page ----->
    * @param {*} req
    * @param {*} res
    */
@@ -33,7 +33,7 @@ class UserController {
   }
 
   /**
-   * Get the isFollowed by userId from database
+   * Get the isFollowed by userId from database <----- user Profile Page ----->
    * @param {*} req
    * @param {*} res
    */
@@ -41,12 +41,11 @@ class UserController {
     console.log(req.params.id);
     db.follow
       .findAll({ where: { isFollowing: req.params.id } })
-      // .then(dbfollow => res.json({ count: dbfollow.length }));
       .then(dbfollow => res.json([{ count: dbfollow.length }]));
   }
 
   /**
-   * Get the userDetails by userId from database
+   * Get the userDetails by userId from database <----- Login to Home Page ----->
    * @param {*} req
    * @param {*} res
    */
@@ -125,9 +124,11 @@ class UserController {
     var postPromises =[];
     var postId2Likes = {};
     var postId2Comments = {};
+    var postId2UserNames = {};
+    var postId2UserImages = {};
     db.user.findByPk(req.params.id).then(function(user) {
       postPromises.push(user.getPosts());
-      user.getIsFollowing().then(function(users) {
+      user.getFollowedBy().then(function(users) {
         users.forEach(user => {
           const newPromise = user.getPosts();
           postPromises.push(newPromise);
@@ -135,7 +136,8 @@ class UserController {
        
 
         Promise.all(postPromises).then(function(posts) {
-          const sortedPosts = posts.flat().sort(function(a, b) {
+          const flattenedPosts = [].concat.apply([], posts);
+          const sortedPosts = flattenedPosts.sort(function(a, b) {
             if (a.updatedAt < b.updatedAt) return 1;
             if (a.updatedAt > b.updatedAt) return -1;
             return 0;
@@ -146,8 +148,10 @@ class UserController {
           sortedPosts.forEach(post => {
             const likePromise = post.getPostLikes();
             const commentPromise = post.getComments();
+            const userPromise = db.user.findByPk(post.postedBy)
             likeCommPromises.push(likePromise);
             likeCommPromises.push(commentPromise);
+            likeCommPromises.push(userPromise);
 
             likePromise.then(function(likes) {
               postId2Likes[post.id] = likes.length;
@@ -155,12 +159,18 @@ class UserController {
             commentPromise.then(function(comments) {
               postId2Comments[post.id] = comments.length;
             });
+            userPromise.then(function(user){
+              postId2UserNames[post.id] = user.name;
+              postId2UserImages[post.id] = user.profileImage;
+            })
           });
 
           Promise.all(likeCommPromises).then(function() {
             sortedPosts.forEach(post => {
               post.numberOfLikes = postId2Likes[post.id];
               post.numberOfComments = postId2Comments[post.id];
+              post.userName = postId2UserNames[post.id];
+              post.userImage = postId2UserImages[post.id];
             });
   
             res.json(sortedPosts);

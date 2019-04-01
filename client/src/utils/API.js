@@ -83,7 +83,12 @@ export default {
     },
 
     handleFavoriteDelete: function (id) {
-        return axios.post("/api/favorites", id);
+        console.log("api",id)
+        return axios.delete("/api/favorites/delete/" + id);
+    },
+
+    handlePostDelete: function (id) {
+        return axios.delete("/api/posts/delete/" + id);
     },
 
     addEpisodeToFavorites: function(episodeId) {
@@ -91,9 +96,24 @@ export default {
         return episodeId;
     },
 
-    addPodcastToFavorites: function(podcastId) {
-        // add podcast to user's favorite podcasts
-        return podcastId;
+    // addPodcastToFavorites: function(podcastId) {
+    //     // add podcast to user's favorite podcasts
+    //     return podcastId;
+    // },
+
+    addPodcastToFavorites: function(podcastName,podcastLogo,description, audioLink, userId) {
+        // console.log(arguments);
+
+        let data = {
+            podcastName: podcastName,
+            podcastLogo: podcastLogo,
+            description: description,
+            audioLink: audioLink,
+            userId: userId
+        }
+        console.log(data)
+
+        return axios.post("/api/favorites/", data);
     },
 
     getFollowingsPosts: function(userId) {
@@ -101,18 +121,19 @@ export default {
         return axios.get("/api/users/" + userId + "/followings/posts");
     },
 
-    sharePodcast: function(userId, podcastName, podcastLogo, audioLink, description, userMessage) {
-        console.log(arguments);
+    sharePodcast: function(podcastName, podcastLogo, episodeName, description, audioLink, userMessage, userId) {
+        // console.log(arguments);
 
-        let temp = {
-            title: podcastName,
-            link: audioLink,
-            imageIcon: podcastLogo,
-            details: description,
-            message: userMessage,
+        let data = {
+            podcastName: podcastName,
+            podcastLogo: podcastLogo,
+            episodeName: episodeName,
+            description: description,
+            audioLink: audioLink,
+            userMessage: userMessage,
             postedBy: userId
         }
 
-        return axios.post("/api/posts/", temp);
+        return axios.post("/api/posts/", data);
     }
 };

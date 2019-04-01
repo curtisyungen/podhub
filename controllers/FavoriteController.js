@@ -10,8 +10,9 @@ class FavoriteController {
    * @param {*} res
    */
   create(req, res) {
+    console.log(req.body)
     db.favorite
-      .findOrCreate({ where: req.body })
+      .create(req.body)
       .then(favorite => res.json(favorite));
   }
 
@@ -38,7 +39,7 @@ class FavoriteController {
   }
 
   /**
-   * Remove a favorite podcast in database
+   * Remove a favorite podcast in database <----- User Profile Page ----->
    * @param {*} req
    * @param {*} res
    */
