@@ -1,6 +1,12 @@
 import axios from "axios";
+import { func } from "prop-types";
 
 export default {
+
+    // Show users how liked the post
+    getLikes: function(postId) {
+        return axios.get("/api/getLikes/" + postId)
+    },
 
     // Gets all posts for specific user
     getPosts: function (userId) {
@@ -119,6 +125,21 @@ export default {
     getFollowingsPosts: function(userId) {
         // Get all user and user followings posts latest-first 
         return axios.get("/api/users/" + userId + "/followings/posts");
+    },
+
+    getUsersToFollow: function(userId){
+        return axios.get("/api/users/" + userId );
+    },
+
+    followUser: function(userId, followUserId) {
+        // console.log(arguments);
+
+        let data = {
+            followedBy: userId,
+            isFollowing: followUserId
+        }
+
+        return axios.post("/api/posts/", data);
     },
 
     sharePodcast: function(podcastName, podcastLogo, episodeName, description, audioLink, userMessage, userId) {
