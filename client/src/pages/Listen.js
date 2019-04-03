@@ -143,7 +143,8 @@ class Listen extends Component {
 
     showAudioInNav = (event) => {
         event.preventDefault();
-        this.state.showAudioInNav();
+        var func = JSON.parse(this.state.showAudioInNav);
+        console.log(func);
     }
 
     render() {

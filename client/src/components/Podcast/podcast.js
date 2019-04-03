@@ -21,7 +21,7 @@ function Podcast ({ podcastId, podcastName, podcastLogo, thumbnail, hide, showAu
                 podcastName: podcastName,
                 podcastLogo: podcastLogo,
                 loadMore: true,
-                showAudioInNav: showAudioInNav
+                showAudioInNav: JSON.stringify(showAudioInNav)
             }
             }} 
             className="podcast p-0"
