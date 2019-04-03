@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
-// import Container from "./components/Container/container";
 import Navbar from "./components/Navbar/navbar";
 import PodcastSearch from "./components/PodcastSearch/podcastSearch";
 import Home from "./pages/Home";
@@ -9,9 +8,9 @@ import EpisodeList from "./pages/EpisodeList";
 import Listen from "./pages/Listen";
 import UserSearch from "./pages/UserSearch";
 import API from "./utils/API"
-import "./App.css";
 import Login from './pages/Login';
 import Error from "./pages/Error";
+import "./App.css";
 
 class App extends Component {
 
@@ -131,19 +130,12 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // console.log("mount")
     this.loadUserFromLocalStorage();
   }
 
-
   render() {
-
-    // console.log("state user:", this.state.user)
-    // console.log("localStorage user:", localStorage.getItem("user"))
-
     return (
       <Router>
-
 
         <div className="wrapper">
           {this.state.redirect
@@ -171,17 +163,31 @@ class App extends Component {
               />
 
               <Switch>
-                <Route exact path="/home" render={() => <Home
-                  user={this.state.user}
-                />} />
-                <Route exact path="/profile" render={() => <Profile
-                  user={this.state.user}
-                />} />
+                <Route exact path="/home"
+                  render={() =>
+                    <Home
+                      user={this.state.user}
+                    />
+                  }
+                />
+                <Route exact path="/profile"
+                  render={() =>
+                    <Profile
+                      user={this.state.user}
+                      prevPath="/navBar"
+                    />
+                  }
+                />
+                <Route exact path="/userProfile" component={Profile} />
                 <Route exact path="/episodeList" component={EpisodeList} />
                 <Route exact path="/listen" component={Listen} />
-                <Route exact path="/userSearch" render={() => <UserSearch
-                  user={this.state.user}
-                />} />  
+                <Route exact path="/userSearch"
+                  render={() =>
+                    <UserSearch
+                      user={this.state.user}
+                    />
+                  }
+                />
                 <Route component={Error} />
               </Switch>
             </>

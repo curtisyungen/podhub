@@ -28,12 +28,14 @@ class Home extends Component {
     this.setUser();
     this.getPostsOnlyByUser();
     this.getFavorites();
-    // this.getOrCreateUser();
     this.getFollowers();
     this.getFollowing();
   }
 
   setUser = () => {
+    
+    console.log(this.props);
+
     this.setState({
       user: this.props.user
     });

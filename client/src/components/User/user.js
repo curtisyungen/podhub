@@ -16,7 +16,8 @@ function User ({ userId, userName, userImage, handler }) {
             state: {
                 userId: userId,
                 userName: userName,
-                userImage: userImage
+                userImage: userImage,
+                prevPath: "/userSearch"
             }
             }}
             className="user"
