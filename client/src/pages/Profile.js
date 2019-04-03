@@ -29,12 +29,12 @@ class Home extends Component {
 
     this.setState({
       user: this.props.location.state.user
+    }, () => {
+      this.getPostsOnlyByUser();
+      this.getFavorites();
+      this.getFollowers();
+      this.getFollowing();
     });
-
-    this.getPostsOnlyByUser();
-    this.getFavorites();
-    this.getFollowers();
-    this.getFollowing();
   }
 
   getPostsOnlyByUser = () => {
