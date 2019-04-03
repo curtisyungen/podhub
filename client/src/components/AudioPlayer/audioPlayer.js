@@ -197,10 +197,10 @@ class AudioPlayer extends Component {
     }
 
     showInNavBar = () => {
-        let audioSettings = [
-            showAudioInNav=true,
-            audioLink=this.state.audioLink
-        ]
+        let audioSettings = {
+            showAudioInNav: true,
+            audioLink: this.state.audioLink
+        }
 
         localStorage.setItem("audioSettings", audioSettings);
     }
