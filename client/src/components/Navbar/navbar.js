@@ -10,7 +10,7 @@ import AudioPlayer from "../AudioPlayer/audioPlayer";
 
 library.add(faSearch, faUser, faHome);
 
-function Navbar({ podcastSearch, handleInputChange, hidePodcasts, logout, user }) {
+function Navbar({ podcastSearch, handleInputChange, hidePodcasts, logout, user, showAudio }) {
 
   return (
 
