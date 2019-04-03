@@ -33,16 +33,16 @@ class Login extends Component {
 
             <Container>
                 <div className="header">
+                    <h1 id="loginPageTitle" className="text-center">Podhub</h1>
+                    <h4 id="slogan" className="text-center">Share what you care about</h4>
                     <div className="googleSignIn">
                         <GoogleLogin
                             clientId="940323765774-bpnsf77f8vksurn7gbv082gatubu97kl.apps.googleusercontent.com"
                             buttonText="Login"
                             onSuccess={responseGoogle}
-                            onFailure={responseGoogle} />
+                            onFailure={responseGoogle} 
+                        />
                     </div>
-                    <br/><br/>
-                    <h1 id="loginPageTitle" className="text-center">Welcome to PodHub!</h1>
-                    <h4 id="slogan" className="text-center">Share what you care about!</h4>
                 </div>
             </Container>
 
