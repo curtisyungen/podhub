@@ -135,20 +135,10 @@ class App extends Component {
     this.loadUserFromLocalStorage();
   }
 
-  componentDidUpdate() {
-    this.checkShowAudioInNav();
-  }
-
-  checkShowAudioInNav = () => {
-    if (localStorage.getItem("audioSettings")) {
-      let showAudio = JSON.parse(localStorage.getItem("audioSettings")).showAudioInNav;
-
-      if (showAudio) {
-        this.setState({
-          showAudioInNav: true
-        }, () => {console.log(this.state.showAudioInNav)});
-      }
-    }
+  showAudioInNav = () => {
+    this.setState({
+      showAudioInNav: true
+    });
   }
 
   render() {
@@ -174,11 +164,13 @@ class App extends Component {
                 hidePodcasts={this.hidePodcasts}
                 logout={this.logout}
                 user={this.state.user}
+                showAudio={this.state.showAudioInNav}
               />
               <PodcastSearch
                 show={this.state.showPodcasts}
                 hide={this.hidePodcasts}
                 podcasts={this.state.podcasts}
+                showAudioInNav={this.showAudioInNav}
               />
 
               <Switch>
