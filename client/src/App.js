@@ -18,6 +18,7 @@ class App extends Component {
     super(props)
 
     this.state = {
+      user: null,
       podcastSearch: "",
       podcasts: [],
       showPodcasts: "hidePodcasts",
@@ -155,6 +156,7 @@ class App extends Component {
                 handleInputChange={this.handleInputChange}
                 hidePodcasts={this.hidePodcasts}
                 logout={this.logout}
+                user={this.state.user}
               />
               <PodcastSearch
                 show={this.state.showPodcasts}
@@ -170,15 +172,7 @@ class App extends Component {
                     />
                   }
                 />
-                <Route exact path="/profile"
-                  render={() =>
-                    <Profile
-                      user={this.state.user}
-                      prevPath="/navBar"
-                    />
-                  }
-                />
-                <Route exact path="/userProfile" component={Profile} />
+                <Route exact path="/profile" component={Profile}/>
                 <Route exact path="/episodeList" component={EpisodeList} />
                 <Route exact path="/listen" component={Listen} />
                 <Route exact path="/userSearch"

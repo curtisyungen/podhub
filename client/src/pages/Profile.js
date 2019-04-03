@@ -24,15 +24,13 @@ class Home extends Component {
     redirect: false
   };
 
-  componentWillMount() {
-    this.setState({
-      user: this.props.user
-    });
-  }
-
   componentDidMount() {
-    console.log(this.state);
-    
+    console.log(this.props);
+
+    this.setState({
+      user: this.props.location.state.user
+    });
+
     this.getPostsOnlyByUser();
     this.getFavorites();
     this.getFollowers();
@@ -86,7 +84,7 @@ class Home extends Component {
   };
 
   getOrCreateUser = () => {
-    API.getOrCreateUser(this.state.userId).then(res => {
+    API.getOrCreateUser(this.state.user.id).then(res => {
       this.setState({
         user: res.data
       });
@@ -195,7 +193,7 @@ class Home extends Component {
         <div className="row userProfile rounded bg-dark text-white">
           <div className="col-5">
             <img
-              src={this.state.user.profileImage}
+              src={this.props.location.state.user.profileImage}
               alt="User"
               id="userMainProfileImage"
               className="rounded border-white"
@@ -204,7 +202,7 @@ class Home extends Component {
 
           <div className="col">
             <Row>
-              <h2 className="paddingTop">{this.state.user.name}</h2>
+              <h2 className="paddingTop">{this.props.location.state.user.name}</h2>
             </Row>
             <Row>
               Posts:&nbsp; {this.state.posts.length} &nbsp; | &nbsp;
