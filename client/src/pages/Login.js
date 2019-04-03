@@ -32,7 +32,7 @@ class Login extends Component {
         return (
 
             <Container>
-                <div className="header jumbotron">
+                <div className="header">
                     <h1 id="loginPageTitle" className="text-center">Podhub</h1>
                     <h4 id="slogan" className="text-center">Share what you care about</h4>
                     <div className="googleSignIn">
