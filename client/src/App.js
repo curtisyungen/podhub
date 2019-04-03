@@ -164,7 +164,6 @@ class App extends Component {
                 hidePodcasts={this.hidePodcasts}
                 logout={this.logout}
                 user={this.state.user}
-                showAudio={this.state.showAudioInNav}
               />
               <PodcastSearch
                 show={this.state.showPodcasts}
@@ -176,21 +175,22 @@ class App extends Component {
               <Switch>
                 <Route exact path="/home"
                   render={() =>
-                    <Home
-                      user={this.state.user}
-                    />
+                    <div className="container">
+                      <div className="row">
+                        <div className="col-md-2 col-xs-0"></div>
+                        <div className="col-md-8 col-xs-12">
+                          <Home
+                            user={this.state.user}
+                          />
+                        </div>
+                        <div className="col-md-2 col-xs-0"></div>
+                      </div>
+                    </div>
                   }
                 />
-                <Route exact path="/profile" component={Profile}/>
+                <Route exact path="/profile" component={Profile} />
                 <Route exact path="/episodeList" component={EpisodeList} />
-                <Route exact path="/listen" 
-                  render={() =>
-                    <Listen 
-                      showAudioInNav={this.showAudioInNav}
-                    />
-                  }
-                />
-
+                <Route exact path="/listen" component={Listen} />
                 <Route exact path="/userSearch"
                   render={() =>
                     <UserSearch

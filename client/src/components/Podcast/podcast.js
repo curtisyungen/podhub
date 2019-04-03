@@ -24,8 +24,8 @@ function Podcast ({ podcastId, podcastName, podcastLogo, thumbnail, hide, showAu
             }
             }} 
             className="podcast p-0"
-            showAudioInNav={showAudioInNav}
             onClick={hide}
+            showAudioInNav={showAudioInNav}
             onMouseDown={event => event.preventDefault()}
         >
             <span><img className="podcastLogoSmall radius-white rounded" src={thumbnail} alt="Podcast Logo"/></span>

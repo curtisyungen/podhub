@@ -6,11 +6,10 @@ import { faSearch, faUser, faHome } from '@fortawesome/free-solid-svg-icons'
 import "./navbar.css";
 import { GoogleLogout } from 'react-google-login';
 import Logo from "./purple_back.png";
-import AudioPlayer from "../AudioPlayer/audioPlayer";
 
 library.add(faSearch, faUser, faHome);
 
-function Navbar({ podcastSearch, handleInputChange, hidePodcasts, logout, user, showAudio }) {
+function Navbar({ podcastSearch, handleInputChange, hidePodcasts, logout, user }) {
 
   return (
 
@@ -71,12 +70,6 @@ function Navbar({ podcastSearch, handleInputChange, hidePodcasts, logout, user, 
             </Link>
           </li>
         </ul>
-
-        {showAudio ? (
-          <AudioPlayer />
-        ) : (
-          <></>
-        )}
 
         <ul className="navbar-nav">
           <form className="form-inline my-2 my-lg-0 searchPodcastForm">
