@@ -10,7 +10,7 @@ import "./podcast.css";
 // The onMouseDown event is there for the onBlur event in the search form. This allows the click event
 // to execute before hiding the podcast search results.
 
-function Podcast ({ podcastId, podcastName, podcastLogo, thumbnail, hide, showAudioInNav }) {
+function Podcast ({ podcastId, podcastName, podcastLogo, thumbnail, hide }) {
 
     return (
         
@@ -20,8 +20,7 @@ function Podcast ({ podcastId, podcastName, podcastLogo, thumbnail, hide, showAu
                 podcastId: podcastId,
                 podcastName: podcastName,
                 podcastLogo: podcastLogo,
-                loadMore: true,
-                showAudioInNav: showAudioInNav
+                loadMore: true
             }
             }} 
             className="podcast p-0"

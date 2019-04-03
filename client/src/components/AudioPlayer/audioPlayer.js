@@ -196,6 +196,15 @@ class AudioPlayer extends Component {
         audioElement.currentTime -= 15;
     }
 
+    showInNavBar = () => {
+        let audioSettings = [
+            showAudioInNav=true,
+            audioLink=this.state.audioLink
+        ]
+
+        localStorage.setItem("audioSettings", audioSettings);
+    }
+
     render() {
         const { audioLink } = this.props;
         const { initialSpeed, changeSpeed } = this.props;
@@ -275,6 +284,10 @@ class AudioPlayer extends Component {
                             id="skip-forward-15"
                             onClick={this.skipForward15}
                         />
+                    </div>
+
+                    <div className="showInNav">
+                        <button className="btn btn-dark btn-sm" onClick={this.showInNavBar}>Show In Nav</button>
                     </div>
 
                 </div>

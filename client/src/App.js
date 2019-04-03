@@ -23,7 +23,6 @@ class App extends Component {
       podcasts: [],
       showPodcasts: "hidePodcasts",
       redirect: false,
-      showAudioInNav: false
     };
   }
   // Listen for when user enters text into Podcast search fields
@@ -135,12 +134,6 @@ class App extends Component {
     this.loadUserFromLocalStorage();
   }
 
-  showAudioInNav = () => {
-    this.setState({
-      showAudioInNav: true
-    });
-  }
-
   render() {
     return (
       <Router>
@@ -158,21 +151,17 @@ class App extends Component {
             />
             :
             <>
-
               <Navbar
                 podcastSearch={this.podcastSearch}
                 handleInputChange={this.handleInputChange}
                 hidePodcasts={this.hidePodcasts}
                 logout={this.logout}
                 user={this.state.user}
-                showAudio={this.state.showAudioInNav}
               />
-
               <PodcastSearch
                 show={this.state.showPodcasts}
                 hide={this.hidePodcasts}
                 podcasts={this.state.podcasts}
-                showAudioInNav={this.showAudioInNav}
               />
 
               <Switch>

@@ -10,20 +10,14 @@ import API from "../utils/API";
 
 class EpisodeList extends Component {
 
-    constructor(props) {
-        super(props);
-
-        console.log(this.props);
-
-        state = {
-            podcastId: "",
-            podcastName: "",
-            podcastLogo: "",
-            episodes: [],
-            loadMore: true,
-            message: ""
-        };
-    }
+    state = {
+        podcastId: "",
+        podcastName: "",
+        podcastLogo: "",
+        episodes: [],
+        loadMore: true,
+        message: ""
+    };
 
     // On page load, update State with Podcast ID and Logo url
     // Then call .getEpisodes
@@ -32,7 +26,7 @@ class EpisodeList extends Component {
             podcastId: this.props.location.state.podcastId,
             podcastName: this.props.location.state.podcastName,
             podcastLogo: this.props.location.state.podcastLogo,
-            loadMore: this.props.location.state.loadMore,
+            loadMore: this.props.location.state.loadMore
         }, () => { this.getEpisodes() });
     }
 
@@ -169,7 +163,6 @@ class EpisodeList extends Component {
                                         length={this.convertTime(episode.audio_length)}
                                         description={episode.description}
                                         audioLink={episode.audio}
-                                        showAudioInNav={this.props.showAudioInNav}
                                     />
                                 ))}
                             </List>

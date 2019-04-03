@@ -14,26 +14,20 @@ import "./Listen.css";
 
 class Listen extends Component {
 
-    constructor(props) {
-        super(props);
-
-        console.log(this.props);
-
-        state = {
-            podcastId: "",
-            podcastName: "",
-            podcastLogo: "",
-            episodeId: "",
-            episodeName: "",
-            date: "",
-            description: "",
-            audioLink: "",
-            showModal: false,
-            showPortal: false,
-            speed: 1.0,
-            userMessage: ""
-        };
-    }
+    state = {
+        podcastId: "",
+        podcastName: "",
+        podcastLogo: "",
+        episodeId: "",
+        episodeName: "",
+        date: "",
+        description: "",
+        audioLink: "",
+        showModal: false,
+        showPortal: false,
+        speed: 1.0,
+        userMessage: ""
+    };
 
     componentDidMount = () => {
 
