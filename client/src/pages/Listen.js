@@ -26,7 +26,8 @@ class Listen extends Component {
         showModal: false,
         showPortal: false,
         speed: 1.0,
-        userMessage: ""
+        userMessage: "",
+        showAudioInNav
     };
 
     componentDidMount = () => {
