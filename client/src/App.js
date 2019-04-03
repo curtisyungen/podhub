@@ -23,6 +23,7 @@ class App extends Component {
       podcasts: [],
       showPodcasts: "hidePodcasts",
       redirect: false,
+      showAudioInNav: false
     };
   }
   // Listen for when user enters text into Podcast search fields
@@ -132,6 +133,18 @@ class App extends Component {
 
   componentDidMount() {
     this.loadUserFromLocalStorage();
+  }
+
+  checkShowAudioInNav = () => {
+    if (localStorage.getItem("audioSettings")) {
+      let showAudio = JSON.parse(localStorage.getItem("audioSettings")).showAudioInNav;
+
+      if (showAudio) {
+        this.setState({
+          showAudioInNav: true
+        }, () => {console.log(this.state.showAudioInNav)});
+      }
+    }
   }
 
   render() {
