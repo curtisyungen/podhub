@@ -27,7 +27,7 @@ class Listen extends Component {
         showPortal: false,
         speed: 1.0,
         userMessage: "",
-        showAudioInNav
+        showAudioInNav: null
     };
 
     componentDidMount = () => {
@@ -143,7 +143,7 @@ class Listen extends Component {
 
     showAudioInNav = (event) => {
         event.preventDefault();
-        this.state.showAudioInNav;
+        this.state.showAudioInNav();
     }
 
     render() {
