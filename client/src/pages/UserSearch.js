@@ -61,26 +61,16 @@ class UserSearch extends Component {
             });
     }
 
-    followUser = (event) => {
-        event.preventDefault();
-
-        alert("Followed!");
-    }
-
-        // API.getUsers()
-        //     .then(res =>
-        //         this.setState({
-        //             users: res.data
-        //         })
-        //     )
-        //     .catch((err) =>
-        //         console.log(err),
-        //         this.setState({
-        //             message: "No users found.",
-        //             users: [],
-        //         }),
-        //     )
-
+    followUser = (id) => {
+        API.followUser(this.props.user.id, id)
+            .then(function(response){
+                console.log(response);
+                alert("Followed!");
+            })
+             .catch((err) =>
+                 console.log(err)
+                )
+    }            
     render() {
         var userId = JSON.parse(localStorage.getItem("user")).id;
         console.log("Render", userId);
@@ -103,24 +93,27 @@ class UserSearch extends Component {
                 </form>
 
                 {this.state.users.length ? (
-                    <List>
+                    <ul className="flexRow">
                         {this.state.users.map(user => (
-                            <div key={user.id}>
+                            <div className="container bg-dark tile m-2" key={user.id}>
                                 <User
                                     userId={user.id}
                                     userName={user.name}
                                     userImage={user.profileImage}
                                     handler={null}
                                 />
-                                <button 
-                                    className="btn btn-primary" 
-                                    onClick={this.followUser}
+                                <button
+                                    className="btn btn-outline-light buttonPosition" 
+                                    onClick={(event)=>{
+                                        event.preventDefault();
+                                        this.followUser(user.id)}
+                                    }
                                 >
                                     Follow
                                 </button>
                             </div>
                         ))}
-                    </List>
+                    </ul>
                 ) : (
                     <h2>{this.state.message}</h2>
                 )}

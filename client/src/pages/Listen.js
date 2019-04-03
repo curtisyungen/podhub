@@ -6,6 +6,7 @@ import Modal from "react-responsive-modal";
 import AudioPlayer from "../components/AudioPlayer/audioPlayer";
 import Portal from "../components/Portal/portal";
 import API from "../utils/API";
+import "./Listen.css";
 
 // LISTEN TO PODCAST PAGE
 // This page allows a user to listen to a podcast.
@@ -29,7 +30,7 @@ class Listen extends Component {
     };
 
     componentDidMount = () => {
-        
+
         this.setState({
             podcastId: this.props.location.state.podcastId,
             podcastName: this.props.location.state.podcastName,
@@ -68,8 +69,8 @@ class Listen extends Component {
 
         let userId = JSON.parse(localStorage.getItem("user")).id;
 
-        API.sharePodcast( 
-            this.state.podcastName, 
+        API.sharePodcast(
+            this.state.podcastName,
             this.state.podcastLogo,
             this.state.episodeName,
             this.state.description,
@@ -77,7 +78,7 @@ class Listen extends Component {
             this.state.userMessage,
             userId
         )
-            .then(function(response) {
+            .then(function (response) {
                 console.log(response);
             });
     }
@@ -104,14 +105,18 @@ class Listen extends Component {
 
         let userId = JSON.parse(localStorage.getItem("user")).id;
 
-        API.addPodcastToFavorites( 
-            this.state.podcastName, 
+        API.addPodcastToFavorites(
+            this.state.podcastId,
+            this.state.podcastName,
             this.state.podcastLogo,
+            this.state.episodeId,
+            this.state.episodeName,
+            this.state.date,
             this.state.description,
             this.state.audioLink,
             userId
         )
-            .then(function(response) {
+            .then(function (response) {
                 console.log(response);
                 alert("Favorited!");
             });
@@ -138,47 +143,63 @@ class Listen extends Component {
         return (
             <Container>
                 <Row>
-                    <div>
-                        <Link
-                            to={{
-                                pathname: "/episodeList", 
-                                state: {
-                                    podcastId: this.state.podcastId,
-                                    podcastName: this.state.podcastName,
-                                    podcastLogo: this.state.podcastLogo,
-                                    loadMore: true
-                                }
-                            }} 
-                        >
-                            {this.state.podcastName}
-                        </Link>
-                        <img src={this.state.podcastLogo} alt="Podcast Logo" />
+                    <div className="col-md-3 col-xs-0"></div>
+                    <div className="col-md-6 col-xs-12 text-center" id="first-row-listen">
+                        <div id="pod-name">
+                            <Link
+                                to={{
+                                    pathname: "/episodeList",
+                                    state: {
+                                        podcastId: this.state.podcastId,
+                                        podcastName: this.state.podcastName,
+                                        podcastLogo: this.state.podcastLogo,
+                                        loadMore: true
+                                    }
+                                }}
+                            >
+                                {this.state.podcastName}
+                            </Link>
+                        </div>
+                        <div>
+                            <img src={this.state.podcastLogo} alt="Podcast Logo" id="pod-logo" />
+                        </div>
                     </div>
+                    <div className="col-md-3 col-xs-0"></div>
                 </Row>
 
                 <Row>
+                    <div className="col-md-2 col-xs-0"></div>
+                    <div className="col-md-8 col-xs-12 text-center center-block" id="second-row-listen">
+                        <div>
+                            <h4 id="episode-name">{this.state.episodeName} &nbsp;<span id="line">|&nbsp;</span> {this.state.date}</h4>
+                        </div>
+                        <div id="audio-player-listen">
+                            <AudioPlayer
+                                audioLink={this.state.audioLink}
+                                playbackRate={this.state.speed}
+                                changeSpeed={this.changeSpeed}
+                                initialSpeed={this.state.speed}
+                            />
 
-                    <div>
-                        <h4>{this.state.episodeName} &nbsp;|&nbsp; {this.state.date}</h4>
-
-                        <AudioPlayer
-                            audioLink={this.state.audioLink}
-                            playbackRate={this.state.speed}
-                            changeSpeed={this.changeSpeed}
-                            initialSpeed={this.state.speed}
-                        />
-
+                        </div>
                     </div>
+                    <div className="col-md-2 col-xs-0"></div>
                 </Row>
 
                 <Row>
-                    <div>
-                        <p>{this.state.description}</p>
-                    </div>
+                    <div className="col-md-3 col-xs-0"></div>
+                    <div className="col-md-6 col-xs-12" id="third-row-listen">
+                        <div id="description-listen">
+                            <p>{this.state.description}</p>
+                        </div>
 
-                    <button className="btn btn-primary" onClick={this.handleShowModal}>Share</button>
-                    <button className="btn btn-danger" onClick={this.addToFavorites}>Favorite</button>
-                    <button className="btn btn-dark" onClick={this.togglePortal}>Open Portal</button>
+                        <div className="center-block" id="buttons-listen">
+                            <button className="btn btn-primary" onClick={this.handleShowModal}>Share</button>
+                            <button className="btn btn-danger" onClick={this.addToFavorites}>Favorite</button>
+                            <button className="btn btn-dark" onClick={this.togglePortal}>Open Portal</button>
+                        </div>
+                    </div>
+                    <div className="col-md-3 col-xs-0"></div>
                 </Row>
 
                 {this.state.showPortal && (
@@ -203,33 +224,51 @@ class Listen extends Component {
                     </Portal>
                 )}
 
-                <Modal open={this.state.showModal} onClose={this.handleCloseModal} center>
+                <Modal
+                    open={this.state.showModal}
+                    onClose={this.handleCloseModal}
+                    classNames={{ modal: "customModal", overlay: "customOverlay", closeButton: "customCloseButton" }}
+                >
 
                     <Container>
-                        <div>
-                            <h4>{this.state.podcastName}</h4>
-                            <img src={this.state.podcastLogo} alt="Podcast Logo" />
-                            <p>{this.state.episodeName}</p>
-                        </div>
 
-                        <form>
-                            <input 
-                                className="userPostInput" 
-                                name="userMessage" 
-                                onChange={this.handleInputChange}
-                                placeholder="Enter message"
-                                value={this.state.userMessage}
-                            >
-                            </input>
-                        
-                            <button
-                                className="btn btn-primary"
-                                onClick={this.handleShareEpisode}
-                                type="submit"
-                            >
-                                Share
+                        <h4 id="podcast-name-modal">New Post<span id="bar-listen">:&nbsp;&nbsp;</span>{this.state.podcastName}</h4>
+                        <span id="span"></span>
+                        <div id="modal-first-line">
+                            <div id="box-logo">
+                                <img src={this.state.podcastLogo} alt="Podcast Logo" id="podcast-logo-modal" />
+                            </div>
+                            <div id="box-title">
+                                <p id="podcast-episode-name-modal">{this.state.episodeName}</p>
+                            </div>
+
+                            <div></div>
+
+                            <div>
+                                <form>
+                                    <div>
+                                        <textarea
+                                            id="new-post-message"
+                                            className="userPostInput"
+                                            name="userMessage"
+                                            onChange={this.handleInputChange}
+                                            placeholder="Caption..."
+                                            value={this.state.userMessage}
+                                        >
+                                        </textarea>
+                                    </div>
+
+                                    <button
+                                        id="share-modal-btn"
+                                        className="btn btn-primary"
+                                        onClick={this.handleShareEpisode}
+                                        type="submit"
+                                    >
+                                        Post
                             </button>
-                        </form>
+                                </form>
+                            </div>
+                        </div>
                     </Container>
 
                 </Modal>
@@ -240,3 +279,4 @@ class Listen extends Component {
 }
 
 export default Listen;
+

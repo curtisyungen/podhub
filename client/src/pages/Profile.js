@@ -1,11 +1,14 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router";
 import Container from "../components/Container/container";
 import Row from "../components/Row/row";
 import API from "../utils/API";
+import Podcast from "../components/Podcast/podcast";
 import PostCard from "../components/PostCard/postCard";
 import "./Profile.css";
 import Delete from "./delete.png";
 import moment from "moment";
+import Modal from "react-responsive-modal";
 
 // USER PROFILE PAGE
 
@@ -15,7 +18,10 @@ class Home extends Component {
     posts: [],
     followers: 0,
     following: 0,
-    favorites: []
+    favorites: [],
+    showLikesModal: false,
+    likes: [],
+    redirect: false
   };
 
   componentDidMount() {
@@ -127,10 +133,61 @@ class Home extends Component {
   };
 
   handleFavoriteDelete = id => {
-    API.handleFavoriteDelete(id).then(res => {
-      this.getFavorites();
+
+    if (window.confirm("Delete favorite?")) {
+      API.handleFavoriteDelete(id).then(res => {
+        this.getFavorites();
+      });
+    }
+  };
+
+  //Opens the Likes modal
+  //Executed upon user clicking "Likes" button on page
+  handleShowLikes = postId => {
+
+    API.getLikes(postId).then(res => {
+      //console.log(res.data);
+      if (res.data.length === 0) {
+        this.setState({
+          showLikesModal: false
+        });
+      }
+      else {
+        this.setState({
+          likes: res.data,
+          showLikesModal: true
+        });
+      }
     });
   };
+
+  handleLikeOrUnlike = postId => {
+    API.likePost(postId, this.props.user.id).then(res => {
+      //console.log(res.data)
+      if (res.data[1] == false) {
+        API.unlikePost(postId).then(res => {
+          //console.log(res.data)
+        })
+      };
+      this.getPostsOnlyByUser();
+    })
+  }
+
+  // Closes Likes Episode modal
+  // Executed upon user clicking "Likes" button in modal
+  closeLikesModal = () => {
+    this.setState({
+      showLikesModal: false
+    });
+  };
+
+  listenToEpisode = event => {
+    event.preventDefault();
+
+    this.setState({
+      redirect: true
+    });
+  }
 
   render() {
     return (
@@ -151,7 +208,7 @@ class Home extends Component {
             </Row>
             <Row>
               Posts:&nbsp; {this.state.posts.length} &nbsp; | &nbsp;
-              Followers:&nbsp;{this.state.followers}&nbsp; | &nbsp;
+              Followers:&nbsp;{this.state.followers} &nbsp; | &nbsp;
               Following:&nbsp;{this.state.following}
             </Row>
           </div>
@@ -163,15 +220,17 @@ class Home extends Component {
           {this.state.favorites.length ? (
             <Container>
               {this.state.favorites.map(favorite => (
+
                 <div className="row rounded favorite bg-dark text-secondary" key={favorite.id}>
                   <div className="col-2 p-4 pad">
-                    <img
-                      src={favorite.podcastLogo}
-                      alt="Podcast Icon"
-                      id="favoriteIcon"
-                      className="rounded border-white"
+                    <Podcast
+                      podcastId={favorite.podcastId}
+                      podcastName={favorite.podcastName}
+                      podcastLogo={favorite.podcastLogo}
+                      thumbnail={favorite.podcastLogo}
                     />
                   </div>
+
                   <div className="col p-0">
                     <button
                       className="btn btn-sm mb-1 float-right"
@@ -179,13 +238,35 @@ class Home extends Component {
                     >
                       <img src={Delete} alt="delete" className="size" />
                     </button>
-                    {/* <p>{moment(favorite.createdAt).format("LLL")}</p> */}
-                    <p>{favorite.podcastName}</p>
+
+                    <p>{moment(favorite.createdAt).format("LLL")}</p>
+
+                    {/* <p>{favorite.podcastName}</p> */}
                     <div>
                       <p className="ellipsis">{favorite.description}</p>
                     </div>
 
-                    <a href={favorite.audioLink} target="_blank" className="btn btn-sm btn-dark mb-1 listenFav"> Listen</a>
+                    <button className="btn btn-light" onClick={this.listenToEpisode}>Listen</button>
+
+                    {this.state.redirect ? (
+                      <Redirect
+                        to={{
+                          pathname: "/listen",
+                          state: {
+                            podcastId: favorite.podcastId,
+                            podcastName: favorite.podcastName,
+                            podcastLogo: favorite.podcastLogo,
+                            episodeId: favorite.episodeId,
+                            episodeName: favorite.episodeName,
+                            date: moment(favorite.date).format("LLL"),
+                            description: favorite.description,
+                            audioLink: favorite.audioLink
+                          }
+                        }}
+                      />
+                    ) : (
+                        <></>
+                      )}
 
                   </div>
                 </div>
@@ -217,8 +298,34 @@ class Home extends Component {
                   comments={post.numberOfComments}
                   postId={post.id}
                   handlePostDelete={this.handlePostDelete}
+                  handleShowLikes={this.handleShowLikes}
+                  handleLikeOrUnlike={this.handleLikeOrUnlike}
                 />
               ))}
+              <Modal
+                open={this.state.showLikesModal}
+                onClose={this.closeLikesModal}
+                center
+              >
+                {this.state.likes.map(like => (
+                  <div
+                    className="row rounded favorite bg-dark text-secondary"
+                    key={like.id}
+                  >
+                    <div className="col-3 mt-0">
+                      <img
+                        src={like.image}
+                        alt="User Icon"
+                        id="userImageLikesModal"
+                        className="rounded border-white"
+                      />
+                    </div>
+                    <div className="col-9">
+                      <p>{like.name}</p>
+                    </div>
+                  </div>
+                ))}
+              </Modal>
             </div>
           ) : (
               <div className="col">

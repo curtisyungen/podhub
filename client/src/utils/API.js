@@ -5,7 +5,19 @@ export default {
 
     // Show users how liked the post
     getLikes: function(postId) {
-        return axios.get("/api/getLikes/" + postId)
+        return axios.get("/api/posts/getUsersLikedPost/" + postId)
+    },
+
+    likePost: function(postId, userId) {
+        let data = {
+            postId: postId,
+            userId:userId
+        }
+        return axios.post("/api/posts/like/", data )
+    },
+
+    unlikePost: function(postId) {
+        return axios.delete("/api/posts/unlike/" + postId)
     },
 
     // Gets all posts for specific user
@@ -107,12 +119,16 @@ export default {
     //     return podcastId;
     // },
 
-    addPodcastToFavorites: function(podcastName,podcastLogo,description, audioLink, userId) {
+    addPodcastToFavorites: function(podcastId, podcastName, podcastLogo, episodeId, episodeName, date, description, audioLink, userId) {
         // console.log(arguments);
 
         let data = {
+            podcastId: podcastId,
             podcastName: podcastName,
             podcastLogo: podcastLogo,
+            episodeId: episodeId,
+            episodeName: episodeName,
+            date: date,
             description: description,
             audioLink: audioLink,
             userId: userId
@@ -139,7 +155,7 @@ export default {
             isFollowing: followUserId
         }
 
-        return axios.post("/api/posts/", data);
+        return axios.post("/api/users/follow/", data);
     },
 
     sharePodcast: function(podcastName, podcastLogo, episodeName, description, audioLink, userMessage, userId) {
@@ -156,5 +172,6 @@ export default {
         }
 
         return axios.post("/api/posts/", data);
-    }
+    },
+
 };
