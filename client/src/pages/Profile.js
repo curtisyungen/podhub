@@ -26,10 +26,10 @@ class Home extends Component {
 
   componentDidMount() {
     this.setUser();
-    this.getPostsOnlyByUser();
-    this.getFavorites();
-    this.getFollowers();
-    this.getFollowing();
+    // this.getPostsOnlyByUser();
+    // this.getFavorites();
+    // this.getFollowers();
+    // this.getFollowing();
   }
 
   setUser = () => {
