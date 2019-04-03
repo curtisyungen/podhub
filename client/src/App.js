@@ -135,6 +135,10 @@ class App extends Component {
     this.loadUserFromLocalStorage();
   }
 
+  componentDidUpdate() {
+    this.checkShowAudioInNav();
+  }
+
   checkShowAudioInNav = () => {
     if (localStorage.getItem("audioSettings")) {
       let showAudio = JSON.parse(localStorage.getItem("audioSettings")).showAudioInNav;
