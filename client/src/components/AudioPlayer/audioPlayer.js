@@ -202,7 +202,7 @@ class AudioPlayer extends Component {
             audioLink: this.state.audioLink
         }
 
-        localStorage.setItem("audioSettings", JSON.parse(audioSettings));
+        localStorage.setItem("audioSettings", JSON.stringify(audioSettings));
     }
 
     render() {
