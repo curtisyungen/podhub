@@ -37,7 +37,8 @@ class Episode extends Component {
               episodeName: this.props.episodeName,
               date: this.props.date,
               description: this.props.description,
-              audioLink: this.props.audioLink
+              audioLink: this.props.audioLink,
+              showAudioInNav: this.showAudioInNav
             }
           }}
         />
