@@ -183,7 +183,14 @@ class App extends Component {
                 />
                 <Route exact path="/profile" component={Profile}/>
                 <Route exact path="/episodeList" component={EpisodeList} />
-                <Route exact path="/listen" component={Listen} />
+                <Route exact path="/listen" 
+                  render={() =>
+                    <Listen 
+                      showAudioInNav={this.showAudioInNav}
+                    />
+                  }
+                />
+
                 <Route exact path="/userSearch"
                   render={() =>
                     <UserSearch

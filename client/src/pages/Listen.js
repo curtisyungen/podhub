@@ -31,6 +31,8 @@ class Listen extends Component {
 
     componentDidMount = () => {
 
+        console.log(this.props);
+
         this.setState({
             podcastId: this.props.location.state.podcastId,
             podcastName: this.props.location.state.podcastName,
