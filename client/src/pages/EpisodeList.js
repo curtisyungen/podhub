@@ -16,7 +16,8 @@ class EpisodeList extends Component {
         podcastLogo: "",
         episodes: [],
         loadMore: true,
-        message: ""
+        message: "",
+        showAudioInNav: null
     };
 
     // On page load, update State with Podcast ID and Logo url
@@ -29,7 +30,8 @@ class EpisodeList extends Component {
             podcastId: this.props.location.state.podcastId,
             podcastName: this.props.location.state.podcastName,
             podcastLogo: this.props.location.state.podcastLogo,
-            loadMore: this.props.location.state.loadMore
+            loadMore: this.props.location.state.loadMore,
+            showAudioInNav: this.props.location.state.showAudioInNav
         }, () => { this.getEpisodes() });
     }
 
@@ -166,6 +168,7 @@ class EpisodeList extends Component {
                                         length={this.convertTime(episode.audio_length)}
                                         description={episode.description}
                                         audioLink={episode.audio}
+                                        showAudioInNav={this.state.showAudioInNav}
                                     />
                                 ))}
                             </List>

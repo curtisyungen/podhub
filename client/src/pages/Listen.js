@@ -39,7 +39,8 @@ class Listen extends Component {
             episodeName: this.props.location.state.episodeName,
             date: this.props.location.state.date,
             description: this.props.location.state.description.replace(/<\/?[^>]+(>|$)/g, ""),
-            audioLink: this.props.location.state.audioLink
+            audioLink: this.props.location.state.audioLink,
+            showAudioInNav: this.props.location.state.showAudioInNav
         });
     }
 
@@ -139,6 +140,11 @@ class Listen extends Component {
         });
     }
 
+    showAudioInNav = (event) => {
+        event.preventDefault();
+        this.state.showAudioInNav;
+    }
+
     render() {
         return (
             <Container>
@@ -196,7 +202,7 @@ class Listen extends Component {
                         <div className="center-block" id="buttons-listen">
                             <button className="btn btn-primary" onClick={this.handleShowModal}>Share</button>
                             <button className="btn btn-danger" onClick={this.addToFavorites}>Favorite</button>
-                            <button className="btn btn-dark" onClick={this.togglePortal}>Open Portal</button>
+                            <button className="btn btn-dark" onClick={this.showAudioInNav}>Open Portal</button>
                         </div>
                     </div>
                     <div className="col-md-3 col-xs-0"></div>
