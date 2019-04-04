@@ -67,6 +67,8 @@ class App extends Component {
   handleInputChange = event => {
     const { name, value } = event.target;
 
+    this.placeholder = "";
+
     this.setState({
       [name]: value,
     },
@@ -137,6 +139,9 @@ class App extends Component {
   // Passed to children as prop
   // Hides podcast search results
   hidePodcasts = () => {
+
+    this.placeholder="Find a podcast"
+
     this.setState({
       showPodcasts: "hidePodcasts"
     });
