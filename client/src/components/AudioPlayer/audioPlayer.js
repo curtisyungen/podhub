@@ -49,7 +49,7 @@ class AudioPlayer extends Component {
 
         this.setState({
             play: false
-        });
+        }, () => this.flipPlayPauseState());
 
         audioElement.addEventListener('loadedmetadata', () => {
             let durationMinutes = parseInt(audioElement.duration / 60);
