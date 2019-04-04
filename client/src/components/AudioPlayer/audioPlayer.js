@@ -56,6 +56,8 @@ class AudioPlayer extends Component {
 
         this.setPlaybackRate();
 
+        console.log(this.props);
+
         if (this.props.showAudioSettings) {
             this.setState({
                 showAudioSettings: this.props.showAudioSettings
