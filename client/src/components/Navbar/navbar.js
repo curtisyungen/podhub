@@ -76,6 +76,7 @@ function Navbar({ podcastSearch, handleInputChange, hidePodcasts, logout, user, 
             <span>
               <AudioPlayer 
                 audioLink={JSON.parse(sessionStorage.getItem("audioSettings")).audioLink}
+                showAudioSettings={false}
               />
               <button className="btn btn-dark btn-sm" onClick={hideAudio}>Hide</button>
             </span>

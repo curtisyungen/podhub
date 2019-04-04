@@ -22,7 +22,7 @@ class AudioPlayer extends Component {
             currentTime: '0:00',
             duration: '0:00',
             mouseOnPlayhead: false,
-            showAudioSettings: true
+            showAudioSettings: null
         };
     }
 
@@ -56,13 +56,10 @@ class AudioPlayer extends Component {
 
         this.setPlaybackRate();
 
-        console.log(this.props);
-
-        if (this.props.showAudioSettings) {
-            this.setState({
-                showAudioSettings: this.props.showAudioSettings
-            });
-        }
+        this.setState({
+            showAudioSettings: this.props.showAudioSettings
+        });
+    
     }
 
     // Will be called whenever the component is updated (e.g., when props change)

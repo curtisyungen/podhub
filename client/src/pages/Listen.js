@@ -193,7 +193,7 @@ class Listen extends Component {
                                 playbackRate={this.state.speed}
                                 changeSpeed={this.changeSpeed}
                                 initialSpeed={this.state.speed}
-                                showAudioSettings={false}
+                                showAudioSettings={true}
                             />
                         </div>
                     </div>
