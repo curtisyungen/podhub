@@ -179,14 +179,14 @@ class EpisodeList extends Component {
 
                     ) : (
                             this.state.message !== "Loading..." ? (
-                                <h2 className="text-center">No Episodes found.</h2>
+                                <h2 className="episodeListBtns">No episodes found.</h2>
                             ) :
                                 (
                                     <></>
                                 )
                         )}
 
-                    <h2 className="text-center">{this.state.message}</h2>
+                    <h2 className="episodeListBtns">{this.state.message}</h2>
                 </Row>
             </Container>
         )
