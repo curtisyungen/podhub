@@ -25,6 +25,24 @@ class AudioPlayer extends Component {
         };
     }
 
+    setLoaded = () => {
+        this.setState({ loaded: true });
+    }
+
+    setHeadPosition = (position) => {
+        this.setState({ headPosition: position });
+    }
+
+    // We can call this method from lifecycle methods when we need to adjust the playback rate.
+    setPlaybackRate() {
+        // set the initial playback rate to 1.0
+        const { playbackRate = 1.0 } = this.props;
+
+        const audioElement = this.audioElement.current;
+        // Set the playback rate to the playbackRate in our props
+        audioElement.playbackRate = playbackRate;
+    }
+
     componentDidMount() {
         const audioElement = this.audioElement.current;
         const playhead = this.playhead.current;
@@ -54,34 +72,6 @@ class AudioPlayer extends Component {
         };
 
         this.setPlaybackRate();
-    
-    }
-
-    // Will be called whenever the component is updated (e.g., when props change)
-    componentDidUpdate(prevProps) {
-        // Typical usage (don't forget to compare props):
-        if (this.props.playbackRate !== prevProps.playbackRate) {
-            // We've got a new playback rate.
-            this.setPlaybackRate();
-        }
-    }
-
-    setLoaded = () => {
-        this.setState({ loaded: true });
-    }
-
-    setHeadPosition = (position) => {
-        this.setState({ headPosition: position });
-    }
-
-    // We can call this method from lifecycle methods when we need to adjust the playback rate.
-    setPlaybackRate() {
-        // set the initial playback rate to 1.0
-        const { playbackRate = 1.0 } = this.props;
-
-        const audioElement = this.audioElement.current;
-        // Set the playback rate to the playbackRate in our props
-        audioElement.playbackRate = playbackRate;
     }
 
     timeUpdate = () => {
@@ -145,6 +135,15 @@ class AudioPlayer extends Component {
         });
     }
 
+    // Will be called whenever the component is updated (e.g., when props change)
+    componentDidUpdate(prevProps) {
+        // Typical usage (don't forget to compare props):
+        if (this.props.playbackRate !== prevProps.playbackRate) {
+            // We've got a new playback rate.
+            this.setPlaybackRate();
+        }
+    }
+
     flipPlayPauseState = () => {
         this.setState({ play: !this.state.play });
     };
@@ -196,12 +195,12 @@ class AudioPlayer extends Component {
     }
 
     render() {
-
         const { audioLink } = this.props;
         const { initialSpeed, changeSpeed } = this.props;
 
         return (
             <div id="audio-player-container">
+
 
                 <div className="first-row">
                     <div className="CURRENT-TIME"
@@ -218,7 +217,6 @@ class AudioPlayer extends Component {
                     </div>
                 </div>
 
-                {/* Play Button */}
                 <div className="second-row">
                     <div className="PLAY-BUTTON">
                         <img src={this.state.play ? pauseImg : playImg} alt="play button"
@@ -227,7 +225,7 @@ class AudioPlayer extends Component {
                         />
                     </div>
 
-                    {/* Timeline, Playhead */}
+
                     <div className="TIMELINE"
                         id="timeline"
                         onClick={this.movePlayhead}
@@ -243,7 +241,7 @@ class AudioPlayer extends Component {
                     </div>
                 </div>
 
-                {/* Speed, Skip Settings */}
+
                 <div className="third-row">
 
                     <div className="SKIP-BACKWARD-15">
@@ -275,8 +273,7 @@ class AudioPlayer extends Component {
                         />
                     </div>
                 </div>
-                }
-        
+
                 <audio
                     id="music"
                     src={audioLink}
@@ -285,8 +282,9 @@ class AudioPlayer extends Component {
                 />
 
             </div>
-        )}
+        );
+    }
 }
-        
+
 export default AudioPlayer;
-        
+
