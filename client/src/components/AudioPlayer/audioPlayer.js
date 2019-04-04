@@ -55,6 +55,12 @@ class AudioPlayer extends Component {
         };
 
         this.setPlaybackRate();
+
+        if (this.props.showAudioSettings) {
+            this.setState({
+                showAudioSettings: this.props.showAudioSettings
+            });
+        }
     }
 
     // Will be called whenever the component is updated (e.g., when props change)
