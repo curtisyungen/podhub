@@ -31,8 +31,8 @@
 }
 
 .googleButton{
-    background-color: black;
-    color: white;
+    background-color: none !important;
+    color: white !important;
     height: 38px !important
 }
 
