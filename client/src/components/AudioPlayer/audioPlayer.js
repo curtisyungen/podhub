@@ -71,6 +71,10 @@ class AudioPlayer extends Component {
             }
         };
 
+        this.setState({
+            play: false
+        });
+
         this.setPlaybackRate();
     }
 
