@@ -31,7 +31,8 @@
 }
 
 .googleButton{
-    border-radius:21px !important;
+    background-color: none;
+    color: white;
     height: 38px !important
 }
 
