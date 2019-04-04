@@ -101,7 +101,9 @@ class Navbar extends Component {
               )}
 
             <ul className="navbar-nav">
-              <form className="form-inline my-2 my-lg-0 searchPodcastForm">
+              <form className="form-inline my-2 my-lg-0 searchPodcastForm"
+                onkeypress={event => { if(event.keyCode == 13) {event.preventDefault()}}}
+              >
                 <input className="form-control mr-sm-2 searchPodcastInput"
                   type="search"
                   placeholder="Search Podcasts"
