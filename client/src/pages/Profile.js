@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router";
+import { Link } from "react-router-dom";
 import Container from "../components/Container/container";
 import Row from "../components/Row/row";
 import API from "../utils/API";
@@ -24,21 +25,36 @@ class Home extends Component {
     redirect: false
   };
 
+  // Load user profile information
   componentDidMount() {
-    // console.log(this.props);
+
+    this.getFavorites();
+    this.getPostsOnlyByUser();
+    this.getFollowers();
+    this.getFollowing();
 
     this.setState({
       user: this.props.location.state.user
-    }, () => {
-      this.getPostsOnlyByUser();
-      this.getFavorites();
-      this.getFollowers();
-      this.getFollowing();
     });
   }
 
+  // Update profile information if user's change
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.location.state.user.id !== this.props.location.state.user.id) {
+
+      this.getFavorites();
+      this.getPostsOnlyByUser();
+      this.getFollowers();
+      this.getFollowing();
+
+      this.setState({
+        user: this.props.location.state.user
+      });
+    }
+  }
+
   getPostsOnlyByUser = () => {
-    API.getPostsOnlyByUser(this.state.user.id)
+    API.getPostsOnlyByUser(this.props.location.state.user.id)
       .then(res => {
         if (res.data.length === 0) {
           this.setState({
@@ -60,7 +76,7 @@ class Home extends Component {
   };
 
   getFavorites = () => {
-    API.getFavorites(this.state.user.id)
+    API.getFavorites(this.props.location.state.user.id)
       .then(res => {
         if (res.data.length === 0) {
           this.setState({
@@ -84,7 +100,7 @@ class Home extends Component {
   };
 
   getOrCreateUser = () => {
-    API.getOrCreateUser(this.state.user.id).then(res => {
+    API.getOrCreateUser(this.props.location.state.user.id).then(res => {
       this.setState({
         user: res.data
       });
@@ -92,7 +108,7 @@ class Home extends Component {
   };
 
   getFollowers = () => {
-    API.getFollowers(this.state.user.id)
+    API.getFollowers(this.props.location.state.user.id)
       .then(res => {
         this.setState({
           followers: res.data[0].count
@@ -106,7 +122,7 @@ class Home extends Component {
   };
 
   getFollowing = () => {
-    API.getFollowing(this.state.user.id)
+    API.getFollowing(this.props.location.state.user.id)
       .then(res => {
         this.setState({
           following: res.data[0].count
@@ -162,7 +178,7 @@ class Home extends Component {
   handleLikeOrUnlike = postId => {
     API.likePost(postId, this.state.user.id).then(res => {
       //console.log(res.data)
-      if (res.data[1] == false) {
+      if (res.data[1] === false) {
         API.unlikePost(postId).then(res => {
           //console.log(res.data)
         })
@@ -205,8 +221,8 @@ class Home extends Component {
               <h2 className="paddingTop">{this.props.location.state.user.name}</h2>
             </Row>
             <Row>
-              Posts:&nbsp; {this.state.posts.length} &nbsp; | &nbsp;
-              Followers:&nbsp;{this.state.followers} &nbsp; | &nbsp;
+              Posts:&nbsp; {this.state.posts.length} &nbsp;&nbsp; <strong>-</strong> &nbsp;&nbsp;
+              Followers:&nbsp;{this.state.followers} &nbsp;&nbsp; <strong>-</strong> &nbsp;&nbsp;
               Following:&nbsp;{this.state.following}
             </Row>
           </div>
@@ -221,12 +237,18 @@ class Home extends Component {
 
                 <div className="row rounded favorite bg-dark text-secondary" key={favorite.id}>
                   <div className="col-2 p-4 pad">
-                    <Podcast
-                      podcastId={favorite.podcastId}
-                      podcastName={favorite.podcastName}
-                      podcastLogo={favorite.podcastLogo}
-                      thumbnail={favorite.podcastLogo}
-                    />
+                    <Link to={{
+                      pathname: "/episodeList",
+                      state: {
+                        podcastId: favorite.podcastId,
+                        podcastName: favorite.podcastName,
+                        podcastLogo: favorite.podcastLogo,
+                        loadMore: true
+                      }
+                    }}
+                    >
+                      <span><img id="podcastIcon" src={favorite.podcastLogo} alt="Podcast Logo" className="border-white" /></span>
+                    </Link>
                   </div>
 
                   <div className="col p-0">
@@ -237,34 +259,29 @@ class Home extends Component {
                       <img src={Delete} alt="delete" className="size" />
                     </button>
 
-                    <p>{moment(favorite.createdAt).format("LLL")}</p>
+                    <Link to={{
+                      pathname: "/listen",
+                      state: {
+                        podcastId: favorite.podcastId,
+                        podcastName: favorite.podcastName,
+                        podcastLogo: favorite.podcastLogo,
+                        episodeId: favorite.episodeId,
+                        episodeName: favorite.episodeName,
+                        date: moment(favorite.date).format("LLL"),
+                        description: favorite.description,
+                        audioLink: favorite.audioLink
+                      }
+                    }}
+                    >
+                      <h4>{favorite.podcastName}</h4>
+                      <p>{favorite.episodeName}</p>
+                      <p>{moment(favorite.createdAt).format("LLL")}</p>
 
-                    {/* <p>{favorite.podcastName}</p> */}
-                    <div>
-                      <p className="ellipsis">{favorite.description}</p>
-                    </div>
-
-                    <button className="btn btn-light" onClick={this.listenToEpisode}>Listen</button>
-
-                    {this.state.redirect ? (
-                      <Redirect
-                        to={{
-                          pathname: "/listen",
-                          state: {
-                            podcastId: favorite.podcastId,
-                            podcastName: favorite.podcastName,
-                            podcastLogo: favorite.podcastLogo,
-                            episodeId: favorite.episodeId,
-                            episodeName: favorite.episodeName,
-                            date: moment(favorite.date).format("LLL"),
-                            description: favorite.description,
-                            audioLink: favorite.audioLink
-                          }
-                        }}
-                      />
-                    ) : (
-                        <></>
-                      )}
+                      {/* <p>{favorite.podcastName}</p> */}
+                      <div>
+                        <p className="ellipsis">{favorite.description}</p>
+                      </div>
+                    </Link>
 
                   </div>
                 </div>
@@ -283,11 +300,14 @@ class Home extends Component {
               {this.state.posts.map(post => (
                 <PostCard
                   key={post.id}
-                  userPhoto={this.state.user.profileImage}
+                  userId={post.postedBy}               
                   userName={this.state.user.name}
+                  userImage={this.state.user.profileImage}
                   date={moment(post.createdAt).format("LLL")}
+                  podcastId={post.podcastId}
                   podcastName={post.podcastName}
                   podcastLogo={post.podcastLogo}
+                  episodeId={post.episodeId}
                   episodeName={post.episodeName}
                   description={post.description}
                   audioLink={post.audioLink}
@@ -320,6 +340,16 @@ class Home extends Component {
                     </div>
                     <div className="col-9">
                       <p>{like.name}</p>
+                      <button
+                        className="btn btn-outline-light bPosition"
+                        onClick={(event) => {
+                          event.preventDefault();
+                          this.followUser(like.id)
+                        }
+                        }
+                      >
+                        Follow
+                                                </button>
                     </div>
                   </div>
                 ))}

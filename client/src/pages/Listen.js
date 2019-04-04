@@ -26,8 +26,7 @@ class Listen extends Component {
         showModal: false,
         showPortal: false,
         speed: 1.0,
-        userMessage: "",
-        showAudioInNav: null
+        userMessage: ""
     };
 
     componentDidMount = () => {
@@ -40,8 +39,7 @@ class Listen extends Component {
             episodeName: this.props.location.state.episodeName,
             date: this.props.location.state.date,
             description: this.props.location.state.description.replace(/<\/?[^>]+(>|$)/g, ""),
-            audioLink: this.props.location.state.audioLink,
-            showAudioInNav: this.props.location.state.showAudioInNav
+            audioLink: this.props.location.state.audioLink
         });
     }
 
@@ -72,8 +70,10 @@ class Listen extends Component {
         let userId = JSON.parse(localStorage.getItem("user")).id;
 
         API.sharePodcast(
+            this.state.podcastId,
             this.state.podcastName,
             this.state.podcastLogo,
+            this.state.episodeId,
             this.state.episodeName,
             this.state.description,
             this.state.audioLink,
@@ -127,10 +127,10 @@ class Listen extends Component {
 
 
     // Activates pop-out window with podcast audio
-    togglePortal = event => {
+    showPortal = event => {
         event.preventDefault();
         this.setState({
-            showPortal: !this.state.showPortal
+            showPortal: true
         });
     }
 
@@ -141,10 +141,16 @@ class Listen extends Component {
         });
     }
 
-    showAudioInNav = (event) => {
-        event.preventDefault();
-        var func = JSON.parse(this.state.showAudioInNav);
-        console.log(func);
+    showAudioInNavbar = () => {
+
+        sessionStorage.clear();
+
+        let audioSettings = {
+            showAudio: true,
+            audioLink: this.state.audioLink
+        }
+
+        sessionStorage.setItem("audioSettings", JSON.stringify(audioSettings));
     }
 
     render() {
@@ -188,7 +194,7 @@ class Listen extends Component {
                                 changeSpeed={this.changeSpeed}
                                 initialSpeed={this.state.speed}
                             />
-
+                            <button className="btn btn-dark btn-sm" onClick={this.showAudioInNavbar}>Show in Nav</button>
                         </div>
                     </div>
                     <div className="col-md-2 col-xs-0"></div>
@@ -204,7 +210,7 @@ class Listen extends Component {
                         <div className="center-block" id="buttons-listen">
                             <button className="btn btn-primary" onClick={this.handleShowModal}>Share</button>
                             <button className="btn btn-danger" onClick={this.addToFavorites}>Favorite</button>
-                            <button className="btn btn-dark" onClick={this.showAudioInNav}>Open Portal</button>
+                            <button className="btn btn-dark" onClick={this.showPortal}>Open Portal</button>
                         </div>
                     </div>
                     <div className="col-md-3 col-xs-0"></div>
@@ -223,12 +229,6 @@ class Listen extends Component {
                         />
 
                         <br />
-                        <button
-                            className="btn btn-primary"
-                            onClick={this.togglePortal}
-                        >
-                            Close
-                        </button>
                     </Portal>
                 )}
 
