@@ -22,15 +22,6 @@ class Navbar extends Component {
     });
   }
 
-  suppressEnter = (event) => {
-
-    alert("Fag!");
-
-    if (event.keyCode == 13) {
-      event.preventDefault();
-    }
-  }
-
   render() {
     const { podcastSearch, handleInputChange, hidePodcasts, logout, user, showAudio, hideAudio } = this.props;
     return (
@@ -110,10 +101,7 @@ class Navbar extends Component {
               )}
 
             <ul className="navbar-nav">
-              <form 
-                className="form-inline my-2 my-lg-0 searchPodcastForm"
-                onkeypress={this.suppressEnter}
-              >
+              <form className="form-inline my-2 my-lg-0 searchPodcastForm">
                 <input className="form-control mr-sm-2 searchPodcastInput"
                   type="search"
                   placeholder="Search Podcasts"
