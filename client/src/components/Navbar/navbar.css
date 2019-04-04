@@ -31,9 +31,16 @@
 }
 
 .googleButton{
-    background-color: none !important;
+    background-color: transparent !important;
     color: white !important;
     height: 38px !important
+}
+
+.gmnoprint a, .gmnoprint span, .gm-style-cc {
+    display:none;
+}
+.gmnoprint div {
+    background:none !important;
 }
 
 button > div {
