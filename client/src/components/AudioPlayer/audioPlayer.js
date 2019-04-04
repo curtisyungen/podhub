@@ -21,8 +21,7 @@ class AudioPlayer extends Component {
             headPosition: 0,
             currentTime: '0:00',
             duration: '0:00',
-            mouseOnPlayhead: false,
-            showAudioSettings: null
+            mouseOnPlayhead: false
         };
     }
 
@@ -55,10 +54,6 @@ class AudioPlayer extends Component {
         };
 
         this.setPlaybackRate();
-
-        this.setState({
-            showAudioSettings: this.props.showAudioSettings
-        });
     
     }
 
@@ -249,41 +244,37 @@ class AudioPlayer extends Component {
                 </div>
 
                 {/* Speed, Skip Settings */}
-                {this.state.showAudioSettings ? (
+                <div className="third-row">
 
-                    <div className="third-row">
+                    <div className="SKIP-BACKWARD-15">
+                        <img src={skipBackwardImage} alt="skip backward"
+                            id="skip-backward-15"
+                            onClick={this.skipBackward15}
+                        />
+                    </div>
 
-                        <div className="SKIP-BACKWARD-15">
-                            <img src={skipBackwardImage} alt="skip backward"
-                                id="skip-backward-15"
-                                onClick={this.skipBackward15}
-                            />
-                        </div>
+                    <div className="SPEED-SLIDER"
+                        id="speed-slider-container">
+                        <p id="speed-label">SPEED</p>
+                        <input
+                            id="speed-slider"
+                            type="range"
+                            min="1"
+                            max="2.35"
+                            value={initialSpeed}
+                            onChange={changeSpeed}
+                            step=".15"
+                            list="steplist"
+                        />
+                    </div>
 
-                        <div className="SPEED-SLIDER"
-                            id="speed-slider-container">
-                            <p id="speed-label">SPEED</p>
-                            <input
-                                id="speed-slider"
-                                type="range"
-                                min="1"
-                                max="2.35"
-                                value={initialSpeed}
-                                onChange={changeSpeed}
-                                step=".15"
-                                list="steplist"
-                            />
-                        </div>
-
-                        <div className="SKIP-FORWARD-15">
-                            <img src={skipForwardImage} alt="skip forward"
-                                id="skip-forward-15"
-                                onClick={this.skipForward15}
-                            />
-                        </div>
-                    </div>) : (
-                        <></>
-                    )
+                    <div className="SKIP-FORWARD-15">
+                        <img src={skipForwardImage} alt="skip forward"
+                            id="skip-forward-15"
+                            onClick={this.skipForward15}
+                        />
+                    </div>
+                </div>
                 }
         
                 <audio
