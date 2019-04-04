@@ -21,26 +21,9 @@ class AudioPlayer extends Component {
             headPosition: 0,
             currentTime: '0:00',
             duration: '0:00',
-            mouseOnPlayhead: false
+            mouseOnPlayhead: false,
+            showAudioSettings: true
         };
-    }
-
-    setLoaded = () => {
-        this.setState({ loaded: true });
-    }
-
-    setHeadPosition = (position) => {
-        this.setState({ headPosition: position });
-    }
-
-    // We can call this method from lifecycle methods when we need to adjust the playback rate.
-    setPlaybackRate() {
-        // set the initial playback rate to 1.0
-        const { playbackRate = 1.0 } = this.props;
-
-        const audioElement = this.audioElement.current;
-        // Set the playback rate to the playbackRate in our props
-        audioElement.playbackRate = playbackRate;
     }
 
     componentDidMount() {
@@ -72,6 +55,33 @@ class AudioPlayer extends Component {
         };
 
         this.setPlaybackRate();
+    }
+
+    // Will be called whenever the component is updated (e.g., when props change)
+    componentDidUpdate(prevProps) {
+        // Typical usage (don't forget to compare props):
+        if (this.props.playbackRate !== prevProps.playbackRate) {
+            // We've got a new playback rate.
+            this.setPlaybackRate();
+        }
+    }
+
+    setLoaded = () => {
+        this.setState({ loaded: true });
+    }
+
+    setHeadPosition = (position) => {
+        this.setState({ headPosition: position });
+    }
+
+    // We can call this method from lifecycle methods when we need to adjust the playback rate.
+    setPlaybackRate() {
+        // set the initial playback rate to 1.0
+        const { playbackRate = 1.0 } = this.props;
+
+        const audioElement = this.audioElement.current;
+        // Set the playback rate to the playbackRate in our props
+        audioElement.playbackRate = playbackRate;
     }
 
     timeUpdate = () => {
@@ -135,15 +145,6 @@ class AudioPlayer extends Component {
         });
     }
 
-    // Will be called whenever the component is updated (e.g., when props change)
-    componentDidUpdate(prevProps) {
-        // Typical usage (don't forget to compare props):
-        if (this.props.playbackRate !== prevProps.playbackRate) {
-            // We've got a new playback rate.
-            this.setPlaybackRate();
-        }
-    }
-
     flipPlayPauseState = () => {
         this.setState({ play: !this.state.play });
     };
@@ -195,12 +196,12 @@ class AudioPlayer extends Component {
     }
 
     render() {
+
         const { audioLink } = this.props;
         const { initialSpeed, changeSpeed } = this.props;
 
         return (
             <div id="audio-player-container">
-
 
                 <div className="first-row">
                     <div className="CURRENT-TIME"
@@ -217,6 +218,7 @@ class AudioPlayer extends Component {
                     </div>
                 </div>
 
+                {/* Play Button */}
                 <div className="second-row">
                     <div className="PLAY-BUTTON">
                         <img src={this.state.play ? pauseImg : playImg} alt="play button"
@@ -225,7 +227,7 @@ class AudioPlayer extends Component {
                         />
                     </div>
 
-
+                    {/* Timeline, Playhead */}
                     <div className="TIMELINE"
                         id="timeline"
                         onClick={this.movePlayhead}
@@ -241,39 +243,44 @@ class AudioPlayer extends Component {
                     </div>
                 </div>
 
+                {/* Speed, Skip Settings */}
+                {this.state.showAudioSettings ? (
 
-                <div className="third-row">
+                    <div className="third-row">
 
-                    <div className="SKIP-BACKWARD-15">
-                        <img src={skipBackwardImage} alt="skip backward"
-                            id="skip-backward-15"
-                            onClick={this.skipBackward15}
-                        />
-                    </div>
+                        <div className="SKIP-BACKWARD-15">
+                            <img src={skipBackwardImage} alt="skip backward"
+                                id="skip-backward-15"
+                                onClick={this.skipBackward15}
+                            />
+                        </div>
 
-                    <div className="SPEED-SLIDER"
-                        id="speed-slider-container">
-                        <p id="speed-label">SPEED</p>
-                        <input
-                            id="speed-slider"
-                            type="range"
-                            min="1"
-                            max="2.35"
-                            value={initialSpeed}
-                            onChange={changeSpeed}
-                            step=".15"
-                            list="steplist"
-                        />
-                    </div>
+                        <div className="SPEED-SLIDER"
+                            id="speed-slider-container">
+                            <p id="speed-label">SPEED</p>
+                            <input
+                                id="speed-slider"
+                                type="range"
+                                min="1"
+                                max="2.35"
+                                value={initialSpeed}
+                                onChange={changeSpeed}
+                                step=".15"
+                                list="steplist"
+                            />
+                        </div>
 
-                    <div className="SKIP-FORWARD-15">
-                        <img src={skipForwardImage} alt="skip forward"
-                            id="skip-forward-15"
-                            onClick={this.skipForward15}
-                        />
-                    </div>
-                </div>
-
+                        <div className="SKIP-FORWARD-15">
+                            <img src={skipForwardImage} alt="skip forward"
+                                id="skip-forward-15"
+                                onClick={this.skipForward15}
+                            />
+                        </div>
+                    </div>) : (
+                        <></>
+                    )
+                }
+        
                 <audio
                     id="music"
                     src={audioLink}
@@ -282,9 +289,8 @@ class AudioPlayer extends Component {
                 />
 
             </div>
-        );
-    }
+        )}
 }
-
+        
 export default AudioPlayer;
-
+        

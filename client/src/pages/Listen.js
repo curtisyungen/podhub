@@ -193,8 +193,8 @@ class Listen extends Component {
                                 playbackRate={this.state.speed}
                                 changeSpeed={this.changeSpeed}
                                 initialSpeed={this.state.speed}
+                                showAudioSettings={false}
                             />
-                            <button className="btn btn-dark btn-sm" onClick={this.showAudioInNavbar}>Show in Nav</button>
                         </div>
                     </div>
                     <div className="col-md-2 col-xs-0"></div>
@@ -210,13 +210,13 @@ class Listen extends Component {
                         <div className="center-block" id="buttons-listen">
                             <button className="btn btn-primary" onClick={this.handleShowModal}>Share</button>
                             <button className="btn btn-danger" onClick={this.addToFavorites}>Favorite</button>
-                            <button className="btn btn-dark" onClick={this.showPortal}>Open Portal</button>
+                            <button className="btn btn-dark" onClick={this.showAudioInNavbar}>Show in Navbar</button>
                         </div>
                     </div>
                     <div className="col-md-3 col-xs-0"></div>
                 </Row>
 
-                {this.state.showPortal && (
+                {/* {this.state.showPortal && (
                     <Portal>
                         <h4>{this.state.podcastName}</h4>
                         <p>{this.state.episodeName}</p>
@@ -230,7 +230,7 @@ class Listen extends Component {
 
                         <br />
                     </Portal>
-                )}
+                )} */}
 
                 <Modal
                     open={this.state.showModal}
