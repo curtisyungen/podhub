@@ -47,6 +47,10 @@ class AudioPlayer extends Component {
         const audioElement = this.audioElement.current;
         const playhead = this.playhead.current;
 
+        this.setState({
+            play: false
+        });
+
         audioElement.addEventListener('loadedmetadata', () => {
             let durationMinutes = parseInt(audioElement.duration / 60);
             let durationSeconds = parseInt(audioElement.duration % 60);
@@ -70,10 +74,6 @@ class AudioPlayer extends Component {
                 this.setPlaybackRate();
             }
         };
-
-        this.setState({
-            play: false
-        });
 
         this.setPlaybackRate();
     }
