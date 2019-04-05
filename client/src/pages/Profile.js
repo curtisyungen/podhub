@@ -27,6 +27,7 @@ import "./Profile.css";
 class Profile extends Component {
   state = {
     user: [],
+    userIsFollowed: false,
     posts: [],
     numFollowers: 0,
     numFollowing: 0,
@@ -53,6 +54,7 @@ class Profile extends Component {
     this.getPostsOnlyByUser();
     this.getNumFollowers();
     this.getNumFollowing();
+    this.isUserFollowed();
     this.setState({
       user: this.props.location.state.user
     });
@@ -66,6 +68,7 @@ class Profile extends Component {
       this.getPostsOnlyByUser();
       this.getNumFollowers();
       this.getNumFollowing();
+      this.isUserFollowed();
       this.setState({
         user: this.props.location.state.user
       });
@@ -238,7 +241,7 @@ class Profile extends Component {
     });
   };
 
-  
+
   // LIKING AND UNLIKING
   // ===============================================
 
@@ -363,20 +366,86 @@ class Profile extends Component {
   }
 
   // Show pop up with list of users who have liked comment
-  getUsersListCommentLikes = (commentId) =>{
+  getUsersListCommentLikes = (commentId) => {
     API.getUsersLikedComment(commentId)
-      .then(res =>{
-        if(res.data.length === 0){
+      .then(res => {
+        if (res.data.length === 0) {
           this.setState({
-              userListCommentLikes: [],
+            userListCommentLikes: [],
           });
         }
         else {
           this.setState({
-              userListCommentLikes: res.data,
+            userListCommentLikes: res.data,
           });
         }
       });
+  }
+
+  // FOLLOW / UNFOLLOW USER
+  // ===============================================
+
+  isUserFollowed = () => {
+
+    let currUserId = JSON.parse(localStorage.getItem("user")).id;
+
+    API.getUsersFollowed(currUserId)
+      .then(res => {
+
+        let usersFollowed = res.data;
+
+        usersFollowed.forEach(element => {
+          if(currUserId === element.id) {
+
+            this.setState({
+              userIsFollowed: true
+            });
+
+            return;
+          }
+        });
+      });
+  }
+
+  followUser = (id) => {
+
+    let that = this;
+
+    API.followUser(this.state.user.id, id)
+      .then(function (response) {
+
+        var users = that.state.users;
+
+        users.forEach(element => {
+          if (element.id === id) {
+            element.follow = true;
+          }
+        });
+
+        that.setState({ users: users });
+
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+  unFollowUser = (id) => {
+    let that = this;
+    API.unFollowUser(this.props.user.id, id)
+      .then(function (response) {
+        console.log(response);
+        var users = that.state.users;
+        users.forEach(element => {
+          if (element.id === id) {
+            element.follow = false;
+          }
+        });
+        that.setState({ users: users });
+      })
+      .catch((err) =>
+        console.log(err)
+      )
   }
 
 
@@ -416,9 +485,38 @@ class Profile extends Component {
 
                 <div className="col">
 
+                  {/* User Name */}
+
                   <Row>
                     <h2 className="paddingTop userName">{this.props.location.state.user.name}</h2>
                   </Row>
+
+                  {/* Follow Button */}
+
+                  {this.state.userIsFollowed ? (
+                    <button
+                      className="btn btn-outline-light buttonPosition"
+                      onClick={(event) => {
+                        event.preventDefault();
+                        this.unFollowUser(this.state.user.id)
+                      }}
+                    >
+                      Unfollow
+                      </button>
+                  ) : (
+                      <button
+                        className="btn btn-outline-light buttonPosition"
+                        onClick={(event) => {
+                          event.preventDefault();
+                          this.followUser(this.state.user.id)
+                        }}
+                      >
+                        Follow
+                      </button>
+                    )
+                  }
+
+                  {/* User Info: Posts, Followers, Following */}
 
                   <Row>
                     <div className="btn btn-dark" onClick={this.scrollTo}>
@@ -660,7 +758,7 @@ class Profile extends Component {
                             <p className="userComment pl-2 ml-3">{comment.comment}</p>
                           </div>
                           <div className="row comment-third-row">
-                            <div className="col-4 mb-2">
+                            <div className="col-2 mb-2">
                               <a
                                 className="likes ml-4"
                                 onClick={() => this.handleCommentLikeOrUnlike(comment.id)}
@@ -668,23 +766,34 @@ class Profile extends Component {
                                 <FontAwesomeIcon icon="heart" />
                               </a>
 
-                              <Popup
-                                trigger={<div>{comment.numberOfLikes}</div>}
-                                on="hover"
-                                onOpen = {()=> this.getUsersListCommentLikes(comment.id)}
-                                position="top left"
-                                closeOnDocumentClick
-                              >
-                              {this.state.userListCommentLikes.map(user => (
-                                <div>
-                                  <div>{user.name}</div>
-                                  <img src={user.image}  alt="User Icon"/>
-                                </div>
-                              ))
-                              }
-                            </Popup>
-                              
                             </div>
+
+                            <div className="col-2 mb-2">
+                              {comment.numberOfLikes > 0
+                                ?
+                                <Popup
+                                  trigger={<div>{comment.numberOfLikes}</div>}
+                                  on="hover"
+                                  onOpen={() => this.getUsersListCommentLikes(comment.id)}
+                                  position="top left"
+                                  closeOnDocumentClick
+                                  className="popup"
+                                >
+                                  {this.state.userListCommentLikes.map(user => (
+                                    <div className="row" key={user.id}>
+                                      <div className="col-3 m-0">
+                                        <img src={user.image} alt="User Icon" className="userIconPopup rounded border-white" />
+                                      </div>
+                                      <div className="col-9 m-0">
+                                        <p>{user.name}</p>
+                                      </div>
+                                    </div>
+                                  ))}
+                                </Popup>
+                                :
+                                0}
+                            </div>
+
                             {this.state.user.id === comment.commentedBy
                               ?
                               <div className="col-8">
