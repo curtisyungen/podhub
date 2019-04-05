@@ -482,20 +482,25 @@ class Profile extends Component {
 
                   {/* Follow Button */}
 
-                  {this.state.userIsFollowed && (this.state.user.id != JSON.parse(localStorage.getItem("user")).id) ? (
-                    <button
-                      className="btn btn-outline-light buttonPosition"
-                      onClick={(event) => {event.preventDefault(); this.unfollowUser(this.state.user.id)}}
-                    >
-                      Unfollow
-                      </button>
-                  ) : (
+                  {this.state.user.id != JSON.parse(localStorage.getItem("user")).id ? (
+                    this.state.userIsFollowed ? (
                       <button
                         className="btn btn-outline-light buttonPosition"
-                        onClick={(event) => {event.preventDefault(); this.followUser(this.state.user.id)}}
+                        onClick={(event) => {event.preventDefault(); this.unfollowUser(this.state.user.id)}}
                       >
-                        Follow
-                      </button>
+                        Unfollow
+                        </button>
+                    ) : (
+                        <button
+                          className="btn btn-outline-light buttonPosition"
+                          onClick={(event) => {event.preventDefault(); this.followUser(this.state.user.id)}}
+                        >
+                          Follow
+                        </button>
+                      )
+                  
+                    ) : (
+                      <></>
                     )
                   }
 
