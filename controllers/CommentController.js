@@ -1,4 +1,5 @@
 const db = require(`../models/index.js`);
+const Op = db.Sequelize.Op;
 
 /**
  * Class Comment Controller
@@ -10,7 +11,7 @@ class CommentController {
    * @param {*} res
    */
   createComment(req, res) {
-    db.comment.findOrCreate({ where: req.body }).then(comment => res.json(comment));
+    db.comment.create(req.body).then(comment => res.json(comment));
   }
 
   /**
@@ -19,7 +20,7 @@ class CommentController {
    * @param {*} res
    */
   createCommentLikes(req, res) {
-    db.commentLike.findOrCreate({ where: req.body }).then(commentLike => res.json(commentLike));
+    db.commentLike.findOrCreate({ where: req.body }).then(dbCommentLike => res.json(dbCommentLike));
   }
 
 
@@ -63,6 +64,8 @@ class CommentController {
             comment.dataValues.userName = commentuserName[comment.id];
             comment.dataValues.userImage = commentuserImage[comment.id];
           });
+          
+          
           console.log(sortedComments)
           res.json(sortedComments);
         })
@@ -71,6 +74,38 @@ class CommentController {
       })
 
     })
+  }
+
+  /**
+   * Get the users Details who liked comments  <----- Home and Profile Page ----->
+   * @param {*} req
+   * @param {*} res
+   */
+  getUsersLikedComment(req, res) {
+    console.log(req.params.id);
+    db.commentLike
+      .findAll({ where: { commentId: req.params.id } })
+      .then(dbCommentLike => {
+        let userIds = dbCommentLike.map(like => like.userId);
+        console.log(userIds);
+        if(userIds.length){
+        db.user
+          .findAll({
+            where: {
+              id: {
+                [Op.or]: userIds
+              }
+            }
+          })
+          .then(dbUser => {
+            let userDetails = dbUser.map(user=>{ return {id: user.id, name: user.name, image: user.profileImage}})
+            res.json(userDetails);
+          });
+        }
+        else{
+          res.json(userIds);
+        }
+      });
   }
  
   /**
@@ -99,7 +134,7 @@ class CommentController {
    * @param {*} res
    */
   removeCommentLikes(req, res) {
-    db.commentLike.destroy({ where: req.params }).then(dbcommentLikes => res.json(dbcommentLikes));
+    db.commentLike.destroy({ where: req.params }).then(dbCommentLikes => res.json(dbCommentLikes));
   }
   
 
