@@ -403,7 +403,7 @@ class Profile extends Component {
 
         // Look for viewed user's ID in list of followed users
         usersFollowed.forEach(element => {
-          if(this.state.user.id === element.id) {
+          if (this.state.user.id === element.id) {
 
             this.setState({
               userIsFollowed: true
@@ -418,7 +418,7 @@ class Profile extends Component {
   followUser = (userId) => {
 
     let that = this;
-    let currUserId = JSON.parse(localStorage.getItem("user")).id; 
+    let currUserId = JSON.parse(localStorage.getItem("user")).id;
 
     API.followUser(currUserId, userId)
       .then(function (response) {
@@ -434,7 +434,7 @@ class Profile extends Component {
   unfollowUser = (userId) => {
 
     let that = this;
-    let currUserId = JSON.parse(localStorage.getItem("user")).id; 
+    let currUserId = JSON.parse(localStorage.getItem("user")).id;
 
     API.unFollowUser(currUserId, userId)
       .then(function (response) {
@@ -496,20 +496,20 @@ class Profile extends Component {
                     this.state.userIsFollowed ? (
                       <button
                         className="btn btn-outline-light followBtn"
-                        onClick={(event) => {event.preventDefault(); this.unfollowUser(this.state.user.id)}}
+                        onClick={(event) => { event.preventDefault(); this.unfollowUser(this.state.user.id) }}
                       >
                         Unfollow
                         </button>
                     ) : (
                         <button
                           className="btn btn-outline-light followBtn"
-                          onClick={(event) => {event.preventDefault(); this.followUser(this.state.user.id)}}
+                          onClick={(event) => { event.preventDefault(); this.followUser(this.state.user.id) }}
                         >
                           Follow
                         </button>
                       )
-                  
-                    ) : (
+
+                  ) : (
                       <></>
                     )
                   }
@@ -701,133 +701,135 @@ class Profile extends Component {
                         handleShowComments={this.handleShowComments}
                       />
                     ))}
-
-                    <Modal
-                      open={this.state.showLikesModal}
-                      onClose={this.closeLikesModal}
-                      center
-                    >
-                      {this.state.likes.map(like => (
-                        <div
-                          className="row rounded favorite bg-dark text-secondary"
-                          key={like.id}
-                        >
-                          <div className="col-3 mt-0">
-                            <img
-                              src={like.image}
-                              alt="User Icon"
-                              id="userImageLikesModal"
-                              className="rounded border-white"
-                            />
-                          </div>
-                          <div className="col-9">
-                            <p>{like.name}</p>
-                          </div>
-                        </div>
-                      ))}
-                    </Modal>
-
-                    <Modal
-                      open={this.state.showCommentsModal}
-                      onClose={this.closeCommentsModal}
-                      center
-                    >
-                      {this.state.comments.map(comment => (
-                        <div className="commentBox rounded border border-top-0 border-left-0 border-right-0 bg-dark text-secondary" key={comment.id}>
-                          <div
-                            className="row comment-top-row"
-                          >
-                            <div className="col-2 mt-0">
-                              <img
-                                src={comment.userImage}
-                                alt="User Icon"
-                                id="userImageCommentsModal"
-                                className="rounded border-white mt-1"
-                              />
-                            </div>
-                            <div className="col-10">
-                              <p>{comment.userName}&nbsp;|&nbsp; {moment(comment.createdAt).format("LLL")}</p>
-                            </div>
-                          </div>
-
-                          <div
-                            className="row comment-second-row"
-                          >
-                            <p className="userComment pl-2 ml-3">{comment.comment}</p>
-                          </div>
-                          <div className="row comment-third-row">
-                            <div className="col-2 mb-2">
-                              <a
-                                className="likes ml-4"
-                                onClick={() => this.handleCommentLikeOrUnlike(comment.id)}
-                              >
-                                <FontAwesomeIcon icon="heart" />
-                              </a>
-
-                            </div>
-
-                            <div className="col-2 mb-2">
-                              {comment.numberOfLikes > 0
-                                ?
-                                <Popup
-                                  trigger={<div>{comment.numberOfLikes}</div>}
-                                  on="hover"
-                                  onOpen={() => this.getUsersListCommentLikes(comment.id)}
-                                  position="top left"
-                                  closeOnDocumentClick
-                                  className="popup"
-                                >
-                                  {this.state.userListCommentLikes.map(user => (
-                                    <div className="row" key={user.id}>
-                                      <div className="col-3 m-0">
-                                        <img src={user.image} alt="User Icon" className="userIconPopup rounded border-white" />
-                                      </div>
-                                      <div className="col-9 m-0">
-                                        <p>{user.name}</p>
-                                      </div>
-                                    </div>
-                                  ))}
-                                </Popup>
-                                :
-                                0}
-                            </div>
-
-                            {this.state.user.id === comment.commentedBy
-                              ?
-                              <div className="col-8">
-                                <button className="btn btn-sm deleteComment float-right" onClick={() => this.deleteComment(comment.id)}>
-                                  Delete
-                                </button>
-                              </div>
-                              : null
-                            }
-                          </div>
-                        </div>
-                      ))}
-
-                      <form>
-                        <div className="form-group mt-4 bg-dark text-secondary">
-                          <input type="text" className="form-control" id="commentForm"
-                            defaultValue=""
-                            name="currentComment"
-                            placeholder="Enter your comment" ref={this.state.currentComment} onChange={this.handleInputChange} />
-                        </div>
-                        <button type="submit" className="btn btn-light btn-sm mb-2" onClick={(event) => { event.preventDefault(); this.addComment() }
-                        }
-                        >Submit</button>
-                      </form>
-                    </Modal>
-
                   </div>
                 ) : (
                     <div className="col">
-                      <h5 className="text-center">
-                        &nbsp;{this.state.messageNoPodcast}
-                      </h5>
+                      <h5 className="text-center">&nbsp;{this.state.messageNoPodcast}</h5>
                     </div>
                   )}
               </Row>
             </Container>
+
+            {/* Likes Modal */}
+
+            <Modal
+              open={this.state.showLikesModal}
+              onClose={this.closeLikesModal}
+              center
+            >
+              {this.state.likes.map(like => (
+                <div
+                  className="row rounded favorite bg-dark text-secondary"
+                  key={like.id}
+                >
+                  <div className="col-3 mt-0">
+                    <img
+                      src={like.image}
+                      alt="User Icon"
+                      id="userImageLikesModal"
+                      className="rounded border-white"
+                    />
+                  </div>
+                  <div className="col-9">
+                    <p>{like.name}</p>
+                  </div>
+                </div>
+              ))}
+            </Modal>
+
+            {/* Comments Modal */}
+
+            <Modal
+              open={this.state.showCommentsModal}
+              onClose={this.closeCommentsModal}
+              center
+            >
+              {this.state.comments.map(comment => (
+                <div className="commentBox rounded border border-top-0 border-left-0 border-right-0 bg-dark text-secondary" key={comment.id}>
+                  <div
+                    className="row comment-top-row"
+                  >
+                    <div className="col-2 mt-0">
+                      <img
+                        src={comment.userImage}
+                        alt="User Icon"
+                        id="userImageCommentsModal"
+                        className="rounded border-white mt-1"
+                      />
+                    </div>
+                    <div className="col-10">
+                      <p>{comment.userName}&nbsp;|&nbsp; {moment(comment.createdAt).format("LLL")}</p>
+                    </div>
+                  </div>
+
+                  <div
+                    className="row comment-second-row"
+                  >
+                    <p className="userComment pl-2 ml-3">{comment.comment}</p>
+                  </div>
+                  <div className="row comment-third-row">
+                    <div className="col-2 mb-2">
+                      <a
+                        className="likes ml-4"
+                        onClick={() => this.handleCommentLikeOrUnlike(comment.id)}
+                      >
+                        <FontAwesomeIcon icon="heart" />
+                      </a>
+
+                    </div>
+
+                    <div className="col-2 mb-2">
+                      {comment.numberOfLikes > 0
+                        ?
+                        <Popup
+                          trigger={<div>{comment.numberOfLikes}</div>}
+                          on="hover"
+                          onOpen={() => this.getUsersListCommentLikes(comment.id)}
+                          position="top left"
+                          closeOnDocumentClick
+                          className="popup"
+                        >
+                          {this.state.userListCommentLikes.map(user => (
+                            <div className="row" key={user.id}>
+                              <div className="col-3 m-0">
+                                <img src={user.image} alt="User Icon" className="userIconPopup rounded border-white" />
+                              </div>
+                              <div className="col-9 m-0">
+                                <p>{user.name}</p>
+                              </div>
+                            </div>
+                          ))}
+                        </Popup>
+                        :
+                        0}
+                    </div>
+
+                    {this.state.user.id === comment.commentedBy
+                      ?
+                      <div className="col-8">
+                        <button className="btn btn-sm deleteComment float-right" onClick={() => this.deleteComment(comment.id)}>
+                          Delete
+                                </button>
+                      </div>
+                      : null
+                    }
+                  </div>
+                </div>
+              ))}
+
+              <form>
+                <div className="form-group mt-4 bg-dark text-secondary">
+                  <input type="text" className="form-control" id="commentForm"
+                    defaultValue=""
+                    name="currentComment"
+                    placeholder="Enter your comment" ref={this.state.currentComment} onChange={this.handleInputChange} />
+                </div>
+                <button type="submit" className="btn btn-light btn-sm mb-2" onClick={(event) => { event.preventDefault(); this.addComment() }
+                }
+                >Submit</button>
+              </form>
+            </Modal>
+
           </div>
           <div className="col-md-2 col-xs-0"></div>
         </Row>
