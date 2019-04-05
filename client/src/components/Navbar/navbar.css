@@ -28,7 +28,6 @@ button > div {
 .navbarAudioPopup {
     color: black;
     font-size: 10px;
-    height: 25px;
     opacity: 0.50;
     overflow: hidden;
     text-overflow: ellipsis;

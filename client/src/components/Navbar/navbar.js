@@ -143,7 +143,7 @@ class Navbar extends Component {
                     />
                   }
                   on="hover"
-                  position="bottom right"
+                  position="bottom center"
                   className="navbarAudioPopup"
                   closeOnDocumentClick
                 >
