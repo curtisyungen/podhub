@@ -130,7 +130,7 @@ class Navbar extends Component {
             {/* Show Audio Player in Nav Bar */}
 
             {sessionStorage.getItem("audioSettings") && showAudio ? (
-              <div>
+              <div className="navbarAudio">
 
                 <span className="navbarAudioTitle ellipsis">
                   {JSON.parse(sessionStorage.getItem("audioSettings")).podcastName}
