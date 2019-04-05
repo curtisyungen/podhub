@@ -146,6 +146,7 @@ class Navbar extends Component {
                   }
                   on="hover"
                   position="bottom center"
+                  className="navbarAudioPopup"
                   closeDocumentOnClick
                 >
                   <span className="navbarAudioTitle ellipsis">
