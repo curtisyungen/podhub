@@ -13,6 +13,7 @@ button > div {
 
 .hideAudioBtn {
     float: right;
+    position: absolute;
 }
 
 .logoutButton {
