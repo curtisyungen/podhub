@@ -387,15 +387,18 @@ class Profile extends Component {
 
   isUserFollowed = () => {
 
+    // Get current user's ID
     let currUserId = JSON.parse(localStorage.getItem("user")).id;
 
+    // Get list of users followed by current user
     API.getUsersFollowed(currUserId)
       .then(res => {
 
         let usersFollowed = res.data;
 
+        // Look for viewed user's ID in list of followed users
         usersFollowed.forEach(element => {
-          if(currUserId === element.id) {
+          if(this.user.state.id === element.id) {
 
             this.setState({
               userIsFollowed: true
