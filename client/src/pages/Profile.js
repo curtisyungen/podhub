@@ -407,9 +407,7 @@ class Profile extends Component {
       });
   }
 
-  followUser = (event) => {
-
-    event.preventDefault();
+  followUser = () => {
 
     let currUserId = JSON.parse(localStorage.getItem("user")).id; 
 
@@ -424,9 +422,7 @@ class Profile extends Component {
       });
   }
 
-  unFollowUser = (event) => {
-
-    event.preventDefault();
+  unfollowUser = () => {
 
     let currUserId = JSON.parse(localStorage.getItem("user")).id; 
 
@@ -489,14 +485,14 @@ class Profile extends Component {
                   {this.state.userIsFollowed ? (
                     <button
                       className="btn btn-outline-light buttonPosition"
-                      onClick={this.unFollowUser(this.state.user.id)}
+                      onClick={this.unfollowUser}
                     >
                       Unfollow
                       </button>
                   ) : (
                       <button
                         className="btn btn-outline-light buttonPosition"
-                        onClick={this.followUser(this.state.user.id)}
+                        onClick={this.followUser}
                       >
                         Follow
                       </button>
