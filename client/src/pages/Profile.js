@@ -73,6 +73,11 @@ class Profile extends Component {
         user: this.props.location.state.user
       });
     }
+
+    if (prevState.userIsFollowed !== this.state.userIsFollowed) {
+      this.getNumFollowers();
+      this.getNumFollowing();
+    }
   }
 
 
