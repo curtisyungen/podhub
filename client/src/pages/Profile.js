@@ -415,7 +415,7 @@ class Profile extends Component {
     let that = this;
     let currUserId = JSON.parse(localStorage.getItem("user")).id; 
 
-    API.followUser(userId, currUserId)
+    API.followUser(currUserId, userId)
       .then(function (response) {
         that.setState({
           userIsFollowed: true
@@ -431,7 +431,7 @@ class Profile extends Component {
     let that = this;
     let currUserId = JSON.parse(localStorage.getItem("user")).id; 
 
-    API.unFollowUser(userId, currUserId)
+    API.unFollowUser(currUserId, userId)
       .then(function (response) {
         that.setState({
           userIsFollowed: false
