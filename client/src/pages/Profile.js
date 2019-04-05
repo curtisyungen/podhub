@@ -398,7 +398,7 @@ class Profile extends Component {
 
         // Look for viewed user's ID in list of followed users
         usersFollowed.forEach(element => {
-          if(this.user.state.id === element.id) {
+          if(this.state.user.id === element.id) {
 
             this.setState({
               userIsFollowed: true
