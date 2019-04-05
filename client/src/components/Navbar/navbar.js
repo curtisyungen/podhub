@@ -141,24 +141,24 @@ class Navbar extends Component {
                     remove={this.state.remove}
                   />
                 </span>
+              
+                <Popup
+                  trigger={<span><NavbarAudio/></span>}
+                  on="hover"
+                  position="bottom center"
+                  closeOnDocumentClick
+                >
+
+                  <span className="navbarAudioTitle ellipsis">
+                    {JSON.parse(sessionStorage.getItem("audioSettings")).podcastName}
+                    &nbsp;&nbsp;|&nbsp;&nbsp;
+                    {JSON.parse(sessionStorage.getItem("audioSettings")).episodeName}
+
+                    <button className="btn btn-dark btn-sm hideAudioBtn" onClick={hideAudio}>Hide</button>
+                  </span>
+                  
+                </Popup>
               </div>
-
-              <Popup
-                trigger={<span><NavbarAudio/></span>}
-                on="hover"
-                position="bottom center"
-                closeOnDocumentClick
-              >
-
-                <span className="navbarAudioTitle ellipsis">
-                  {JSON.parse(sessionStorage.getItem("audioSettings")).podcastName}
-                  &nbsp;&nbsp;|&nbsp;&nbsp;
-                  {JSON.parse(sessionStorage.getItem("audioSettings")).episodeName}
-
-                  <button className="btn btn-dark btn-sm hideAudioBtn" onClick={hideAudio}>Hide</button>
-                </span>
-                
-              </Popup>
 
               ) : (
                 <></>
