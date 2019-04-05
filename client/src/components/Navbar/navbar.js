@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faUser, faHome } from '@fortawesome/free-solid-svg-icons'
 import Logo from "./purple_back.png";
 import NavbarAudio from "../NavbarAudio/navbarAudio";
+import Popup from "reactjs-popup";
 import "./navbar.css";
 
 library.add(faSearch, faUser, faHome);
@@ -130,16 +131,7 @@ class Navbar extends Component {
             {/* Show Audio Player in Nav Bar */}
 
             {sessionStorage.getItem("audioSettings") && showAudio ? (
-              <div className="navbarAudio">
-
-                <span className="navbarAudioTitle ellipsis">
-                  {JSON.parse(sessionStorage.getItem("audioSettings")).podcastName}
-                  &nbsp;&nbsp;|&nbsp;&nbsp;
-                  {JSON.parse(sessionStorage.getItem("audioSettings")).episodeName}
-
-                  <button className="btn btn-dark btn-sm hideAudioBtn" onClick={hideAudio}>Hide</button>
-                </span>
-
+              <div>
                 <span>
                   <NavbarAudio
                     audioLink={JSON.parse(sessionStorage.getItem("audioSettings")).audioLink}
@@ -149,8 +141,24 @@ class Navbar extends Component {
                     remove={this.state.remove}
                   />
                 </span>
-
               </div>
+
+              <Popup
+                trigger={<span><NavbarAudio/></span>}
+                on="hover"
+                position="bottom center"
+                closeOnDocumentClick
+              >
+
+                <span className="navbarAudioTitle ellipsis">
+                  {JSON.parse(sessionStorage.getItem("audioSettings")).podcastName}
+                  &nbsp;&nbsp;|&nbsp;&nbsp;
+                  {JSON.parse(sessionStorage.getItem("audioSettings")).episodeName}
+
+                  <button className="btn btn-dark btn-sm hideAudioBtn" onClick={hideAudio}>Hide</button>
+                </span>
+                
+              </Popup>
 
               ) : (
                 <></>
