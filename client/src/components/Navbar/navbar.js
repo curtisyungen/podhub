@@ -131,7 +131,6 @@ class Navbar extends Component {
             {/* Show Audio Player in Nav Bar */}
 
             {sessionStorage.getItem("audioSettings") && showAudio ? (
-              <div>
                 <Popup
                   trigger={
                     <NavbarAudio
@@ -144,7 +143,7 @@ class Navbar extends Component {
                   }
                   on="hover"
                   position="bottom center"
-                  className="navbarAudioPopup"
+
                   closeOnDocumentClick
                 >
 
@@ -157,7 +156,6 @@ class Navbar extends Component {
                   </span>
                   
                 </Popup>
-              </div>
 
               ) : (
                 <></>
