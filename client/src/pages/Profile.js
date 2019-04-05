@@ -495,14 +495,14 @@ class Profile extends Component {
                   {this.state.user.id != JSON.parse(localStorage.getItem("user")).id ? (
                     this.state.userIsFollowed ? (
                       <button
-                        className="btn btn-outline-light buttonPosition"
+                        className="btn btn-outline-light followBtn"
                         onClick={(event) => {event.preventDefault(); this.unfollowUser(this.state.user.id)}}
                       >
                         Unfollow
                         </button>
                     ) : (
                         <button
-                          className="btn btn-outline-light buttonPosition"
+                          className="btn btn-outline-light followBtn"
                           onClick={(event) => {event.preventDefault(); this.followUser(this.state.user.id)}}
                         >
                           Follow
