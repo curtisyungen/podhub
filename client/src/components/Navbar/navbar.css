@@ -5,6 +5,12 @@ button > div {
     position: relative;
 }
 
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .findUsers {
     margin-left: 5px;
     margin-top: 5px;

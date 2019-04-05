@@ -132,11 +132,13 @@ class Navbar extends Component {
             {sessionStorage.getItem("audioSettings") && showAudio ? (
               <div>
 
-                <p className="navbarAudioTitle">
+                <span className="navbarAudioTitle ellipsis">
                   {JSON.parse(sessionStorage.getItem("audioSettings")).podcastName}
-                  &nbsp;|&nbsp;
+                  &nbsp;&nbsp;|&nbsp;&nbsp;
                   {JSON.parse(sessionStorage.getItem("audioSettings")).episodeName}
-                </p>
+
+                  <button className="btn btn-dark btn-sm hideAudioBtn" onClick={hideAudio}>Hide</button>
+                </span>
 
                 <span>
                   <NavbarAudio
@@ -147,10 +149,7 @@ class Navbar extends Component {
                     remove={this.state.remove}
                   />
                 </span>
-                
-                <span>
-                  <button className="btn btn-dark btn-sm hideAudioBtn" onClick={hideAudio}>Hide</button>
-                </span>
+
               </div>
 
               ) : (

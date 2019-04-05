@@ -136,7 +136,7 @@ class Listen extends Component {
 
         let audioSettings = {
             showAudio: true,
-            podcastName: this.state.podcasttName,
+            podcastName: this.state.podcastName,
             episodeName: this.state.episodeName,
             audioLink: this.state.audioLink
         }
