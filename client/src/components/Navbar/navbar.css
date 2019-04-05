@@ -12,7 +12,6 @@ button > div {
 }
 
 .hideAudioBtn {
-    float: right;
     font-size: 12px;
 }
 
@@ -26,6 +25,7 @@ button > div {
 }
 
 .navbarAudioPopup {
+    background: gray;
     color: black !important;
     font-size: 12px;
     opacity: 0.85;
