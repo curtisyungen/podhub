@@ -409,6 +409,7 @@ class Profile extends Component {
 
   followUser = (userId) => {
 
+    let that = this;
     let currUserId = JSON.parse(localStorage.getItem("user")).id; 
 
     API.followUser(userId, currUserId)
@@ -424,6 +425,7 @@ class Profile extends Component {
 
   unfollowUser = (userId) => {
 
+    let that = this;
     let currUserId = JSON.parse(localStorage.getItem("user")).id; 
 
     API.unFollowUser(userId, currUserId)
