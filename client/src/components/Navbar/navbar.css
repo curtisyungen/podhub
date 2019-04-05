@@ -13,7 +13,7 @@ button > div {
 
 .hideAudioBtn {
     float: right;
-    position: absolute;
+    font-size: 12px;
 }
 
 .logoutButton {
@@ -23,6 +23,11 @@ button > div {
 .navbar {
     border-bottom: solid 3px rgb(167, 167, 167);
     margin-bottom: 20px; 
+}
+
+.navbarAudioTitle {
+    color: white;
+    font-size: 10px;
 }
 
 .navbarText {

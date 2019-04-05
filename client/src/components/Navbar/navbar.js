@@ -35,6 +35,18 @@ class Navbar extends Component {
     });
   }
 
+  // Get Audio information from Session Storage
+  // For use with Navbar Audio Player
+  getAudioInfo = () => {
+    let audioSettings = JSON.parse(sessionStorage.getItem("audioSettings"));
+
+    this.setState({
+      podcastName: audioSettings.podcastName,
+      episodeName: audioSettings.episodeName,
+      audioLink: audioSettings.audioLink
+    });
+  }
+
   render() {
 
     const { podcastSearch, handleInputChange, hidePodcasts, logout, user, showAudio, hideAudio } = this.props;
@@ -119,6 +131,13 @@ class Navbar extends Component {
 
             {sessionStorage.getItem("audioSettings") && showAudio ? (
               <div>
+
+                <p className="navbarAudioTitle">
+                  {JSON.parse(sessionStorage.getItem("audioSettings")).podcastName}
+                  &nbsp;|&nbsp;
+                  {JSON.parse(sessionStorage.getItem("audioSettings")).episodeName}
+                </p>
+
                 <span>
                   <NavbarAudio
                     audioLink={JSON.parse(sessionStorage.getItem("audioSettings")).audioLink}
