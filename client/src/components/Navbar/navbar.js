@@ -132,18 +132,16 @@ class Navbar extends Component {
 
             {sessionStorage.getItem("audioSettings") && showAudio ? (
               <div>
-                <span className="navbarAudio">
-                  <NavbarAudio
-                    audioLink={JSON.parse(sessionStorage.getItem("audioSettings")).audioLink}
-                    playbackRate={this.state.speed}
-                    changeSpeed={this.changeSpeed}
-                    initialSpeed={this.state.speed}
-                    remove={this.state.remove}
-                  />
-                </span>
-              
                 <Popup
-                  trigger={<span className="navbarAudio"></span>}
+                  trigger={
+                    <NavbarAudio
+                      audioLink={JSON.parse(sessionStorage.getItem("audioSettings")).audioLink}
+                      playbackRate={this.state.speed}
+                      changeSpeed={this.changeSpeed}
+                      initialSpeed={this.state.speed}
+                      remove={this.state.remove}
+                    />
+                  }
                   on="hover"
                   position="bottom right"
                   className="navbarAudioPopup"
