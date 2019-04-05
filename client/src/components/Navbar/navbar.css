@@ -27,11 +27,12 @@ button > div {
 
 .navbarAudioPopup {
     color: black;
-    font-size: 10px;
-    opacity: 0.50;
+    font-size: 12px;
+    opacity: 0.85;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: wrap;
+    width: 300px;
 }
 
 .navbarText {
