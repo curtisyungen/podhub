@@ -409,13 +409,14 @@ class Profile extends Component {
 
   followUser = (userId) => {
 
+    let that = this;
     let currUserId = JSON.parse(localStorage.getItem("user")).id; 
 
     API.followUser(userId, currUserId)
       .then(function (response) {
-        this.setState({
+        that.setState({
           userIsFollowed: true
-        }, () => console.log(this.state));
+        }, () => console.log(that.state));
       })
       .catch((err) => {
         console.log(err);
@@ -424,13 +425,14 @@ class Profile extends Component {
 
   unfollowUser = (userId) => {
 
+    let that = this;
     let currUserId = JSON.parse(localStorage.getItem("user")).id; 
 
     API.unFollowUser(userId, currUserId)
       .then(function (response) {
-        this.setState({
+        that.setState({
           userIsFollowed: false
-        }, () => console.log(this.state));
+        }, () => console.log(that.state));
       })
       .catch((err) =>
         console.log(err)
