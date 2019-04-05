@@ -674,7 +674,8 @@ class Profile extends Component {
               {/* POSTS SECTION */}
 
               <Row>
-                <h4>Posts</h4>
+                <h4 id="postsTitle">Posts</h4>
+
                 {this.state.posts.length ? (
                   <div className="container bg-dark">
                     {this.state.posts.map(post => (
