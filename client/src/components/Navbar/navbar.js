@@ -17,7 +17,7 @@ library.add(faSearch, faUser, faHome);
 class Navbar extends Component {
 
   state = {
-    remove=false,
+    remove: false,
     speed: 1.0
   };
 
