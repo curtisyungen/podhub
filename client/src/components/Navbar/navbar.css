@@ -12,6 +12,7 @@ button > div {
 }
 
 .hideAudioBtn {
+    float: right;
     font-size: 12px;
 }
 
