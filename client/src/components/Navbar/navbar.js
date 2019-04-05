@@ -150,8 +150,8 @@ class Navbar extends Component {
                   closeDocumentOnClick
                 >
                   <span>
-                    <p>{JSON.parse(sessionStorage.getItem("audioSettings")).podcastName}</p>
-                    <p>{JSON.parse(sessionStorage.getItem("audioSettings")).episodeName}</p>
+                    <p className="navbarPopupText">{JSON.parse(sessionStorage.getItem("audioSettings")).podcastName}</p>
+                    <p className="navbarPopupText">{JSON.parse(sessionStorage.getItem("audioSettings")).episodeName}</p>
                     <button className="btn btn-dark btn-sm hideAudioBtn" onClick={hideAudio}>Hide Audio Player</button>
                   </span>
                 </Popup>

@@ -35,6 +35,10 @@ button > div {
     width: 400px;
 }
 
+.navbarPopupText {
+    color: black !important;
+}
+
 .navbarText {
     color: white !important; 
     font-size: 20px;
