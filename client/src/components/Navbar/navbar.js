@@ -118,16 +118,21 @@ class Navbar extends Component {
             {/* Show Audio Player in Nav Bar */}
 
             {sessionStorage.getItem("audioSettings") && showAudio ? (
-              <span>
-                <NavbarAudio
-                  audioLink={JSON.parse(sessionStorage.getItem("audioSettings")).audioLink}
-                  playbackRate={this.state.speed}
-                  changeSpeed={this.changeSpeed}
-                  initialSpeed={this.state.speed}
-                  remove={this.state.remove}
-                />
-                <button className="btn btn-dark btn-sm hideAudioBtn" onClick={hideAudio}>Hide</button>
-              </span>
+              <div>
+                <span>
+                  <NavbarAudio
+                    audioLink={JSON.parse(sessionStorage.getItem("audioSettings")).audioLink}
+                    playbackRate={this.state.speed}
+                    changeSpeed={this.changeSpeed}
+                    initialSpeed={this.state.speed}
+                    remove={this.state.remove}
+                  />
+                </span>
+                
+                <span>
+                  <button className="btn btn-dark btn-sm hideAudioBtn" onClick={hideAudio}>Hide</button>
+                </span>
+              </div>
 
               ) : (
                 <></>
