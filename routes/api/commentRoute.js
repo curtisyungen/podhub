@@ -24,6 +24,13 @@ router.post("/commentLikes", (req, res) => controller.createCommentLikes(req, re
 router.get("/commentedUserLikes/:id", (req, res) => controller.getCommentedUser(req, res));
 
 /**
+ * Route to get users Details who liked comments by commentId from database <<--------------Home Page and User Profile page------------->>
+ * @param {*} req
+ * @param {*} res
+ */
+router.get("/getUsersLikedComment/:id", (req, res) => controller.getUsersLikedComment(req, res));
+
+/**
  * Route to update the existing comment
  * @param {*} req
  * @param {*} res
@@ -42,7 +49,7 @@ router.delete("/:id", (req, res) => controller.removeComment(req, res));
  * @param {*} req
  * @param {*} res
  */
-router.delete("/commentUnlikes/:id", (req, res) => controller.removeCommentLikes(req, res));
+router.delete("/commentUnlikes/:commentId/:userId", (req, res) => controller.removeCommentLikes(req, res));
 
 /**
  * Get Comment likes
