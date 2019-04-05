@@ -27,7 +27,7 @@ import "./Profile.css";
 class Profile extends Component {
   state = {
     user: [],
-    userIsFollowed: false,
+    userIsFollowed: null,
     posts: [],
     numFollowers: 0,
     numFollowing: 0,
@@ -399,7 +399,7 @@ class Profile extends Component {
 
             this.setState({
               userIsFollowed: true
-            });
+            }, () => console.log(this.state));
 
             return;
           }
@@ -407,32 +407,30 @@ class Profile extends Component {
       });
   }
 
-  followUser = () => {
+  followUser = (userId) => {
 
-    let that = this;
     let currUserId = JSON.parse(localStorage.getItem("user")).id; 
 
-    API.followUser(that.state.user.id, currUserId)
+    API.followUser(userId, currUserId)
       .then(function (response) {
         that.setState({
           userIsFollowed: true
-        });
+        }, () => console.log(this.state));
       })
       .catch((err) => {
         console.log(err);
       });
   }
 
-  unfollowUser = () => {
+  unfollowUser = (userId) => {
 
-    let that = this;
     let currUserId = JSON.parse(localStorage.getItem("user")).id; 
 
-    API.unFollowUser(that.state.user.id, currUserId)
+    API.unFollowUser(userId, currUserId)
       .then(function (response) {
         that.setState({
           userIsFollowed: false
-        });
+        }, () => console.log(this.state));
       })
       .catch((err) =>
         console.log(err)
@@ -484,17 +482,17 @@ class Profile extends Component {
 
                   {/* Follow Button */}
 
-                  {this.state.userIsFollowed ? (
+                  {this.state.userIsFollowed && (this.state.user.id != JSON.parse(localStorage.getItem("user")).id) ? (
                     <button
                       className="btn btn-outline-light buttonPosition"
-                      onClick={this.unfollowUser}
+                      onClick={(event) => {event.preventDefault(); this.unfollowUser(this.state.user.id)}}
                     >
                       Unfollow
                       </button>
                   ) : (
                       <button
                         className="btn btn-outline-light buttonPosition"
-                        onClick={this.followUser}
+                        onClick={(event) => {event.preventDefault(); this.followUser(this.state.user.id)}}
                       >
                         Follow
                       </button>
