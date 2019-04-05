@@ -131,37 +131,33 @@ class Navbar extends Component {
             {/* Show Audio Player in Nav Bar */}
 
             {sessionStorage.getItem("audioSettings") && showAudio ? (
-              <span>
-
-                <NavbarAudio
-                  audioLink={JSON.parse(sessionStorage.getItem("audioSettings")).audioLink}
-                  playbackRate={this.state.speed}
-                  changeSpeed={this.changeSpeed}
-                  initialSpeed={this.state.speed}
-                  remove={this.state.remove}
-                />
-                
+              <div>        
                 <Popup
                   trigger={
-                    <span></span>
+                    <span>
+                      <NavbarAudio
+                        audioLink={JSON.parse(sessionStorage.getItem("audioSettings")).audioLink}
+                        playbackRate={this.state.speed}
+                        changeSpeed={this.changeSpeed}
+                        initialSpeed={this.state.speed}
+                        remove={this.state.remove}
+                      />
+                    </span>
                   }
                   on="hover"
                   position="bottom center"
-                  closeOnDocumentClick
+                  closeDocumentOnClick
                 >
-
-                  <span>
+                  <span className="navbarAudioTitle ellipsis">
                     {JSON.parse(sessionStorage.getItem("audioSettings")).podcastName}
                     &nbsp;&nbsp;|&nbsp;&nbsp;
                     {JSON.parse(sessionStorage.getItem("audioSettings")).episodeName}
 
-                    <button className="btn btn-dark btn-sm hideAudioBtn" onClick={hideAudio}>Hide Audio</button>
+                    <button className="btn btn-dark btn-sm hideAudioBtn" onClick={hideAudio}>Hide</button>
                   </span>
-
                 </Popup>
-              </span>
-
-            ) : (
+              </div>
+              ) : (
                 <></>
               )
             }
