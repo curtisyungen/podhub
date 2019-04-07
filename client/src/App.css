@@ -37,3 +37,39 @@ body {
     transform: rotate(360deg);
   }
 }
+
+.popup {
+  background: #747a80;
+  padding: 1.2rem 2rem 0.7rem;
+  border-radius:15px;
+  color: black
+}
+
+.userIconPopup {
+  width: 35px;
+  margin-top: 0 !important
+}
+
+.deleteButtonX:hover{
+  opacity: 0.5;
+}
+
+/* Comments */
+.userComment {
+  max-width: 500px;
+  padding: 0px 20px;
+  word-wrap: break-word;
+}
+
+.commentBox {
+  max-width: 600px;
+}
+
+.standardModal {
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
+.episodeDescription {
+  word-wrap: break-word; 
+ }

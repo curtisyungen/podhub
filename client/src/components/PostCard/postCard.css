@@ -49,7 +49,7 @@
   padding-right: 0.8em;
 }
 
-.comments, .likes, .likesNumber:hover {
+.commentDiv, .likes, .likesNumber:hover {
   cursor: pointer;
 }
 
@@ -105,7 +105,9 @@
 }
 
 #top {
-  border-bottom: 4px solid #020202;
+  border-bottom: 1px solid #020202;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
 }
 
 #second-row-post {
@@ -126,7 +128,7 @@
   margin-bottom: 5px !important;
 }
 
-p#episode-name-home {
+#episode-name-home {
   font-size: 15px;
 }
 
@@ -153,4 +155,14 @@ p#episode-name-home {
 
 .deletePost{
   color: white
+}
+
+.postText:hover {
+  /* text-decoration:none !important;
+  color: rgb(15, 15, 15) !important; */
+  opacity:0.8;
+}
+
+.postText {
+  opacity:1;
 }
