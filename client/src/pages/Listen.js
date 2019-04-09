@@ -163,10 +163,8 @@ class Listen extends Component {
                                 }}
                             >
                                 {this.state.podcastName}
+                                <img src={this.state.podcastLogo} alt="Podcast Logo" id="pod-logo" />
                             </Link>
-                        </div>
-                        <div>
-                            <img src={this.state.podcastLogo} alt="Podcast Logo" id="pod-logo" />
                         </div>
                     </div>
                     <div className="col-md-3 col-xs-0"></div>
