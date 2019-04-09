@@ -59,7 +59,7 @@ class Post extends Component {
             numLikes: this.props.numLikes,
             numComments: this.props.numComents,
             postId: this.props.postId
-        }, () => {console.log("State", this.state)});
+        }, () => { console.log("State", this.state) });
     }
 
     handlePostDelete = () => {
@@ -136,6 +136,8 @@ class Post extends Component {
             <div className="container rounded-0 border-top-0 border-left-0 border-right-0 card text-secondary bg-dark" id="top" >
                 <div className="row" id="post-top-row">
 
+                    {/* USER PROFILE IMAGE / LINK TO PROFILE PAGE */}
+
                     <div className="col-md-1 col-xs-1">
 
                         <Link
@@ -155,58 +157,77 @@ class Post extends Component {
 
                     </div>
 
+                    {/* USER NAME | DATE POSTED */}
+
                     <div className="col-md-10 col-xs-0" id="hide-when-small">
                         <div id="name-and-date">{this.state.userName} &nbsp; <strong>-</strong> &nbsp; {this.state.date}</div>
                     </div>
+
+                    {/* DELETE POST BUTTON */}
+
                     <div className="col-md-1 col-xs-0">
-                        {this.state.userId === JSON.parse(localStorage.getItem("user")).id
-                            ?
+                        {this.state.userId === JSON.parse(localStorage.getItem("user")).id ? (
                             <button
                                 className="btn btn-sm mb-1 float-right deleteButtonX"
                                 onClick={() => this.handlePostDelete(this.state.postId)}>
                                 <img src={Delete} alt="delete" className="size" />
                             </button>
-                            : null
+                        ) : (
+                                null
+                            )
                         }
                     </div>
                 </div>
+
+                {/* PODCAST LOGO / LINK TO EPISODE LIST PAGE */}
 
                 <div className="row" id="second-row-post">
 
                     <div className="col-md-2 col-xs-2 p-0">
                         <div id="img-post">
 
-                            <Link to={{
-                                pathname: "/episodeList",
-                                state: {
-                                    podcastId: this.state.podcastId,
-                                    podcastName: this.state.podcastName,
-                                    podcastLogo: this.state.podcastLogo,
-                                    loadMore: true
-                                }
-                            }}
+                            <Link
+                                to={{
+                                    pathname: "/episodeList",
+                                    state: {
+                                        podcastId: this.state.podcastId,
+                                        podcastName: this.state.podcastName,
+                                        podcastLogo: this.state.podcastLogo,
+                                        loadMore: true
+                                    }
+                                }}
                             >
-                                <span><img id="podcastIcon" src={this.state.podcastLogo} alt="Podcast Logo" className="border-white" /></span>
+                                <span>
+                                    <img
+                                        id="podcastIcon"
+                                        src={this.state.podcastLogo}
+                                        alt="Podcast Logo"
+                                        className="border-white"
+                                    />
+                                </span>
                             </Link>
 
                         </div>
                     </div>
 
+                    {/* POST CONTENT / LINK TO LISTEN PAGE */}
+
                     <div className="col-md-10 col-xs-10 p-0" id="middle-of-post">
 
-                        <Link to={{
-                            pathname: "/listen",
-                            state: {
-                                podcastId: this.state.podcastId,
-                                podcastName: this.state.podcastName,
-                                podcastLogo: this.state.podcastLogo,
-                                episodeId: this.state.episodeId,
-                                episodeName: this.state.episodeName,
-                                date: moment(this.state.date).format("LLL"),
-                                description: this.state.description,
-                                audioLink: this.state.audioLink
-                            }
-                        }}
+                        <Link
+                            to={{
+                                pathname: "/listen",
+                                state: {
+                                    podcastId: this.state.podcastId,
+                                    podcastName: this.state.podcastName,
+                                    podcastLogo: this.state.podcastLogo,
+                                    episodeId: this.state.episodeId,
+                                    episodeName: this.state.episodeName,
+                                    date: moment(this.state.date).format("LLL"),
+                                    description: this.state.description,
+                                    audioLink: this.state.audioLink
+                                }
+                            }}
                         >
                             <div className="postText">
                                 <h4 id="podcast-name-home">{this.state.podcastName}</h4>
@@ -218,6 +239,8 @@ class Post extends Component {
                     </div>
                 </div>
 
+                {/* USER MESSAGE */}
+
                 <div className="row">
                     <div className="col-md-2 col-xs-1"></div>
                     <div className="col-md-8 col-xs-10">
@@ -226,35 +249,47 @@ class Post extends Component {
                     <div className="col-md-2 col-xs-1"></div>
                 </div>
 
+                {/* LIKES AND COMMENTS */}
+
                 <div className="row pb-1">
                     <div className="col-md text-center col-sm-2">
+
+                        {/* LIKES */}
+
                         <div className="likesDiv">
                             <a
                                 className="likes"
                                 onClick={() => this.handleLikeOrUnlike(this.state.postId)}
                             >
-                                <i className="fas fa-heart animated" onClick={(e) => {
-                                    var targ = e.target;
-                                    targ.classList.add("bounce");
-                                    setTimeout(() => { targ.classList.remove("bounce") }, 1000)
-                                }}
+                                {/* HEART ANIMATION */}
 
-                                ></i>
+                                <i
+                                    className="fas fa-heart animated"
+                                    onClick={(e) => {
+                                        var targ = e.target;
+                                        targ.classList.add("bounce");
+                                        setTimeout(() => { targ.classList.remove("bounce") }, 1000)
+                                    }}
+                                >
+                                </i>
                             </a>
+
                             <a
                                 className="likesNumber"
                                 onClick={() => this.handleShowLikes(this.state.postId)}
                             >
-                                {this.state.likes}
+                                {this.state.numLikes}
                             </a>
                         </div>
+
+                        {/* COMMENTS */}
 
                         <div className="commentDiv">
                             <a
                                 className="comments"
                                 onClick={() => this.handleShowComments(this.state.postId)}
                             >
-                                <FontAwesomeIcon icon="comment" /> &nbsp; {this.state.comments}
+                                <FontAwesomeIcon icon="comment" /> &nbsp; {this.state.numComments}
                             </a>
                         </div>
                     </div>
