@@ -58,20 +58,15 @@ class Post extends Component {
             userMessage: this.props.userMessage,
             numLikes: this.props.numLikes,
             numComments: this.props.numComments,
-            postId: this.props.postId,
-            updateParentState: this.props.updateParentState
+            postId: this.props.postId
         }, () => { console.log("State", this.state) });
-    }
-
-    updateParentState = () => {
-        return this.props.updateParentState;
     }
 
     handlePostDelete = () => {
         let that = this;
         API.handlePostDelete(this.state.postId)
             .then(function() {
-                that.updateParentState();
+                that.props.updateParentState();
             });
     }
 
