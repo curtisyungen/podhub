@@ -4,7 +4,7 @@ import Container from "../components/Container/container";
 import Row from "../components/Row/row";
 import API from "../utils/API";
 import PostCard from "../components/PostCard/postCard";
-import Delete from "./delete.png";
+import Delete from "./delete-1.png";
 import moment from "moment";
 import Modal from "react-responsive-modal";
 import User from "../components/User/user";
@@ -252,9 +252,12 @@ class Profile extends Component {
 
   // Likes or unlikes a post
   handleLikeOrUnlike = (postId) => {
-    API.likePost(postId, this.state.user.id).then(res => {
+
+    let currUserId = JSON.parse(localStorage.getItem("user")).id;
+
+    API.likePost(postId, currUserId).then(res => {
       if (res.data[1] === false) {
-        API.unlikePost(postId, this.state.user.id).then(res => {
+        API.unlikePost(postId, currUserId).then(res => {
           this.getPostsOnlyByUser();
         })
       } else {
@@ -342,9 +345,12 @@ class Profile extends Component {
 
   // Likes or unlikes a comment
   handleCommentLikeOrUnlike = (commentId) => {
-    API.likeComment(commentId, this.state.user.id).then(res => {
+
+    let currUserId = JSON.parse(localStorage.getItem("user")).id;
+
+    API.likeComment(commentId, currUserId).then(res => {
       if (res.data[1] === false) {
-        API.unlikeComment(commentId, this.state.user.id).then(res => {
+        API.unlikeComment(commentId, currUserId).then(res => {
           this.handleShowComments(this.state.currentPostId);
         });
       } else {
@@ -390,6 +396,7 @@ class Profile extends Component {
   // FOLLOW / UNFOLLOW USER
   // ===============================================
 
+  // Checks to see if user is following viewed user
   isUserFollowed = () => {
 
     // Get current user's ID
@@ -407,7 +414,7 @@ class Profile extends Component {
 
             this.setState({
               userIsFollowed: true
-            }, () => console.log(this.state));
+            });
 
             return;
           }
@@ -415,6 +422,7 @@ class Profile extends Component {
       });
   }
 
+  // Follows user if follow button is clicked
   followUser = (userId) => {
 
     let that = this;
@@ -424,13 +432,14 @@ class Profile extends Component {
       .then(function (response) {
         that.setState({
           userIsFollowed: true
-        }, () => console.log(that.state));
+        });
       })
       .catch((err) => {
         console.log(err);
       });
   }
 
+  // Unfollows user if unfollow button is clicked
   unfollowUser = (userId) => {
 
     let that = this;
@@ -440,7 +449,7 @@ class Profile extends Component {
       .then(function (response) {
         that.setState({
           userIsFollowed: false
-        }, () => console.log(that.state));
+        });
       })
       .catch((err) =>
         console.log(err)
@@ -517,7 +526,7 @@ class Profile extends Component {
                   {/* User Info: Posts, Followers, Following */}
 
                   <Row>
-                    <div className="btn btn-dark" onClick={this.scrollTo}>
+                    <div className="btn btn-dark postsBtn" onClick={this.scrollTo}>
                       Posts:&nbsp; {this.state.posts.length}
                     </div>
 
@@ -528,12 +537,14 @@ class Profile extends Component {
                       Followers:&nbsp;{this.state.numFollowers}
                     </button>
 
+                    {/* FOLLOWERS MODAL */}
+
                     <Modal
                       open={this.state.showFollowersModal}
                       onClose={this.hideFollowersModal}
-                    // classNames={{ modal: "customModal", overlay: "customOverlay", closeButton: "customCloseButton" }}
+                      classNames={{ modal: "followersModal"}}
                     >
-                      <h2>Users following {this.props.location.state.user.name}</h2>
+                      <h4 className="modalTitle">Followers</h4>
 
                       {this.state.followers.length ? (
                         <List>
@@ -543,7 +554,7 @@ class Profile extends Component {
                                 userId={user.id}
                                 userName={user.name}
                                 userImage={user.image}
-                                handler={null}
+                                handler={this.hideFollowersModal}
                               />
                             </div>
                           )}
@@ -570,9 +581,9 @@ class Profile extends Component {
                     <Modal
                       open={this.state.showFollowingModal}
                       onClose={this.hideFollowersModal}
-                    // classNames={{ modal: "customModal", overlay: "customOverlay", closeButton: "customCloseButton" }}
+                      classNames={{ modal: "followersModal"}}
                     >
-                      <h2>Users {this.props.location.state.user.name} follows</h2>
+                      <h4 className="modalTitle">Following</h4>
 
                       {this.state.following.length ? (
                         <List>
@@ -582,7 +593,7 @@ class Profile extends Component {
                                 userId={user.id}
                                 userName={user.name}
                                 userImage={user.profileImage}
-                                handler={null}
+                                handler={this.hideFollowersModal}
                               />
                             </div>
                           )}
@@ -605,13 +616,13 @@ class Profile extends Component {
               {/* FAVORITES SECTION */}
 
               <h4 id="favoritesTitle">Favorites</h4>
-              <div className="row favorites rounded">
+              <div className="row favorites rounded bg-dark">
 
                 {this.state.favorites.length ? (
                   <Container>
                     {this.state.favorites.map(favorite => (
 
-                      <div className="row rounded favorite bg-dark text-secondary" key={favorite.id}>
+                      <div className="row rounded favorite text-secondary" key={favorite.id}>
                         <div className="col-2 py-5 px-3 pad">
                           <Link to={{
                             pathname: "/episodeList",
@@ -627,19 +638,7 @@ class Profile extends Component {
                           </Link>
                         </div>
 
-                        <div className="col-10 p-1">
-                          {JSON.parse(localStorage.getItem("user")).id === favorite.userId
-                            ?
-                            <div>
-                              <button
-                                className="btn btn-sm mb-1 float-right"
-                                onClick={() => this.handleFavoriteDelete(favorite.id)}
-                              >
-                                <img src={Delete} alt="delete" className="size" />
-                              </button>
-                            </div>
-                            : null
-                          }
+                        <div className="col-7 p-1">
                           <Link
                             to={{
                               pathname: "/listen",
@@ -659,8 +658,22 @@ class Profile extends Component {
                             <h4>{favorite.podcastName}</h4>
                             <p className="favoriteDescription">{favorite.episodeName}</p>
                           </Link>
-
                         </div>
+                        <div className="col-3 pr-4">
+                          {JSON.parse(localStorage.getItem("user")).id === favorite.userId
+                            ?
+                            <div>
+                              <button
+                                className="btn btn-sm mb-1 float-right deleteButtonX"
+                                onClick={() => this.handleFavoriteDelete(favorite.id)}
+                              >
+                                <img src={Delete} alt="delete" className="size" />
+                              </button>
+                            </div>
+                            : null
+                          }
+                        </div>
+
                       </div>
                     ))}
                   </Container>
@@ -673,11 +686,10 @@ class Profile extends Component {
 
               {/* POSTS SECTION */}
 
-              <Row>
-                <h4 id="postsTitle">Posts</h4>
-
+              <h4 id="postsTitle">Posts</h4>
+              <div className="row posts rounded bg-dark">
                 {this.state.posts.length ? (
-                  <div className="container bg-dark">
+                  <Container>
                     {this.state.posts.map(post => (
                       <PostCard
                         key={post.id}
@@ -702,135 +714,140 @@ class Profile extends Component {
                         handleShowComments={this.handleShowComments}
                       />
                     ))}
-                  </div>
+
+                    {/* LIKES MODAL */}
+
+                    <Modal
+                      open={this.state.showLikesModal}
+                      onClose={this.closeLikesModal}
+                      classNames={{ modal: "standardModal"}}
+                      center
+                    >
+                      {this.state.likes.map(like => (
+                        <div
+                          className="row rounded favorite bg-dark text-secondary"
+                          key={like.id}
+                        >
+                          <div className="col-3 mt-0">
+                            <img
+                              src={like.image}
+                              alt="User Icon"
+                              id="userImageLikesModal"
+                              className="rounded border-white"
+                            />
+                          </div>
+                          <div className="col-9">
+                            <p>{like.name}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </Modal>
+
+                    {/* COMMENTS MODAL */}
+
+                    <Modal
+                      open={this.state.showCommentsModal}
+                      onClose={this.closeCommentsModal}
+                      classNames={{ modal: "standardModal"}}
+                      center
+                    >
+                      {this.state.comments.map(comment => (
+                        <div className="commentBox rounded border border-top-0 border-left-0 border-right-0 bg-dark text-secondary" key={comment.id}>
+                          <div
+                            className="row comment-top-row"
+                          >
+                            <div className="col-2 mt-0">
+                              <img
+                                src={comment.userImage}
+                                alt="User Icon"
+                                id="userImageCommentsModal"
+                                className="rounded border-white mt-1"
+                              />
+                            </div>
+                            <div className="col-10">
+                              <p>{comment.userName}&nbsp;|&nbsp; {moment(comment.createdAt).format("LLL")}</p>
+                            </div>
+                          </div>
+
+                          <div
+                            className="row comment-second-row"
+                          >
+                            <p className="userComment pl-2 ml-3">{comment.comment}</p>
+                          </div>
+                          <div className="row comment-third-row">
+                            <div className="col-2 mb-2">
+                              <a
+                                className="likes ml-4"
+                                onClick={() => this.handleCommentLikeOrUnlike(comment.id)}
+                              >
+                                <FontAwesomeIcon icon="heart" />
+                              </a>
+
+                            </div>
+
+                            <div className="col-2 mb-2">
+                              {comment.numberOfLikes > 0
+                                ?
+                                <Popup
+                                  trigger={<div>{comment.numberOfLikes}</div>}
+                                  on="hover"
+                                  onOpen={() => this.getUsersListCommentLikes(comment.id)}
+                                  position="top left"
+                                  closeOnDocumentClick
+                                  className="popup"
+                                >
+                                  {this.state.userListCommentLikes.map(user => (
+                                    <div className="row" key={user.id}>
+                                      <div className="col-3 m-0">
+                                        <img src={user.image} alt="User Icon" className="userIconPopup rounded border-white" />
+                                      </div>
+                                      <div className="col-9 m-0">
+                                        <p>{user.name}</p>
+                                      </div>
+                                    </div>
+                                  ))}
+                                </Popup>
+                                :
+                                0}
+                            </div>
+
+                            {this.state.user.id === comment.commentedBy
+                              ?
+                              <div className="col-8">
+                                <button className="btn btn-sm deleteComment float-right" onClick={() => this.deleteComment(comment.id)}>
+                                  Delete
+                                </button>
+                              </div>
+                              : null
+                            }
+                          </div>
+                        </div>
+                      ))}
+
+                      <form>
+                        <div className="form-group mt-4 bg-dark text-secondary">
+                          <input type="text" className="form-control" id="commentForm"
+                            defaultValue=""
+                            name="currentComment"
+                            placeholder="Enter your comment" ref={this.state.currentComment} onChange={this.handleInputChange} />
+                        </div>
+                        <button type="submit" className="btn btn-light btn-sm mb-2" onClick={(event) => { event.preventDefault(); this.addComment() }
+                        }
+                        >Submit</button>
+                      </form>
+                    </Modal>
+                  </Container>
+
                 ) : (
                     <div className="col">
-                      <h5 className="text-center">&nbsp;{this.state.messageNoPodcast}</h5>
+                      <h5 className="text-center">
+                        &nbsp;{this.state.messageNoPodcast}
+                      </h5>
                     </div>
                   )}
-              </Row>
+
+              </div>
             </Container>
-
-            {/* Likes Modal */}
-
-            <Modal
-              open={this.state.showLikesModal}
-              onClose={this.closeLikesModal}
-              center
-            >
-              {this.state.likes.map(like => (
-                <div
-                  className="row rounded favorite bg-dark text-secondary"
-                  key={like.id}
-                >
-                  <div className="col-3 mt-0">
-                    <img
-                      src={like.image}
-                      alt="User Icon"
-                      id="userImageLikesModal"
-                      className="rounded border-white"
-                    />
-                  </div>
-                  <div className="col-9">
-                    <p>{like.name}</p>
-                  </div>
-                </div>
-              ))}
-            </Modal>
-
-            {/* Comments Modal */}
-
-            <Modal
-              open={this.state.showCommentsModal}
-              onClose={this.closeCommentsModal}
-              center
-            >
-              {this.state.comments.map(comment => (
-                <div className="commentBox rounded border border-top-0 border-left-0 border-right-0 bg-dark text-secondary" key={comment.id}>
-                  <div
-                    className="row comment-top-row"
-                  >
-                    <div className="col-2 mt-0">
-                      <img
-                        src={comment.userImage}
-                        alt="User Icon"
-                        id="userImageCommentsModal"
-                        className="rounded border-white mt-1"
-                      />
-                    </div>
-                    <div className="col-10">
-                      <p>{comment.userName}&nbsp;|&nbsp; {moment(comment.createdAt).format("LLL")}</p>
-                    </div>
-                  </div>
-
-                  <div
-                    className="row comment-second-row"
-                  >
-                    <p className="userComment pl-2 ml-3">{comment.comment}</p>
-                  </div>
-                  <div className="row comment-third-row">
-                    <div className="col-2 mb-2">
-                      <a
-                        className="likes ml-4"
-                        onClick={() => this.handleCommentLikeOrUnlike(comment.id)}
-                      >
-                        <FontAwesomeIcon icon="heart" />
-                      </a>
-
-                    </div>
-
-                    <div className="col-2 mb-2">
-                      {comment.numberOfLikes > 0
-                        ?
-                        <Popup
-                          trigger={<div>{comment.numberOfLikes}</div>}
-                          on="hover"
-                          onOpen={() => this.getUsersListCommentLikes(comment.id)}
-                          position="top left"
-                          closeOnDocumentClick
-                          className="popup"
-                        >
-                          {this.state.userListCommentLikes.map(user => (
-                            <div className="row" key={user.id}>
-                              <div className="col-3 m-0">
-                                <img src={user.image} alt="User Icon" className="userIconPopup rounded border-white" />
-                              </div>
-                              <div className="col-9 m-0">
-                                <p>{user.name}</p>
-                              </div>
-                            </div>
-                          ))}
-                        </Popup>
-                        :
-                        0}
-                    </div>
-
-                    {this.state.user.id === comment.commentedBy
-                      ?
-                      <div className="col-8">
-                        <button className="btn btn-sm deleteComment float-right" onClick={() => this.deleteComment(comment.id)}>
-                          Delete
-                                </button>
-                      </div>
-                      : null
-                    }
-                  </div>
-                </div>
-              ))}
-
-              <form>
-                <div className="form-group mt-4 bg-dark text-secondary">
-                  <input type="text" className="form-control" id="commentForm"
-                    defaultValue=""
-                    name="currentComment"
-                    placeholder="Enter your comment" ref={this.state.currentComment} onChange={this.handleInputChange} />
-                </div>
-                <button type="submit" className="btn btn-light btn-sm mb-2" onClick={(event) => { event.preventDefault(); this.addComment() }
-                }
-                >Submit</button>
-              </form>
-            </Modal>
-
           </div>
           <div className="col-md-2 col-xs-0"></div>
         </Row>
