@@ -31,8 +31,8 @@ class Post extends Component {
             description: "",
             audioLink: "",
             userMessage: "",
-            likes: 0,
-            comments: 0,
+            likes: [],
+            comments: [],
             postId: "",
             showLikesModal: false,
             showCommentsModal: false
@@ -89,12 +89,42 @@ class Post extends Component {
         });
     }
 
+    // Closes Likes modal
+    closeLikesModal = () => {
+        this.setState({
+            showLikesModal: false
+        });
+    };
+
     handleShowComments = () => {
         API.getComments(this.state.postId).then(res => {
             this.setState({
                 comments: res.data,
                 showCommentsModal: true,
             });
+        });
+    }
+
+    // Close modal that displays comments
+    closeCommentsModal = () => {
+        this.setState({
+            showCommentsModal: false
+        });
+    };
+
+    // Likes or unlikes a comment
+    handleCommentLikeOrUnlike = (commentId) => {
+
+        let currUserId = JSON.parse(localStorage.getItem("user")).id;
+
+        API.likeComment(commentId, currUserId).then(res => {
+            if (res.data[1] === false) {
+                API.unlikeComment(commentId, currUserId).then(res => {
+                    this.handleShowComments(this.state.currentPostId);
+                });
+            } else {
+                this.handleShowComments(this.state.currentPostId);
+            }
         });
     }
 
