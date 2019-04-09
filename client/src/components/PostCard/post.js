@@ -85,6 +85,7 @@ class Post extends Component {
         API.likePost(this.state.postId, currUserId).then(res => {
 
             // console.log(res.data);
+            console.log(that);
 
             if (res.data[1] === false) {
                 API.unlikePost(this.state.postId, currUserId)
