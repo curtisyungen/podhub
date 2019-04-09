@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch, faUser, faHome, faCog } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faUser, faHome } from '@fortawesome/free-solid-svg-icons'
 import Logo from "./purple_back.png";
 import NavbarAudio from "../NavbarAudio/navbarAudio";
 import Popup from "reactjs-popup";
 import "./navbar.css";
 
-library.add(faSearch, faUser, faHome, faCog);
+library.add(faSearch, faUser, faHome);
 
 // NAVBAR COMPONENT
 // Rendered by App.js on every page
@@ -190,10 +190,6 @@ class Navbar extends Component {
                 >
                   Logout
                 </button>
-              </li>
-
-              <li className="nav-item">
-                <FontAwesomeIcon icon="cog" />
               </li>
 
             </ul>
