@@ -500,7 +500,7 @@ class Post extends Component {
 
                                 {/* COMMENT DELETE BUTTON */}
 
-                                {this.state.user.id === comment.commentedBy
+                                {this.state.userId === comment.commentedBy
                                     ?
                                     <div className="col-8">
                                         <button
