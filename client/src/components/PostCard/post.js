@@ -73,19 +73,26 @@ class Post extends Component {
     // Likes or unlikes a post
     handleLikeOrUnlike = () => {
         let currUserId = JSON.parse(localStorage.getItem("user")).id;
+        let that = this;
 
         API.likePost(this.state.postId, currUserId).then(res => {
+
+            // LIKE POST
             if (res.data[1] === false) {
                 API.unlikePost(this.state.postId, currUserId)
                     .then(response => {
                         this.setState({
-                            likes: res.data
+                            likes: res.data,
+                            numLikes: res.data.length
                         });
                     });
             }
+
+            // UNLIKE POST
             else {
                 this.setState({
-                    likes: res.data
+                    likes: res.data,
+                    numLikes: res.data.length
                 });
             }
         });
@@ -137,11 +144,16 @@ class Post extends Component {
         let currUserId = JSON.parse(localStorage.getItem("user")).id;
 
         API.likeComment(commentId, currUserId).then(res => {
+
+            // UNLIKE COMMENT
             if (res.data[1] === false) {
                 API.unlikeComment(commentId, currUserId).then(res => {
                     this.handleShowComments(this.state.currentPostId);
                 });
-            } else {
+            } 
+            
+            // LIKE COMMENT
+            else {
                 this.handleShowComments(this.state.currentPostId);
             }
         });
