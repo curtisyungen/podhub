@@ -91,14 +91,14 @@ class Post extends Component {
             if (res.data[1] === false) {
                 API.unlikePost(this.state.postId, currUserId)
                     .then(res => {
-                        that.setState({
-                            refreshState: !that.state.refreshState
+                        this.setState({
+                            refreshState: !this.state.refreshState
                         });
                     });
             }
             else {
-                that.setState({
-                    refreshState: !that.state.refreshState
+                this.setState({
+                    refreshState: !this.state.refreshState
                 });
             }
         });
