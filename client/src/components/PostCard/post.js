@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Delete from "../../pages/delete-1.png"
 import Modal from "react-responsive-modal";
 import Popup from "reactjs-popup";
-import { Link } from "react-router-dom";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faComment, faHeart } from '@fortawesome/free-solid-svg-icons'
