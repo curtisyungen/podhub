@@ -57,13 +57,16 @@ class Post extends Component {
             audioLink: this.props.audioLink,
             userMessage: this.props.userMessage,
             numLikes: this.props.numLikes,
-            numComments: this.props.numComents,
+            numComments: this.props.numComments,
             postId: this.props.postId
         }, () => { console.log("State", this.state) });
     }
 
     handlePostDelete = () => {
-        API.handlePostDelete(this.state.postId);
+        API.handlePostDelete(this.state.postId)
+            .then(function() {
+                return this.props.updateParentState;
+            });
     }
 
     handleLikeOrUnlike = () => {
