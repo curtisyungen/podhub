@@ -151,7 +151,7 @@ class Listen extends Component {
                     <div className="col-md-3 col-xs-0"></div>
                     <div className="col-md-6 col-xs-12 text-center" id="first-row-listen">
                         <div id="pod-name">
-                            {this.state.podcastName}
+                            {this.state.podcastName}<br/>
                             <Link
                                 to={{
                                     pathname: "/episodeList",
