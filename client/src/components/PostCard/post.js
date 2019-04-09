@@ -77,26 +77,13 @@ class Post extends Component {
 
         API.likePost(this.state.postId, currUserId).then(res => {
 
-            // LIKE POST
             if (res.data[1] === false) {
-                API.unlikePost(this.state.postId, currUserId)
-                    .then(response => {
-                        console.log("Res", res);
-                        console.log("Response", response);
-                        this.setState({
-                            likes: res.data,
-                            numLikes: response.data
-                        });
-                    });
+                API.unlikePost(this.state.postId, currUserId);
             }
 
-            // UNLIKE POST
-            else {
-                this.setState({
-                    likes: res.data,
-                    numLikes: response.data
-                });
-            }
+            this.setState({
+                likes: res.data
+            }, () => {that.updateParentState()});
         });
     }
 
