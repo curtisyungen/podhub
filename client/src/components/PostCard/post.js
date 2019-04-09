@@ -32,7 +32,9 @@ class Post extends Component {
             audioLink: "",
             userMessage: "",
             likes: [],
+            numLikes: 0,
             comments: [],
+            numComments: 0,
             postId: "",
             showLikesModal: false,
             showCommentsModal: false
@@ -54,8 +56,8 @@ class Post extends Component {
             description: this.props.description,
             audioLink: this.props.audioLink,
             userMessage: this.props.userMessage,
-            likes: this.props.likes,
-            comments: this.props.comments,
+            numLikes: this.props.numLikes,
+            numComments: this.props.numComents,
             postId: this.props.postId
         }, () => {console.log("State", this.state)});
     }
@@ -257,9 +259,10 @@ class Post extends Component {
                         </div>
                     </div>
                 </div>
+
                 {/* LIKES MODAL */}
 
-                <Modal
+                {/* <Modal
                     open={this.state.showLikesModal}
                     onClose={this.closeLikesModal}
                     classNames={{ modal: "standardModal" }}
@@ -283,11 +286,11 @@ class Post extends Component {
                             </div>
                         </div>
                     ))}
-                </Modal>
+                </Modal> */}
 
                 {/* COMMENTS MODAL */}
 
-                <Modal
+                {/* <Modal
                     open={this.state.showCommentsModal}
                     onClose={this.closeCommentsModal}
                     classNames={{ modal: "standardModal" }}
@@ -377,7 +380,7 @@ class Post extends Component {
                         }
                         >Submit</button>
                     </form>
-                </Modal>
+                </Modal> */}
             </div>
         );
     }
