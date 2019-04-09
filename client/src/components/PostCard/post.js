@@ -16,6 +16,7 @@ library.add(faHeart);
 class Post extends Component {
 
     constructor(props) {
+
         super(props);
 
         this.state = {
@@ -49,6 +50,7 @@ class Post extends Component {
             userName: this.props.userName,
             userImage: this.props.userImage,
             date: this.props.date,
+            postId: this.props.postId,
             podcastId: this.props.podcastId,
             podcastName: this.props.podcastName,
             podcastLogo: this.props.podcastLogo,
@@ -58,8 +60,7 @@ class Post extends Component {
             audioLink: this.props.audioLink,
             userMessage: this.props.userMessage,
             numLikes: this.props.numLikes,
-            numComments: this.props.numComments,
-            postId: this.props.postId
+            numComments: this.props.numComments
         });
     }
 
