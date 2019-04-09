@@ -85,7 +85,7 @@ class Post extends Component {
                         console.log("Response", response);
                         this.setState({
                             likes: res.data,
-                            numLikes: res.data.length
+                            numLikes: response.data
                         });
                     });
             }
@@ -94,7 +94,7 @@ class Post extends Component {
             else {
                 this.setState({
                     likes: res.data,
-                    numLikes: res.data.length
+                    numLikes: response.data
                 });
             }
         });
@@ -319,7 +319,8 @@ class Post extends Component {
                                 className="comments"
                                 onClick={() => this.handleShowComments(this.state.postId)}
                             >
-                                <FontAwesomeIcon icon="comment" /> &nbsp; {this.state.numComments}
+                                <FontAwesomeIcon icon="comment" /> &nbsp; 
+                                {this.state.numComments}
                             </a>
                         </div>
                     </div>
