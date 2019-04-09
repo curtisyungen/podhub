@@ -63,9 +63,10 @@ class Post extends Component {
     }
 
     handlePostDelete = () => {
+        let that = this;
         API.handlePostDelete(this.state.postId)
             .then(function() {
-                return this.props.updateParentState;
+                return that.props.updateParentState;
             });
     }
 
