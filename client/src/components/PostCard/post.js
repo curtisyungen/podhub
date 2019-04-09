@@ -40,7 +40,8 @@ class Post extends Component {
             userListCommentLikes: [],
             postId: "",
             showLikesModal: false,
-            showCommentsModal: false
+            showCommentsModal: false,
+            refreshState: false,
         }
     }
 
@@ -79,22 +80,22 @@ class Post extends Component {
 
     // Likes or unlikes a post
     handleLikeOrUnlike = () => {
+
         let currUserId = JSON.parse(localStorage.getItem("user")).id;
         let that = this;
 
         API.likePost(this.state.postId, currUserId).then(res => {
 
-            // console.log(res.data);
             console.log(that);
 
             if (res.data[1] === false) {
                 API.unlikePost(this.state.postId, currUserId)
                     .then(res => {
-                        that.props.updateParentState();
+                        that.state.refreshState = !that.state.refreshState;
                     });
             }
             else {
-                that.props.updateParentState();
+                that.state.refreshState = !that.state.refreshState;
             }
         });
     }
