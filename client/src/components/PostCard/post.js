@@ -83,10 +83,11 @@ class Post extends Component {
 
             this.setState({
                 likes: res.data
-            }, () => {that.props.updateParentState()});
+            }, () => {this.props.updateParentState()});
         });
     }
 
+    // Shows modal that displays users who have liked a post
     handleShowLikes = () => {
         API.getLikes(this.state.postId).then(res => {
             if (res.data.length === 0) {
