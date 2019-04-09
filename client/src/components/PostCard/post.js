@@ -214,6 +214,17 @@ class Post extends Component {
         });
     }
 
+
+    // OTHER
+    // ===============================================
+    
+    handleInputChange = event => {
+        const { name, value } = event.target;
+        this.setState({
+          [name]: value
+        });
+      };
+
     render() {
         return (
             <div className="container rounded-0 border-top-0 border-left-0 border-right-0 card text-secondary bg-dark" id="top" >

@@ -32,13 +32,6 @@ class Profile extends Component {
     favorites: [],
     posts: [],
     currentPostId: "",
-    likes: [],
-    showLikesModal: false,
-    comments: [],
-    currentComment: "",
-    showCommentsModal: false,
-    commentLikes: [],
-    userListCommentLikes: [],
     followers: [],
     following: [],
     showFollowersModal: false,
@@ -235,6 +228,7 @@ class Profile extends Component {
       this.getFavorites();
     });
   };
+
 
   // FOLLOW / UNFOLLOW USER
   // ===============================================
@@ -464,26 +458,41 @@ class Profile extends Component {
               <div className="row favorites rounded bg-dark">
 
                 {this.state.favorites.length ? (
+
                   <Container>
+
                     {this.state.favorites.map(favorite => (
 
+                      // FAVORITES: PODCAST LOGO, LINK TO EPISODE LIST PAGE
                       <div className="row rounded favorite text-secondary" key={favorite.id}>
                         <div className="col-2 py-5 px-3 pad">
-                          <Link to={{
-                            pathname: "/episodeList",
-                            state: {
-                              podcastId: favorite.podcastId,
-                              podcastName: favorite.podcastName,
-                              podcastLogo: favorite.podcastLogo,
-                              loadMore: true
-                            }
-                          }}
+
+                          <Link 
+                            to={{
+                              pathname: "/episodeList",
+                              state: {
+                                podcastId: favorite.podcastId,
+                                podcastName: favorite.podcastName,
+                                podcastLogo: favorite.podcastLogo,
+                                loadMore: true
+                              }
+                            }}
                           >
-                            <span><img id="podcastIcon" src={favorite.podcastLogo} alt="Podcast Logo" className="border-white favoriteIcon" /></span>
+                            <span>
+                              <img 
+                                id="podcastIcon" 
+                                src={favorite.podcastLogo} 
+                                alt="Podcast Logo" 
+                                className="border-white favoriteIcon" 
+                              />
+                            </span>
                           </Link>
+
                         </div>
 
+                        {/* FAVORITES: BODY, LINK TO LISTEN PAGE */}
                         <div className="col-7 p-1">
+
                           <Link
                             to={{
                               pathname: "/listen",
@@ -503,7 +512,10 @@ class Profile extends Component {
                             <h4>{favorite.podcastName}</h4>
                             <p className="favoriteDescription">{favorite.episodeName}</p>
                           </Link>
+                          
                         </div>
+
+                        {/* FAVORITES: DELETE BUTTON */}
                         <div className="col-3 pr-4">
                           {JSON.parse(localStorage.getItem("user")).id === favorite.userId
                             ?
@@ -569,8 +581,11 @@ class Profile extends Component {
               </div>
             </Container>
           </div>
+
           <div className="col-md-2 col-xs-0"></div>
+
         </Row>
+
       </div>
 
     );
