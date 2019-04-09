@@ -42,7 +42,6 @@ class Post extends Component {
     }
 
     componentWillMount = () => {
-        console.log("Props", this.props);
         this.setState({
             userId: this.props.userId,
             userName: this.props.userName,
@@ -59,9 +58,10 @@ class Post extends Component {
             numLikes: this.props.numLikes,
             numComments: this.props.numComments,
             postId: this.props.postId
-        }, () => { console.log("State", this.state) });
+        });
     }
 
+    // Deletes a post and updates parent state
     handlePostDelete = () => {
         let that = this;
         API.handlePostDelete(this.state.postId)
@@ -70,12 +70,23 @@ class Post extends Component {
             });
     }
 
+    // Likes or unlikes a post
     handleLikeOrUnlike = () => {
         let currUserId = JSON.parse(localStorage.getItem("user")).id;
 
         API.likePost(this.state.postId, currUserId).then(res => {
             if (res.data[1] === false) {
-                API.unlikePost(this.state.postId, currUserId);
+                API.unlikePost(this.state.postId, currUserId)
+                    .then(response => {
+                        this.setState({
+                            likes: res.data
+                        });
+                    });
+            }
+            else {
+                this.setState({
+                    likes: res.data
+                });
             }
         });
     }
@@ -103,6 +114,7 @@ class Post extends Component {
         });
     };
 
+    // Opens modal that displays comments
     handleShowComments = () => {
         API.getComments(this.state.postId).then(res => {
             this.setState({
@@ -301,7 +313,7 @@ class Post extends Component {
 
                 {/* LIKES MODAL */}
 
-                {/* <Modal
+                <Modal
                     open={this.state.showLikesModal}
                     onClose={this.closeLikesModal}
                     classNames={{ modal: "standardModal" }}
@@ -325,7 +337,7 @@ class Post extends Component {
                             </div>
                         </div>
                     ))}
-                </Modal> */}
+                </Modal>
 
                 {/* COMMENTS MODAL */}
 
