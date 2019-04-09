@@ -14,8 +14,8 @@ class UserController {
   getUsersList(req, res){
     db.user.findAll({
       order: [
-        "name", "ASC"
-      ]
+        ['name', 'ASC'],
+      ],
     }).then(function(users){
       for( var i = 0; i < users.length; i++){ 
         if ( users[i].id == req.params.id) {
