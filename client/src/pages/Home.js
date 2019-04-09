@@ -16,7 +16,8 @@ class Home extends Component {
 
     state = {
         posts: [],
-        message: ""
+        message: "",
+        user: null
     };
 
     componentDidMount() {
@@ -79,8 +80,8 @@ class Home extends Component {
                                     <Post
                                         key={post.id}
                                         userId={post.postedBy}
-                                        userName={this.state.user.name}
-                                        userImage={this.state.user.profileImage}
+                                        userName={post.userName}
+                                        userImage={post.userImage}
                                         date={moment(post.createdAt).format("LLL")}
                                         podcastId={post.podcastId}
                                         podcastName={post.podcastName}
