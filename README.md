@@ -1,5 +1,5 @@
 # PodHub
-Social media site for Podcast listeners. **Check it out** [**here**](https://arcane-river-90894.herokuapp.com/).
+Social media site for Podcast listeners. **Check it out** [**here**](https://podhub.herokuapp.com/).
 
 ![image](/index-image.PNG)
 
@@ -19,13 +19,19 @@ Social media site for Podcast listeners. **Check it out** [**here**](https://arc
 - https://twitter.com
 
 **Technology used:**
--   Node.js
--   JavaScript
--   React.js
--   jQuery
--   Bootstrap
--   Heroku
--   MySQl
+- ReactJS
+- Bootstrap
+- JavaScript
+- Listen Notes for Podcast search
+- Node.js
+- React Router
+- Express
+- Axios
+- MySQL
+- Sequelize
+- Heroku
+- Google OAuth
+- Moment.js
 
 **Resources and Roles:**
 - [User Stories](https://github.com/vaheminasyan2/podhub/issues/4)
@@ -33,9 +39,9 @@ Social media site for Podcast listeners. **Check it out** [**here**](https://arc
 - [Data model](client/src/images/dataModel.PNG)
 - [Wireframes](https://1drv.ms/p/s!AkMTYKGdBmB89j5d6o3VEjW0GOC_)
 - Contributors: 
-  - Curtis & Vahe: React
-  - Meri & Lia: Back End
-  - Carson & Joseph: UI and APIs
+  - Curtis & Vahe: Front-end, React, user authentication
+  - Meri & Lia: Back-end, Node, MySql
+  - Carson & Joseph: UI desgin, APIs
 
 ## GitHub best practices and guidance:
 1.  Checkout the master branch using `git checkout master`
