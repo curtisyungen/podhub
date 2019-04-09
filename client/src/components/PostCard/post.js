@@ -64,7 +64,7 @@ class Post extends Component {
     }
 
     updateParentState = () => {
-        this.props.updateParentState() || this.state.updateParentState;
+        return this.props.updateParentState;
     }
 
     handlePostDelete = () => {
