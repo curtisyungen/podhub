@@ -59,7 +59,7 @@ class Post extends Component {
             numLikes: this.props.numLikes,
             numComments: this.props.numComments,
             postId: this.props.postId,
-            updateParentState: this.props.updateParentState;
+            updateParentState: this.props.updateParentState
         }, () => { console.log("State", this.state) });
     }
 
