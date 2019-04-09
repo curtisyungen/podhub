@@ -40,6 +40,7 @@ class Post extends Component {
     }
 
     componentWillMount = () => {
+        console.log("Props", this.props);
         this.setState({
             userId: this.props.userId,
             userName: this.props.userName,
@@ -56,7 +57,7 @@ class Post extends Component {
             likes: this.props.likes,
             comments: this.props.comments,
             postId: this.props.postId
-        });
+        }, () => {console.log("State", this.state)});
     }
 
     handlePostDelete = () => {
