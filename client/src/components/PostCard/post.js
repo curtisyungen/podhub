@@ -34,6 +34,7 @@ class Post extends Component {
             likes: [],
             numLikes: 0,
             comments: [],
+            currentComment: "",
             numComments: 0,
             postId: "",
             showLikesModal: false,
@@ -125,9 +126,8 @@ class Post extends Component {
 
     // Add a comment to post
     addComment = () => {
-        API.addComment(this.state.currentComment, this.state.currentPostId, this.state.user.id).then(res => {
-            // console.log(res.data)
-            this.getPostsOnlyByUser();
+        API.addComment(this.state.currentComment, this.state.postId, this.state.userId).then(res => {
+            this.props.updateParentState();
             this.handleShowComments();
             this.closeCommentsModal();
         })
@@ -136,7 +136,7 @@ class Post extends Component {
     // Delete a comment from post
     deleteComment = (commentId) => {
         API.deleteComment(commentId).then(res => {
-            this.getPostsOnlyByUser();
+            this.props.updateParentState();
             this.handleShowComments();
             this.closeCommentsModal();
         });
@@ -200,30 +200,31 @@ class Post extends Component {
     // Show pop up with list of users who have liked comment
     getUsersListCommentLikes = (commentId) => {
         API.getUsersLikedComment(commentId)
-        .then(res => {
-            if (res.data.length === 0) {
-            this.setState({
-                userListCommentLikes: [],
+            .then(res => {
+                if (res.data.length === 0) {
+                    this.setState({
+                        userListCommentLikes: [],
+                    });
+                }
+                else {
+                    this.setState({
+                        userListCommentLikes: res.data,
+                    });
+                }
             });
-            }
-            else {
-            this.setState({
-                userListCommentLikes: res.data,
-            });
-            }
-        });
     }
 
 
     // OTHER
     // ===============================================
-    
+
     handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({
-          [name]: value
+            [name]: value
         });
-      };
+    };
+
 
     render() {
         return (
@@ -427,7 +428,13 @@ class Post extends Component {
                     center
                 >
                     {this.state.comments.map(comment => (
-                        <div className="commentBox rounded border border-top-0 border-left-0 border-right-0 bg-dark text-secondary" key={comment.id}>
+                        <div
+                            className="commentBox rounded border border-top-0 border-left-0 border-right-0 bg-dark text-secondary"
+                            key={comment.id}
+                        >
+
+                            {/* PREVIOUS COMMENTS */}
+
                             <div
                                 className="row comment-top-row"
                             >
@@ -449,6 +456,9 @@ class Post extends Component {
                             >
                                 <p className="userComment pl-2 ml-3">{comment.comment}</p>
                             </div>
+
+                            {/* COMMENT LIKE BUTTON */}
+
                             <div className="row comment-third-row">
                                 <div className="col-2 mb-2">
                                     <a
@@ -459,6 +469,8 @@ class Post extends Component {
                                     </a>
 
                                 </div>
+
+                                {/* COMMENT LIKES POP UP */}
 
                                 <div className="col-2 mb-2">
                                     {comment.numberOfLikes > 0
@@ -486,12 +498,18 @@ class Post extends Component {
                                         0}
                                 </div>
 
+                                {/* COMMENT DELETE BUTTON */}
+
                                 {this.state.user.id === comment.commentedBy
                                     ?
                                     <div className="col-8">
-                                        <button className="btn btn-sm deleteComment float-right" onClick={() => this.deleteComment(comment.id)}>
+                                        <button
+                                            className="btn btn-sm deleteComment float-right"
+                                            onClick={() =>
+                                                this.deleteComment(comment.id)
+                                            }>
                                             Delete
-                                </button>
+                                        </button>
                                     </div>
                                     : null
                                 }
@@ -499,16 +517,29 @@ class Post extends Component {
                         </div>
                     ))}
 
+                    {/* COMMENT ENTRY FORM */}
+
                     <form>
                         <div className="form-group mt-4 bg-dark text-secondary">
                             <input type="text" className="form-control" id="commentForm"
                                 defaultValue=""
                                 name="currentComment"
-                                placeholder="Enter your comment" ref={this.state.currentComment} onChange={this.handleInputChange} />
+                                placeholder="Enter your comment"
+                                ref={this.state.currentComment}
+                                onChange={this.handleInputChange}
+                            />
                         </div>
-                        <button type="submit" className="btn btn-light btn-sm mb-2" onClick={(event) => { event.preventDefault(); this.addComment() }
-                        }
-                        >Submit</button>
+                        <button
+                            type="submit"
+                            className="btn btn-light btn-sm mb-2"
+                            onClick={(event) => {
+                                event.preventDefault();
+                                this.addComment()
+                            }
+                            }
+                        >
+                            Submit
+                        </button>
                     </form>
                 </Modal>
             </div>
