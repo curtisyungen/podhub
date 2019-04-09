@@ -36,6 +36,7 @@ class Post extends Component {
             comments: [],
             currentComment: "",
             numComments: 0,
+            userListCommentLikes: [],
             postId: "",
             showLikesModal: false,
             showCommentsModal: false
