@@ -229,167 +229,12 @@ class Profile extends Component {
     });
   }
 
-  // DELETE POST if delete button is clicked
-  handlePostDelete = (id) => {
-    API.handlePostDelete(id)
-      .then(res => {
-        this.getPostsOnlyByUser();
-      });
-  };
-
   // DELETE FAVORITE if delete button is clicked
   handleFavoriteDelete = id => {
     API.handleFavoriteDelete(id).then(res => {
       this.getFavorites();
     });
   };
-
-
-  // LIKING AND UNLIKING
-  // ===============================================
-
-  // Likes or unlikes a post
-  handleLikeOrUnlike = (postId) => {
-
-    let currUserId = JSON.parse(localStorage.getItem("user")).id;
-
-    API.likePost(postId, currUserId).then(res => {
-      if (res.data[1] === false) {
-        API.unlikePost(postId, currUserId).then(res => {
-          this.getPostsOnlyByUser();
-        })
-      } else {
-        this.getPostsOnlyByUser();
-      }
-    });
-  }
-
-  //Opens the Likes modal
-  //Executed upon user clicking heart icon on page
-  handleShowLikes = (postId) => {
-    API.getLikes(postId).then(res => {
-      if (res.data.length === 0) {
-        this.setState({
-          showLikesModal: false
-        });
-      }
-      else {
-        this.setState({
-          likes: res.data,
-          showLikesModal: true
-        });
-      }
-    });
-  };
-
-  // Closes Likes modal
-  closeLikesModal = () => {
-    this.setState({
-      showLikesModal: false
-    });
-  };
-
-
-  // COMMENTS
-  // ===============================================
-
-  // Add a comment to post
-  addComment = () => {
-    API.addComment(this.state.currentComment, this.state.currentPostId, this.state.user.id).then(res => {
-      // console.log(res.data)
-      this.getPostsOnlyByUser();
-      this.handleShowComments();
-      this.closeCommentsModal();
-    })
-  }
-
-  // Delete a comment from post
-  deleteComment = (commentId) => {
-    API.deleteComment(commentId).then(res => {
-      this.getPostsOnlyByUser();
-      this.handleShowComments();
-      this.closeCommentsModal();
-    });
-  };
-
-  // Show modal that displays comments
-  handleShowComments = postId => {
-    this.setState({
-      currentPostId: postId
-    });
-    API.getComments(postId).then(res => {
-      if (res.data.length === 0) {
-        this.setState({
-          comments: res.data,
-          showCommentsModal: true,
-        });
-      }
-      else {
-        this.setState({
-          comments: res.data,
-          showCommentsModal: true,
-          currentPostId: postId
-        });
-      }
-    });
-  };
-
-  // Close modal that displays comments
-  closeCommentsModal = () => {
-    this.setState({
-      showCommentsModal: false
-    });
-  };
-
-  // Likes or unlikes a comment
-  handleCommentLikeOrUnlike = (commentId) => {
-
-    let currUserId = JSON.parse(localStorage.getItem("user")).id;
-
-    API.likeComment(commentId, currUserId).then(res => {
-      if (res.data[1] === false) {
-        API.unlikeComment(commentId, currUserId).then(res => {
-          this.handleShowComments(this.state.currentPostId);
-        });
-      } else {
-        this.handleShowComments(this.state.currentPostId);
-      }
-    });
-  }
-
-  // Show modal that displays likes for comment
-  handleShowCommentsLikes = (commentId) => {
-    API.getLikes(commentId).then(res => {
-      if (res.data.length === 0) {
-        this.setState({
-          showLikesModal: false
-        });
-      }
-      else {
-        this.setState({
-          commentLikes: res.data,
-          showLikesModal: true
-        });
-      }
-    });
-  }
-
-  // Show pop up with list of users who have liked comment
-  getUsersListCommentLikes = (commentId) => {
-    API.getUsersLikedComment(commentId)
-      .then(res => {
-        if (res.data.length === 0) {
-          this.setState({
-            userListCommentLikes: [],
-          });
-        }
-        else {
-          this.setState({
-            userListCommentLikes: res.data,
-          });
-        }
-      });
-  }
 
   // FOLLOW / UNFOLLOW USER
   // ===============================================
@@ -575,6 +420,8 @@ class Profile extends Component {
                     >
                       Following:&nbsp;{this.state.numFollowing}
                     </button>
+
+                    {/* FOLLOWING MODAL */}
 
                     <Modal
                       open={this.state.showFollowingModal}

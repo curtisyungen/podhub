@@ -65,10 +65,14 @@ class Post extends Component {
     handlePostDelete = () => {
         let that = this;
         API.handlePostDelete(this.state.postId)
-            .then(function() {
+            .then(function () {
                 that.props.updateParentState();
             });
     }
+
+
+    // LIKING / UNLIKING
+    // ===============================================
 
     // Likes or unlikes a post
     handleLikeOrUnlike = () => {
@@ -77,7 +81,7 @@ class Post extends Component {
 
         API.likePost(this.state.postId, currUserId).then(res => {
 
-            console.log(res.data);
+            // console.log(res.data);
 
             if (res.data[1] === false) {
                 API.unlikePost(this.state.postId, currUserId)
@@ -88,11 +92,6 @@ class Post extends Component {
             else {
                 that.props.updateParentState();
             }
-
-            // this.setState({
-            //     likes: res.data,
-            //     numLikes: res.data.length - 1
-            // });
         });
     }
 
@@ -117,6 +116,29 @@ class Post extends Component {
     closeLikesModal = () => {
         this.setState({
             showLikesModal: false
+        });
+    };
+
+
+    // COMMENTS
+    // ===============================================
+
+    // Add a comment to post
+    addComment = () => {
+        API.addComment(this.state.currentComment, this.state.currentPostId, this.state.user.id).then(res => {
+            // console.log(res.data)
+            this.getPostsOnlyByUser();
+            this.handleShowComments();
+            this.closeCommentsModal();
+        })
+    }
+
+    // Delete a comment from post
+    deleteComment = (commentId) => {
+        API.deleteComment(commentId).then(res => {
+            this.getPostsOnlyByUser();
+            this.handleShowComments();
+            this.closeCommentsModal();
         });
     };
 
@@ -149,11 +171,45 @@ class Post extends Component {
                 API.unlikeComment(commentId, currUserId).then(res => {
                     this.handleShowComments(this.state.currentPostId);
                 });
-            } 
-            
+            }
+
             // LIKE COMMENT
             else {
                 this.handleShowComments(this.state.currentPostId);
+            }
+        });
+    }
+
+    // Show modal that displays likes for comment
+    handleShowCommentsLikes = (commentId) => {
+        API.getLikes(commentId).then(res => {
+            if (res.data.length === 0) {
+                this.setState({
+                    showLikesModal: false
+                });
+            }
+            else {
+                this.setState({
+                    commentLikes: res.data,
+                    showLikesModal: true
+                });
+            }
+        });
+    }
+
+    // Show pop up with list of users who have liked comment
+    getUsersListCommentLikes = (commentId) => {
+        API.getUsersLikedComment(commentId)
+        .then(res => {
+            if (res.data.length === 0) {
+            this.setState({
+                userListCommentLikes: [],
+            });
+            }
+            else {
+            this.setState({
+                userListCommentLikes: res.data,
+            });
             }
         });
     }
@@ -316,7 +372,7 @@ class Post extends Component {
                                 className="comments"
                                 onClick={() => this.handleShowComments(this.state.postId)}
                             >
-                                <FontAwesomeIcon icon="comment" /> &nbsp; 
+                                <FontAwesomeIcon icon="comment" /> &nbsp;
                                 {this.state.numComments}
                             </a>
                         </div>
@@ -353,7 +409,7 @@ class Post extends Component {
 
                 {/* COMMENTS MODAL */}
 
-                {/* <Modal
+                <Modal
                     open={this.state.showCommentsModal}
                     onClose={this.closeCommentsModal}
                     classNames={{ modal: "standardModal" }}
@@ -443,7 +499,7 @@ class Post extends Component {
                         }
                         >Submit</button>
                     </form>
-                </Modal> */}
+                </Modal>
             </div>
         );
     }
