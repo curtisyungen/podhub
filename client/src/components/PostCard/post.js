@@ -83,7 +83,7 @@ class Post extends Component {
 
             this.setState({
                 likes: res.data
-            }, () => {that.updateParentState()});
+            }, () => {that.props.updateParentState()});
         });
     }
 
