@@ -703,9 +703,10 @@ class Profile extends Component {
                         description={post.description}
                         audioLink={post.audioLink}
                         userMessage={post.userMessage}
-                        likes={post.numberOfLikes}
-                        comments={post.numberOfComments}
+                        numLikes={post.numberOfLikes}
+                        numComments={post.numberOfComments}
                         postId={post.id}
+                        updateParentState={this.getPostsOnlyByUser}
                       />
                     ))}
                   </Container>
