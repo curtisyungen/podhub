@@ -28,6 +28,7 @@ class Profile extends Component {
     userIsFollowed: null,
     aboutMe: "My name is Curtis Yungen.",
     editAboutMe: false,
+    newAboutMe: "",
     posts: [],
     numFollowers: 0,
     numFollowing: 0,
@@ -171,8 +172,9 @@ class Profile extends Component {
 
   saveAboutMe = () => {
     this.setState({
-      aboutMe: "",
-      editAboutMe: false
+      aboutMe: this.state.newAboutMe,
+      editAboutMe: false,
+      newAboutMe: ""
     });
   }
 
@@ -492,7 +494,7 @@ class Profile extends Component {
                   <Container>
                     <form>
                       <textarea
-                        onSubmit={this.saveAboutMe}
+                        ref={this.state.newAboutMe}
                         value={this.state.aboutMe}
                       >
                         {this.state.aboutMe}
@@ -500,6 +502,10 @@ class Profile extends Component {
 
                       <button
                         className="btn btn-success btn-sm saveAboutMe"
+                        onClick={(event) => {
+                          event.preventDefault();
+                          this.saveAboutMe();
+                        }}
                         type="submit"
                       >Save</button>
                     </form>
