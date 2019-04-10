@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Container from "../components/Container/container";
-import API from "../utils/API";
+import API from "../../utils/API";
 import "./aboutMe.css";
 
 class AboutMe extends Component {
