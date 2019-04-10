@@ -164,20 +164,28 @@ class Profile extends Component {
       });
   };
 
+  // Toggles state that allows user to edit About Me section
   editAboutMe = () => {
     this.setState({
       editAboutMe: true
     });
   }
 
+  // Gets new About Me text entered by user
   newAboutMeText = (event) => {
-    
     this.setState({
       newAboutMeText: event.target.value
     }, () => {console.log(this.state.newAboutMeText);});
   }
 
+  // Saves new about me text entered by user
   saveAboutMe = () => {
+
+    // API.saveAboutMe(this.state.userId, this.state.newAboutMeText)
+    //   .then(res => {
+
+    //   });
+
     this.setState({
       aboutMe: this.state.newAboutMeText,
       editAboutMe: false
@@ -500,6 +508,7 @@ class Profile extends Component {
                   <Container>
                     <form>
                       <textarea
+                        className="aboutMeTextarea"
                         onChange={this.newAboutMeText}
                         value={this.state.newAboutMe}
                       >

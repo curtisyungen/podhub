@@ -157,4 +157,12 @@ h4 {
 .editAboutMe,
 .saveAboutMe {
   float: right;
+  margin-right: 0;
+}
+
+.aboutMeTextarea {
+  background: lightgray;
+  border-radius: 15px;
+  padding: 5px;
+  width: 100%;
 }
