@@ -17,6 +17,7 @@ class AboutMe extends Component {
     }
 
     componentDidMount = () => {
+        console.log(this.props);
         this.setState({
             user: this.props.location.state.user
         }, () => {this.getAboutMe()});
@@ -75,7 +76,7 @@ class AboutMe extends Component {
                         <div>
                             {this.state.aboutMe}
 
-                            {JSON.parse(localStorage.getItem("user")).id === this.state.user.id ? (
+                            {JSON.parse(localStorage.getItem("user")).id === JSON.parse(localStorage.getItem("user")).id ? (
                                 <button
                                 className="btn btn-dark btn-sm editAboutMe"
                                 onClick={this.editAboutMe}
