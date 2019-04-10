@@ -80,7 +80,7 @@ class AboutMe extends Component {
                     {!this.state.editMode ? (
 
                         // SHOW ABOUT ME
-                        <div>
+                        <div id="showAboutMe">
                             {this.state.aboutMe}
 
                             {JSON.parse(localStorage.getItem("user")).id === this.props.user.id ? (
@@ -97,7 +97,7 @@ class AboutMe extends Component {
                     ) : (
 
                         // EDIT ABOUT ME
-                        <form>
+                        <form id="editAboutMe">
 
                             {/* TEXT INPUT BOX */}
 
