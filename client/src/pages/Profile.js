@@ -28,7 +28,7 @@ class Profile extends Component {
     userIsFollowed: null,
     aboutMe: "My name is Curtis Yungen.",
     editAboutMe: false,
-    newAboutMeText: "",
+    newAboutMeText: null,
     posts: [],
     numFollowers: 0,
     numFollowing: 0,
@@ -171,8 +171,6 @@ class Profile extends Component {
   }
 
   newAboutMeText = (event) => {
-    event.preventDefault();
-
     this.setState({
       newAboutMeText: event.target.value
     });
