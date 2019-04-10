@@ -64,9 +64,16 @@ class AboutMe extends Component {
         });
     }
 
+    // Cancels about me edit without saving changes
+    cancelAboutMe = () => {
+        this.setState({
+            editMode:false
+        });
+    }
+
     render() {
         return (
-            <Container>
+            <span>
                 <h4 id="aboutMeTitle">About Me</h4>
                 <div className="row aboutMe rounded bg-dark">
 
@@ -76,7 +83,7 @@ class AboutMe extends Component {
                         <div>
                             {this.state.aboutMe}
 
-                            {JSON.parse(localStorage.getItem("user")).id === this.props.user.id ? (
+                            {JSON.parse(localStorage.getItem("user")).id === JSON.parse(localStorage.getItem("user")).id ? (
                                 <button
                                 className="btn btn-dark btn-sm editAboutMe"
                                 onClick={this.editAboutMe}
@@ -109,10 +116,19 @@ class AboutMe extends Component {
                             >
                             Save
                             </button>
+                            <button
+                                className="btn btn-danger btn-sm cancelAboutMe"
+                                onClick={(event) => {
+                                    event.preventDefault();
+                                    this.cancelAboutMe();
+                                }}
+                            >
+                            Cancel
+                            </button>
                         </form>
                     )}
                 </div>
-            </Container>
+            </span>
         );
     }
 }

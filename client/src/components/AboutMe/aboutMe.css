@@ -1,10 +1,12 @@
 .aboutMeTextarea {
   background: rgb(75, 75, 75);
   border-radius: 5px;
+  color: white;
   padding: 5px;
   width: 100%;
 }
 
+.cancelAboutMe, 
 .editAboutMe,
 .saveAboutMe {
   float: right;
