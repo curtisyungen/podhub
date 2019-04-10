@@ -17,7 +17,6 @@ class AboutMe extends Component {
     }
 
     componentDidMount = () => {
-        console.log(this.props);
         this.setState({
             user: this.props.user
         }, () => {this.getAboutMe()});
@@ -103,6 +102,7 @@ class AboutMe extends Component {
 
                             <textarea
                                 className="aboutMeTextarea"
+                                maxLength="500"
                                 onChange={this.setNewAboutMe}
                                 value={this.state.newText}
                             >

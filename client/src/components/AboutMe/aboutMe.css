@@ -11,6 +11,8 @@
     border-radius: 5px;
     color: white;
     padding: 5px;
+    text-overflow: scroll;
+    white-space: wrap;
     width: 100%;
 }
 
