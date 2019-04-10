@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Container from "../components/Container/container";
+import Container from "../Container/container";
 import API from "../../utils/API";
 import "./aboutMe.css";
 
