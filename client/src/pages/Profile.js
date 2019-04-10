@@ -26,7 +26,7 @@ class Profile extends Component {
   state = {
     user: [],
     userIsFollowed: null,
-    aboutMe: "My name is " + this.state.user.name,
+    aboutMe: "My name is " + this.props.location.state.user.userName,
     editAboutMe: false,
     newAboutMeText: null,
     posts: [],
