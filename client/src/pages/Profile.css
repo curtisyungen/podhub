@@ -82,7 +82,6 @@ a:hover {
   width: 100px;
 }
 
-#aboutMeTitle,
 #favoritesTitle, 
 #postsTitle {
   font-weight: 550;
@@ -152,17 +151,4 @@ h4 {
 
 .postsBtn {
   cursor: pointer;
-}
-
-.editAboutMe,
-.saveAboutMe {
-  float: right;
-  margin-right: 0;
-}
-
-.aboutMeTextarea {
-  background: rgb(75, 75, 75);
-  border-radius: 5px;
-  padding: 5px;
-  width: 100%;
 }

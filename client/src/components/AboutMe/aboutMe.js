@@ -47,7 +47,7 @@ class AboutMe extends Component {
     setNewAboutMe = (event) => {
         this.setState({
             newText: event.target.value
-        }, () => { console.log(this.state.newText); });
+        });
     }
 
     // Saves new about me text entered by user
@@ -83,7 +83,7 @@ class AboutMe extends Component {
                         <div>
                             {this.state.aboutMe}
 
-                            {JSON.parse(localStorage.getItem("user")).id === JSON.parse(localStorage.getItem("user")).id ? (
+                            {JSON.parse(localStorage.getItem("user")).id === this.props.user.id ? (
                                 <button
                                 className="btn btn-dark btn-sm editAboutMe"
                                 onClick={this.editAboutMe}
@@ -98,6 +98,9 @@ class AboutMe extends Component {
 
                         // EDIT ABOUT ME
                         <form>
+
+                            {/* TEXT INPUT BOX */}
+
                             <textarea
                                 className="aboutMeTextarea"
                                 onChange={this.setNewAboutMe}
@@ -105,6 +108,20 @@ class AboutMe extends Component {
                             >
                             {this.state.aboutMe}
                             </textarea>
+
+                            {/* CANCEL BUTTON */}
+
+                            <button
+                                className="btn btn-danger btn-sm cancelAboutMe"
+                                onClick={(event) => {
+                                    event.preventDefault();
+                                    this.cancelAboutMe();
+                                }}
+                            >
+                            Cancel
+                            </button>
+
+                            {/* SAVE BUTTON */}
 
                             <button
                                 className="btn btn-success btn-sm saveAboutMe"
@@ -115,15 +132,6 @@ class AboutMe extends Component {
                                 type="submit"
                             >
                             Save
-                            </button>
-                            <button
-                                className="btn btn-danger btn-sm cancelAboutMe"
-                                onClick={(event) => {
-                                    event.preventDefault();
-                                    this.cancelAboutMe();
-                                }}
-                            >
-                            Cancel
                             </button>
                         </form>
                     )}

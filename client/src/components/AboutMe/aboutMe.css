@@ -12,3 +12,11 @@
   float: right;
   margin-right: 0;
 }
+
+#aboutMeTitle {
+    color: #212529;
+    font-weight: 550;
+    margin-left: -15px;
+    padding-left: 0px;
+    padding-top: 1%;
+}
