@@ -161,8 +161,8 @@ h4 {
 }
 
 .aboutMeTextarea {
-  background: lightgray;
-  border-radius: 15px;
+  background: rgb(75, 75, 75);
+  border-radius: 5px;
   padding: 5px;
   width: 100%;
 }

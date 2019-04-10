@@ -26,7 +26,7 @@ class Profile extends Component {
   state = {
     user: [],
     userIsFollowed: null,
-    aboutMe: "My name is Curtis Yungen.",
+    aboutMe: "My name is " + this.state.user.name,
     editAboutMe: false,
     newAboutMeText: null,
     posts: [],
@@ -494,12 +494,16 @@ class Profile extends Component {
                   <Container>
                     {this.state.aboutMe}
 
-                    <button 
-                      className="btn btn-dark btn-sm editAboutMe"
-                      onClick={this.editAboutMe}
-                    >
-                    Edit
-                    </button>
+                    {JSON.parse(localStorage.getItem("user")).id === this.state.user.userId ? (
+                      <button 
+                        className="btn btn-dark btn-sm editAboutMe"
+                        onClick={this.editAboutMe}
+                      >
+                      Edit
+                      </button>
+                    ) : (
+                      <></>
+                    )}
                   </Container>
                 ) : (
 
