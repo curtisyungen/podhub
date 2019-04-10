@@ -460,7 +460,7 @@ class Profile extends Component {
               {/* ABOUT ME SECTION */}
 
               <AboutMe 
-                user: {this.props.location.state.user}
+                user: this.props.location.state.user
               />
 
               {/* FAVORITES SECTION */}
