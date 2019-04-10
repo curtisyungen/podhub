@@ -460,14 +460,17 @@ class Profile extends Component {
 
               <h4 id="aboutMeTitle">About Me</h4>
               <div className="row aboutMe rounded bg-dark">
+                <Container>
                   {this.state.aboutMe}
+
+                  <button 
+                    className="btn btn-dark btn-sm editAboutMe"
+                    onClick={this.editAboutMe}
+                  >
+                  Edit
+                  </button>
+                </Container>
               </div>
-              <button 
-                className="btn btn-dark btn-sm editAboutMe"
-                onClick={this.editAboutMe}
-              >
-              Edit
-              </button>
 
               {/* FAVORITES SECTION */}
 
