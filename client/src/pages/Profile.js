@@ -171,9 +171,10 @@ class Profile extends Component {
   }
 
   newAboutMeText = (event) => {
+    
     this.setState({
       newAboutMeText: event.target.value
-    });
+    }, () => {console.log(this.state.newAboutMeText);});
   }
 
   saveAboutMe = () => {
@@ -500,7 +501,7 @@ class Profile extends Component {
                     <form>
                       <textarea
                         onChange={this.newAboutMeText}
-                        value={this.state.aboutMe}
+                        value={this.state.newAboutMe}
                       >
                         {this.state.aboutMe}
                       </textarea>
