@@ -9,6 +9,7 @@ import moment from "moment";
 import Modal from "react-responsive-modal";
 import User from "../components/User/user";
 import List from "../components/List/list";
+import AboutMe from "../components/AboutMe/aboutMe";
 import "./Profile.css";
 
 // USER PROFILE PAGE
@@ -26,9 +27,6 @@ class Profile extends Component {
   state = {
     user: [],
     userIsFollowed: null,
-    aboutMe: "My name is " + this.props.location.state.user.userName,
-    editAboutMe: false,
-    newAboutMeText: null,
     posts: [],
     numFollowers: 0,
     numFollowing: 0,
@@ -49,7 +47,8 @@ class Profile extends Component {
     this.getNumFollowing();
     this.isUserFollowed();
     this.setState({
-      user: this.props.location.state.user
+      user: this.props.location.state.user,
+      aboutMe: "My name is " + this.props.location.state.user.name
     });
   }
 
@@ -163,34 +162,6 @@ class Profile extends Component {
         });
       });
   };
-
-  // Toggles state that allows user to edit About Me section
-  editAboutMe = () => {
-    this.setState({
-      editAboutMe: true
-    });
-  }
-
-  // Gets new About Me text entered by user
-  newAboutMeText = (event) => {
-    this.setState({
-      newAboutMeText: event.target.value
-    }, () => {console.log(this.state.newAboutMeText);});
-  }
-
-  // Saves new about me text entered by user
-  saveAboutMe = () => {
-
-    // API.saveAboutMe(this.state.userId, this.state.newAboutMeText)
-    //   .then(res => {
-
-    //   });
-
-    this.setState({
-      aboutMe: this.state.newAboutMeText,
-      editAboutMe: false
-    });
-  }
 
 
   // LIST OF FOLLOWERS / FOLLOWINGS, MODALS
@@ -484,55 +455,9 @@ class Profile extends Component {
 
               {/* ABOUT ME SECTION */}
 
-              <h4 id="aboutMeTitle">About Me</h4>
-              <div className="row aboutMe rounded bg-dark">
-
-                {!this.state.editAboutMe ? (
-
-                  // SHOW ABOUT ME
-
-                  <Container>
-                    {this.state.aboutMe}
-
-                    {JSON.parse(localStorage.getItem("user")).id === this.state.user.userId ? (
-                      <button 
-                        className="btn btn-dark btn-sm editAboutMe"
-                        onClick={this.editAboutMe}
-                      >
-                      Edit
-                      </button>
-                    ) : (
-                      <></>
-                    )}
-                  </Container>
-                ) : (
-
-                  // EDIT ABOUT ME
-
-                  <Container>
-                    <form>
-                      <textarea
-                        className="aboutMeTextarea"
-                        onChange={this.newAboutMeText}
-                        value={this.state.newAboutMe}
-                      >
-                        {this.state.aboutMe}
-                      </textarea>
-
-                      <button
-                        className="btn btn-success btn-sm saveAboutMe"
-                        onClick={(event) => {
-                          event.preventDefault();
-                          this.saveAboutMe();
-                        }}
-                        type="submit"
-                      >Save</button>
-                    </form>
-                  </Container>
-                )}
-
-
-              </div>
+              <AboutMe 
+                user = {this.state.user}
+              />
 
               {/* FAVORITES SECTION */}
 

@@ -1,0 +1,12 @@
+.aboutMeTextarea {
+  background: rgb(75, 75, 75);
+  border-radius: 5px;
+  padding: 5px;
+  width: 100%;
+}
+
+.editAboutMe,
+.saveAboutMe {
+  float: right;
+  margin-right: 0;
+}
