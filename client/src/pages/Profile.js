@@ -28,6 +28,7 @@ class Profile extends Component {
     userIsFollowed: null,
     aboutMe: "My name is Curtis Yungen.",
     editAboutMe: false,
+    newAboutMeText = "",
     posts: [],
     numFollowers: 0,
     numFollowing: 0,
@@ -169,12 +170,17 @@ class Profile extends Component {
     });
   }
 
-  saveAboutMe = () => {
-
-    let newAboutMeText = this.refs.newAboutMe.value;
+  newAboutMeText = (event) => {
+    event.preventDefault();
 
     this.setState({
-      aboutMe: newAboutMeText,
+      newAboutMeText: event.target.value
+    });
+  }
+
+  saveAboutMe = () => {
+    this.setState({
+      aboutMe: this.state.newAboutMeText,
       editAboutMe: false
     });
   }
@@ -495,7 +501,7 @@ class Profile extends Component {
                   <Container>
                     <form>
                       <textarea
-                        ref="newAboutMe"
+                        onChange={this.newAboutMeText}
                         value={this.state.aboutMe}
                       >
                         {this.state.aboutMe}
