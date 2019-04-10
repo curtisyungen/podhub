@@ -27,6 +27,7 @@ class Profile extends Component {
     user: [],
     userIsFollowed: null,
     aboutMe: "My name is Curtis Yungen.",
+    editAboutMe: false,
     posts: [],
     numFollowers: 0,
     numFollowing: 0,
@@ -163,7 +164,16 @@ class Profile extends Component {
   };
 
   editAboutMe = () => {
-    console.log("Edit About Me");
+    this.setState({
+      editAboutMe: true
+    });
+  }
+
+  saveAboutMe = () => {
+    this.setState({
+      aboutMe: "",
+      editAboutMe: false
+    });
   }
 
 
@@ -460,16 +470,43 @@ class Profile extends Component {
 
               <h4 id="aboutMeTitle">About Me</h4>
               <div className="row aboutMe rounded bg-dark">
-                <Container>
-                  {this.state.aboutMe}
 
-                  <button 
-                    className="btn btn-dark btn-sm editAboutMe"
-                    onClick={this.editAboutMe}
-                  >
-                  Edit
-                  </button>
-                </Container>
+                {!this.state.editAboutMe ? (
+
+                  // SHOW ABOUT ME
+
+                  <Container>
+                    {this.state.aboutMe}
+
+                    <button 
+                      className="btn btn-dark btn-sm editAboutMe"
+                      onClick={this.editAboutMe}
+                    >
+                    Edit
+                    </button>
+                  </Container>
+                ) : (
+
+                  // EDIT ABOUT ME
+
+                  <Container>
+                    <form>
+                      <textarea
+                        onSubmit={this.saveAboutMe}
+                        value={this.state.aboutMe}
+                      >
+                        {this.state.aboutMe}
+                      </textarea>
+
+                      <button
+                        className="btn btn-success btn-sm saveAboutMe"
+                        type="submit"
+                      >Save</button>
+                    </form>
+                  </Container>
+                )}
+
+
               </div>
 
               {/* FAVORITES SECTION */}

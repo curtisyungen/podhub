@@ -154,6 +154,7 @@ h4 {
   cursor: pointer;
 }
 
-.editAboutMe {
+.editAboutMe,
+.saveAboutMe {
   float: right;
 }
