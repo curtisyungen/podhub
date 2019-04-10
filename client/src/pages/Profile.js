@@ -28,7 +28,7 @@ class Profile extends Component {
     userIsFollowed: null,
     aboutMe: "My name is Curtis Yungen.",
     editAboutMe: false,
-    newAboutMeText = "",
+    newAboutMeText: "",
     posts: [],
     numFollowers: 0,
     numFollowing: 0,
