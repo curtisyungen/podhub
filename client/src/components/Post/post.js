@@ -63,7 +63,7 @@ class Post extends Component {
             userMessage: this.props.userMessage,
             numLikes: this.props.numLikes,
             numComments: this.props.numComments
-        }, () => {this.checkUserLike(this.state.postId)});
+        }, () => { this.checkUserLike(this.state.postId) });
     }
 
     // Deletes a post and updates parent state
@@ -133,8 +133,6 @@ class Post extends Component {
         });
     };
 
-    // Executes on page load only
-    // Checks if user has already liked post. Updates state if user has liked.
     checkUserLike = (postId) => {
 
         let currUserId = JSON.parse(localStorage.getItem("user")).id;
@@ -150,7 +148,6 @@ class Post extends Component {
                 }
             });
     }
-
 
     // COMMENTS
     // ===============================================
@@ -256,6 +253,11 @@ class Post extends Component {
         });
     };
 
+    // On click of "Play from Nav", sends (True, Audio Link) to Home.js & Profile.js props
+    playFromNav = () => {
+        this.props.toHomeAndProfile(true, this.state.audioLink, this.state.podcastName, this.state.episodeName);
+    }
+
 
     render() {
         return (
@@ -357,7 +359,8 @@ class Post extends Component {
                         >
                             <div className="postText">
                                 <h4 id="podcast-name-home">{this.state.podcastName}</h4>
-                                <p id="episode-name-home">{this.state.episodeName}</p>
+                                <p id="episode-name-home">{this.state.episodeName}
+                                </p>
                                 <p id="episode-description-home" className="ellipses">{this.state.description}</p>
                             </div>
                         </Link>
@@ -387,9 +390,17 @@ class Post extends Component {
                                 className="likes"
                                 onClick={() => this.handleLikeOrUnlike(this.state.postId)}
                             >
-                                {/* HEART ICON */}
+                                {/* HEART ANIMATION */}
 
-                                <i className={this.state.heartClasses}></i>
+                                <i
+                                    className={this.state.heartClasses}
+                                // onClick={(e) => {
+                                //     var targ = e.target;
+                                //     targ.classList.add("bounce");
+                                //     setTimeout(() => { targ.classList.remove("bounce") }, 1000);
+                                // }}
+                                >
+                                </i>
                             </span>
 
                             <span
@@ -411,6 +422,18 @@ class Post extends Component {
                                 {this.state.numComments}
                             </span>
                         </div>
+
+                        <span>
+
+                            {/* PLAY FROM NAVBAR BUTTTON */}
+                            <button id="playFromNavButton"
+                                onClick={this.playFromNav}
+                            >
+                                Play from Navbar
+                                        </button>
+
+                        </span>
+                        
                     </div>
                 </div>
 
@@ -557,8 +580,9 @@ class Post extends Component {
                             className="btn btn-light btn-sm mb-2"
                             onClick={(event) => {
                                 event.preventDefault();
-                                this.addComment();
-                            }}
+                                this.addComment()
+                            }
+                            }
                         >
                             Submit
                         </button>
