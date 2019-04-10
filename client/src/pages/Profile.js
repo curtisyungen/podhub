@@ -26,6 +26,7 @@ class Profile extends Component {
   state = {
     user: [],
     userIsFollowed: null,
+    aboutMe: "My name is Curtis Yungen.",
     posts: [],
     numFollowers: 0,
     numFollowing: 0,
@@ -160,6 +161,10 @@ class Profile extends Component {
         });
       });
   };
+
+  editAboutMe = () => {
+    console.log("Edit About Me");
+  }
 
 
   // LIST OF FOLLOWERS / FOLLOWINGS, MODALS
@@ -451,6 +456,19 @@ class Profile extends Component {
                 </div>
               </div>
 
+              {/* ABOUT ME SECTION */}
+
+              <h4 id="aboutMeTitle">About Me</h4>
+              <div className="row aboutMe rounded bg-dark">
+                  {this.state.aboutMe}
+              </div>
+              <button 
+                className="btn btn-dark btn-sm editAboutMe"
+                onClick={this.editAboutMe}
+              >
+              Edit
+              </button>
+
               {/* FAVORITES SECTION */}
 
               <h4 id="favoritesTitle">Favorites</h4>
@@ -463,6 +481,7 @@ class Profile extends Component {
                     {this.state.favorites.map(favorite => (
 
                       // FAVORITES: PODCAST LOGO, LINK TO EPISODE LIST PAGE
+
                       <div className="row rounded favorite text-secondary" key={favorite.id}>
                         <div className="col-2 py-5 px-3 pad">
 
@@ -490,6 +509,7 @@ class Profile extends Component {
                         </div>
 
                         {/* FAVORITES: BODY, LINK TO LISTEN PAGE */}
+
                         <div className="col-7 p-1">
 
                           <Link
@@ -515,6 +535,7 @@ class Profile extends Component {
                         </div>
 
                         {/* FAVORITES: DELETE BUTTON */}
+
                         <div className="col-3 pr-4">
                           {JSON.parse(localStorage.getItem("user")).id === favorite.userId
                             ?

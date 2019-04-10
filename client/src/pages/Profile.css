@@ -150,3 +150,7 @@ h4 {
 .postsBtn {
   cursor: pointer;
 }
+
+.editAboutMe {
+  float: right;
+}
