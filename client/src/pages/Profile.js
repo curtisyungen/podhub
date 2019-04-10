@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Container from "../components/Container/container";
 import Row from "../components/Row/row";
 import API from "../utils/API";
-import Post from "../components/PostCard/post";
+import Post from "../components/Post/post";
 import Delete from "./delete-1.png";
 import moment from "moment";
 import Modal from "react-responsive-modal";
@@ -30,7 +30,6 @@ class Profile extends Component {
     numFollowers: 0,
     numFollowing: 0,
     favorites: [],
-    posts: [],
     currentPostId: "",
     followers: [],
     following: [],
@@ -338,7 +337,7 @@ class Profile extends Component {
 
                   {/* Follow Button */}
 
-                  {this.state.user.id != JSON.parse(localStorage.getItem("user")).id ? (
+                  {this.state.user.id !== JSON.parse(localStorage.getItem("user")).id ? (
                     this.state.userIsFollowed ? (
                       <button
                         className="btn btn-outline-light followBtn"
