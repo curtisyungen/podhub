@@ -75,7 +75,7 @@ class AboutMe extends Component {
                         <div>
                             {this.state.aboutMe}
 
-                            {JSON.parse(localStorage.getItem("user")).id === this.state.user.userId ? (
+                            {JSON.parse(localStorage.getItem("user")).id === this.state.user.id ? (
                                 <button
                                 className="btn btn-dark btn-sm editAboutMe"
                                 onClick={this.editAboutMe}
