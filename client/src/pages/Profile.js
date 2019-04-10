@@ -171,10 +171,10 @@ class Profile extends Component {
 
   saveAboutMe = () => {
 
-    let newAboutMe = ReactDOM.findDOMNode(this.refs.newAboutMe).value;
+    let newAboutMeText = this.refs.newAboutMe.value;
 
     this.setState({
-      aboutMe: newAboutMe,
+      aboutMe: newAboutMeText,
       editAboutMe: false
     });
   }
