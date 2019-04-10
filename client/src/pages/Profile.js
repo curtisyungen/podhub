@@ -28,7 +28,6 @@ class Profile extends Component {
     userIsFollowed: null,
     aboutMe: "My name is Curtis Yungen.",
     editAboutMe: false,
-    newAboutMe: "",
     posts: [],
     numFollowers: 0,
     numFollowing: 0,
@@ -171,10 +170,12 @@ class Profile extends Component {
   }
 
   saveAboutMe = () => {
+
+    let newAboutMe = ReactDOM.findDOMNode(this.refs.newAboutMe).value;
+
     this.setState({
-      aboutMe: this.state.newAboutMe,
-      editAboutMe: false,
-      newAboutMe: ""
+      aboutMe: newAboutMe,
+      editAboutMe: false
     });
   }
 
@@ -494,7 +495,7 @@ class Profile extends Component {
                   <Container>
                     <form>
                       <textarea
-                        ref={this.state.newAboutMe}
+                        ref="newAboutMe"
                         value={this.state.aboutMe}
                       >
                         {this.state.aboutMe}
