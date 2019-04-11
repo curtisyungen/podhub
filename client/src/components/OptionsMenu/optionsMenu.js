@@ -9,7 +9,7 @@ class OptionsMenu extends Component {
     constructor(props) {
         super(props);
 
-        state = {
+        this.state = {
             user: null,
             showSettingsMenu: false
         }
