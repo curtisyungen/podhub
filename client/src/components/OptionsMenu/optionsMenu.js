@@ -15,7 +15,6 @@ class OptionsMenu extends Component {
     }
 
     componentDidMount = () => {
-        console.log(this.props);
         this.setState({
             user: this.props.user
         });
@@ -24,6 +23,7 @@ class OptionsMenu extends Component {
     openSettings = (event) => {
         event.preventDefault();
         this.props.hideOptionsMenu();
+        console.log(this.state);
         this.setState({
             showSettingsMenu: true
         });
