@@ -6,7 +6,7 @@ import { faSearch, faUser, faHome } from '@fortawesome/free-solid-svg-icons'
 import Logo from "./purple_back.png";
 import NavbarAudio from "../NavbarAudio/navbarAudio";
 import Popup from "reactjs-popup";
-import OptionsMenu from "../OptionsMenu/optionMenu";
+import OptionsMenu from "../OptionsMenu/optionsMenu";
 import "./navbar.css";
 
 library.add(faSearch, faUser, faHome);
