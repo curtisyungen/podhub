@@ -69,9 +69,8 @@ class OptionsMenu extends Component {
                     >
                     Log Out
                     </li>
-                </ul>
 
-                {/* SETTINGS MENU MODAL */}
+                    {/* SETTINGS MENU MODAL */}
 
                 <Modal
                     open={this.state.showSettingsMenu}
@@ -89,6 +88,9 @@ class OptionsMenu extends Component {
                     </p>
 
                 </Modal>
+                </ul>
+
+                
 
             </Container>
         );
