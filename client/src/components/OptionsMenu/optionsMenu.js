@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Container from "../Container/container";
 import Modal from "react-responsive-modal";
+import onClickOutside from "react-onclickoutside";
 import API from "../../utils/API";
 import "./optionsMenu.css";
 
@@ -19,6 +20,11 @@ class OptionsMenu extends Component {
         this.setState({
             user: this.props.user
         });
+    }
+
+    handleClickOutside = (event) => {
+        event.preventDefault();
+        this.props.hideOptionsMenu();
     }
 
     openSettings = () => {
@@ -89,7 +95,7 @@ class OptionsMenu extends Component {
     }
 };
 
-export default OptionsMenu;
+export default onClickOutside(OptionsMenu);
 
 
 
