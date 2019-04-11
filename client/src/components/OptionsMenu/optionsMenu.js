@@ -9,7 +9,7 @@ class OptionsMenu extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
+        state = {
             user: null,
             showSettingsMenu: false
         }
@@ -22,10 +22,7 @@ class OptionsMenu extends Component {
     }
 
     openSettings = () => {
-        
-        let that = this;
-
-        that.setState({
+        this.setState({
             showSettingsMenu: true
         }, () => {this.props.hideOptionsMenu()});
     }
@@ -73,7 +70,7 @@ class OptionsMenu extends Component {
 
                 <Modal
                     open={this.state.showSettingsMenu}
-                    onClose={this.closeSettings}
+                    onClose={this.openSettings}
                     // classNames={{ modal: "customModal", overlay: "customOverlay", closeButton: "customCloseButton" }}
                 >   
                     <p class="border-bottom">Profile</p>
