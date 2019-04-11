@@ -11,8 +11,7 @@ class OptionsMenu extends Component {
         super(props);
 
         this.state = {
-            user: null,
-            showSettings: false
+            user: null
         }
     }
 
@@ -25,18 +24,6 @@ class OptionsMenu extends Component {
     handleClickOutside = (event) => {
         event.preventDefault();
         this.props.hideOptionsMenu();
-    }
-
-    openSettings = () => {
-        this.setState({
-            showSettings: true
-        });
-    }
-
-    closeSettings = () => {
-        this.setState({
-            showSettings: false
-        });
     }
 
     deleteAccount = () => {
@@ -59,36 +46,36 @@ class OptionsMenu extends Component {
                 {/* OPTIONS MENU */}
 
                 <ul className="optionsList">
+
+                    {/* CHANGE PROFILE PICTURE */}
                     <li
-                        onClick={this.openSettings}
+                        onClick={this.changeProfilePic}
                     >
-                    Settings
+                    Change Profile Picture
                     </li>
 
+                    {/* CHANGE NAME */}
+                    <li
+                        onClick={this.changeName}
+                    >
+                    Change Name
+                    </li>
+
+                    {/* LOG OUT */}
                     <li
                         onClick={this.props.logout}
                     >
                     Log Out
                     </li>
-                </ul>
 
-                {/* SETTINGS MENU MODAL */}
-
-                <Modal
-                    open={this.state.showSettings}
-                    onClose={this.closeSettings}
-                >   
-                    <p class="border-bottom">Profile</p>
-
-                    <p class="border-bottom">Account</p>
-                    <p 
+                    {/* DELETE ACCOUNT */}
+                    <li
                         id="deleteAccount"
                         onClick={this.deleteAccount}
                     >
                     Delete Account
-                    </p>
-
-                </Modal>
+                    </li>
+                </ul>
 
             </Container>
         );
