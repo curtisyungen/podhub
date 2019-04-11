@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Container from "../Container/container";
 import Modal from "react-responsive-modal";
+import API from "../../utils/API";
 import "./optionsMenu.css";
 
 class OptionsMenu extends Component {
@@ -26,7 +27,9 @@ class OptionsMenu extends Component {
         
         this.setState({
             showSettingsMenu: true
-        }, () => {console.log(this.state);});
+        });
+
+        console.log(this.state);
     }
 
     closeSettings = () => {
