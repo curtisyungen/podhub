@@ -37,19 +37,6 @@ class OptionsMenu extends Component {
         this.props.logout();
     }
 
-    deleteAccount = () => {
-        if (window.confirm("Are you sure?")) {
-
-            alert("Fine then, loser.");
-
-            API.deleteUser(this.state.user)
-                .then(res => {
-                    this.logout();
-                    alert("And don't come back!");
-                });
-        }
-    }
-
     render() {
         return (
             <Container>
@@ -71,13 +58,6 @@ class OptionsMenu extends Component {
                     >
                     Log Out
                     </li>
-
-                    {/* DELETE ACCOUNT */}
-                    <li
-                        onClick={this.deleteAccount}
-                    >
-                    Delete Account
-                    </li>
                 </ul>
 
                 {this.state.openSettings ? (
@@ -88,7 +68,6 @@ class OptionsMenu extends Component {
                                 user: this.state.user
                             }
                         }}
-                        hideOptionsMenu={this.hideOptionsMenu}
                     />
                 ) : (
                     <></>
