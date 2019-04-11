@@ -1,0 +1,15 @@
+.optionsList {
+    background: rgb(0, 0, 0);
+    color: white;
+    float: right;
+    list-style-type: none;
+    padding: 10px;
+    position: absolute;
+    text-align: left;
+    width: 150px;
+    z-index: 99;
+}
+
+.optionsList li {
+    cursor: pointer;
+}

@@ -6,6 +6,7 @@ import { faSearch, faUser, faHome } from '@fortawesome/free-solid-svg-icons'
 import Logo from "./purple_back.png";
 import NavbarAudio from "../NavbarAudio/navbarAudio";
 import Popup from "reactjs-popup";
+import OptionsMenu from "../OptionsMenu/optionMenu";
 import "./navbar.css";
 
 library.add(faSearch, faUser, faHome);
@@ -181,12 +182,16 @@ class Navbar extends Component {
               {/* Logout Button */}
 
               <li>
-                <button
+                {/* <button
                   onClick={logout}
                   className="logoutButton btn btn-dark"
                 >
                   Logout
-                </button>
+                </button> */}
+                <OptionsMenu 
+                  user={this.props.user}
+                  logout={logout}
+                />
               </li>
 
             </ul>
