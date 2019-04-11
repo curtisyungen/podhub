@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Redirect from "react-router-dom";
+import { Link } from "react-router-dom";
 import Container from "../Container/container";
 import onClickOutside from "react-onclickoutside";
 import API from "../../utils/API";
@@ -81,7 +81,7 @@ class OptionsMenu extends Component {
                 </ul>
 
                 {this.state.openSettings ? (
-                    <Redirect 
+                    <Link 
                         to={{
                             pathname: "/settings",
                             state: {
