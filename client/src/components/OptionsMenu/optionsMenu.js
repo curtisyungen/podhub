@@ -35,6 +35,19 @@ class OptionsMenu extends Component {
         });
     }
 
+    deleteAccount = () => {
+        if (window.confirm("Are you sure?")) {
+
+            alert("Fine then, loser.");
+
+            API.deleteUser(this.state.user)
+                .then(function() {
+                    this.props.logout();
+                    alert("And don't come back!");
+                });
+        }
+    }
+
     render() {
         return (
             <Container>
@@ -62,9 +75,16 @@ class OptionsMenu extends Component {
                     onClose={this.closeSettings}
                     // classNames={{ modal: "customModal", overlay: "customOverlay", closeButton: "customCloseButton" }}
                 >   
-                    <div>
-                        Modal
-                    </div>
+                    <p class="border-bottom">Profile</p>
+
+                    <p class="border-bottom">Account</p>
+                    <p 
+                        id="deleteAccount"
+                        onClick={this.deleteAccount}
+                    >
+                    Delete Account
+                    </p>
+
                 </Modal>
 
             </Container>

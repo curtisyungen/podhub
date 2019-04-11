@@ -13,3 +13,9 @@
 .optionsList li {
     cursor: pointer;
 }
+
+#deleteAccount {
+    color: red;
+    cursor: pointer;
+    font-size: 14px;
+}
