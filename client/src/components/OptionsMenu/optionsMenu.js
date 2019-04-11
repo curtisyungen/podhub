@@ -39,6 +39,7 @@ class OptionsMenu extends Component {
     render() {
         return (
             <Container>
+                
                 <ul className="optionsList">
                     <li
                         onClick={this.openSettings}
@@ -53,17 +54,17 @@ class OptionsMenu extends Component {
                     </li>
                 </ul>
 
-            </Container>
+                <Modal
+                    open={this.state.showSettingsMenu}
+                    onClose={this.closeSettings}
+                    // classNames={{ modal: "customModal", overlay: "customOverlay", closeButton: "customCloseButton" }}
+                >   
+                    <div>
+                        Modal
+                    </div>
+                </Modal>
 
-            <Modal
-                open={this.state.showSettingsMenu}
-                onClose={this.closeSettings}
-                // classNames={{ modal: "customModal", overlay: "customOverlay", closeButton: "customCloseButton" }}
-            >   
-                <div>
-                    Modal
-                </div>
-            </Modal>
+            </Container>
         );
     }
 };
