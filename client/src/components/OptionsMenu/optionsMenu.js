@@ -26,14 +26,6 @@ class OptionsMenu extends Component {
         this.props.hideOptionsMenu();
     }
 
-    changeProfilePic = () => {
-
-    }
-
-    changeName = () => {
-
-    }
-
     logout = () => {
         this.props.logout();
     }
@@ -59,20 +51,6 @@ class OptionsMenu extends Component {
 
                 <ul className="optionsList">
 
-                    {/* CHANGE PROFILE PICTURE */}
-                    <li
-                        onClick={this.changeProfilePic}
-                    >
-                    Change Picture
-                    </li>
-
-                    {/* CHANGE NAME */}
-                    <li
-                        onClick={this.changeName}
-                    >
-                    Change Name
-                    </li>
-
                     {/* LOG OUT */}
                     <li
                         onClick={this.logout}
@@ -82,7 +60,6 @@ class OptionsMenu extends Component {
 
                     {/* DELETE ACCOUNT */}
                     <li
-                        id="deleteAccount"
                         onClick={this.deleteAccount}
                     >
                     Delete Account
