@@ -69,7 +69,7 @@ class OptionsMenu extends Component {
                 {/* SETTINGS MENU MODAL */}
 
                 <Modal
-                    open={() => {this.state.showSettingsMenu}}
+                    open={this.state.showSettingsMenu}
                     onClose={this.closeSettings}
                 >   
                     <p class="border-bottom">Profile</p>
