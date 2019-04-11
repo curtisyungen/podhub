@@ -21,10 +21,9 @@ class OptionsMenu extends Component {
         });
     }
 
-    openSettings = () => {
-
+    openSettings = (event) => {
+        event.preventDefault();
         this.props.hideOptionsMenu();
-
         this.setState({
             showSettingsMenu: true
         });
@@ -39,7 +38,7 @@ class OptionsMenu extends Component {
     render() {
         return (
             <Container>
-                
+
                 <ul className="optionsList">
                     <li
                         onClick={this.openSettings}
