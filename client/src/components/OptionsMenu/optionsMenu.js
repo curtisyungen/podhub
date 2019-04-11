@@ -26,6 +26,18 @@ class OptionsMenu extends Component {
         this.props.hideOptionsMenu();
     }
 
+    changeProfilePic = () => {
+
+    }
+
+    changeName = () => {
+
+    }
+
+    logout = () => {
+        this.props.logout();
+    }
+
     deleteAccount = () => {
         if (window.confirm("Are you sure?")) {
 
@@ -51,7 +63,7 @@ class OptionsMenu extends Component {
                     <li
                         onClick={this.changeProfilePic}
                     >
-                    Change Profile Picture
+                    Change Picture
                     </li>
 
                     {/* CHANGE NAME */}
@@ -63,7 +75,7 @@ class OptionsMenu extends Component {
 
                     {/* LOG OUT */}
                     <li
-                        onClick={this.props.logout}
+                        onClick={this.logout}
                     >
                     Log Out
                     </li>
