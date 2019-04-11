@@ -17,7 +17,7 @@ class Settings extends Component {
     componentDidMount = () => {
         this.setState({
             user: this.props.user
-        });
+        }, () => {this.props.hideOptionsMenu()});
     }
 
     render() {
