@@ -24,7 +24,7 @@ class OptionsMenu extends Component {
     openSettings = () => {
         this.setState({
             showSettings: true
-        }, () => {this.props.hideOptionsMenu()});
+        });
     }
 
     closeSettings = () => {
