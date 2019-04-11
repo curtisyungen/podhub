@@ -17,7 +17,20 @@ class Settings extends Component {
     componentDidMount = () => {
         this.setState({
             user: this.props.user
-        }, () => {this.props.hideOptionsMenu()});
+        });
+    }
+
+    deleteAccount = () => {
+        if (window.confirm("Are you sure?")) {
+
+            alert("Fine then, loser.");
+
+            API.deleteUser(this.state.user)
+                .then(res => {
+                    this.logout();
+                    alert("And don't come back!");
+                });
+        }
     }
 
     render() {
@@ -32,6 +45,12 @@ class Settings extends Component {
                 <p>Change Photo</p>
 
                 <h4 className="border-bottom">Account</h4>
+                <p
+                    onClick={this.deleteAccount}
+                >
+                Delete Account
+                </p>
+                
             </span>
         );
     }
