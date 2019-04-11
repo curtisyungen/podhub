@@ -11,7 +11,7 @@ class OptionsMenu extends Component {
 
         this.state = {
             user: null,
-            showSettingsMenu: false
+            showSettings: false
         }
     }
 
@@ -23,13 +23,13 @@ class OptionsMenu extends Component {
 
     openSettings = () => {
         this.setState({
-            showSettingsMenu: true
-        }, () => {this.props.hideOptionsMenu()});
+            showSettings: true
+        }, () => {console.log(this.state, "fuck")});
     }
 
     closeSettings = () => {
         this.setState({
-            showSettingsMenu: false
+            showSettings: false
         });
     }
 
@@ -48,7 +48,7 @@ class OptionsMenu extends Component {
 
     render() {
         return (
-            <span>
+            <Container>
 
                 {/* OPTIONS MENU */}
 
@@ -69,7 +69,7 @@ class OptionsMenu extends Component {
                 {/* SETTINGS MENU MODAL */}
 
                 <Modal
-                    open={this.state.showSettingsMenu}
+                    open={this.state.showSettings}
                     onClose={this.closeSettings}
                 >   
                     <p class="border-bottom">Profile</p>
@@ -84,7 +84,7 @@ class OptionsMenu extends Component {
 
                 </Modal>
 
-            </span>
+            </Container>
         );
     }
 };
