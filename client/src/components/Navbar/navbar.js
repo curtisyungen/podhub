@@ -225,7 +225,7 @@ class Navbar extends Component {
                 {this.state.showOptionsMenu ? ( 
                   <OptionsMenu 
                     user={this.props.user}
-                    hide={this.hideOptionsMenu}
+                    hideOptionsMenu={this.hideOptionsMenu}
                     logout={logout}
                   />
                 ) : (
