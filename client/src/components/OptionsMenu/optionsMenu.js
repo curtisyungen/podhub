@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Container from "../Container/container";
+import Modal from "react-responsive-modal";
 import "./optionsMenu.css";
 
 class OptionsMenu extends Component {
@@ -8,7 +9,8 @@ class OptionsMenu extends Component {
         super(props);
 
         this.state = {
-            user: null
+            user: null,
+            showSettingsMenu: false
         }
     }
 
@@ -19,12 +21,27 @@ class OptionsMenu extends Component {
         });
     }
 
+    openSettings = () => {
+
+        this.props.hideOptionsMenu();
+
+        this.setState({
+            showSettingsMenu: true
+        });
+    }
+
+    closeSettings = () => {
+        this.setState({
+            showSettingsMenu: false
+        });
+    }
+
     render() {
         return (
             <Container>
                 <ul className="optionsList">
                     <li
-
+                        onClick={this.openSettings}
                     >
                     Settings
                     </li>
@@ -37,6 +54,16 @@ class OptionsMenu extends Component {
                 </ul>
 
             </Container>
+
+            <Modal
+                open={this.state.showSettingsMenu}
+                onClose={this.closeSettings}
+                // classNames={{ modal: "customModal", overlay: "customOverlay", closeButton: "customCloseButton" }}
+            >   
+                <div>
+                    Modal
+                </div>
+            </Modal>
         );
     }
 };

@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch, faUser, faHome } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faUser, faHome, faCog } from '@fortawesome/free-solid-svg-icons'
 import Logo from "./purple_back.png";
 import NavbarAudio from "../NavbarAudio/navbarAudio";
 import Popup from "reactjs-popup";
 import OptionsMenu from "../OptionsMenu/optionsMenu";
 import "./navbar.css";
 
-library.add(faSearch, faUser, faHome);
+library.add(faSearch, faUser, faHome, faCog);
 
 // NAVBAR COMPONENT
 // Rendered by App.js on every page
@@ -20,8 +20,40 @@ class Navbar extends Component {
 
   state = {
     remove: false,
-    speed: 1.0
+    speed: 1.0,
+    showOptionsMenu: false
   };
+
+
+  // NAVBAR AUDIO PLAYER
+  // ====================================
+
+  // Change speed of audio playback
+  changeSpeed = (event) => {
+    this.setState({
+      speed: event.target.value
+    });
+  }
+
+
+  // OPTIONS MENU
+  // ====================================
+
+  showOptionsMenu = () => {
+    this.setState({
+      showOptionsMenu: true
+    });
+  }
+
+  hideOptionsMenu = () => {
+    this.setState({
+      showOptionsMenu: false
+    });
+  }
+
+
+  // OTHER
+  // ====================================
 
   // Prevent Enter keypress from refreshing window
   suppressEnter = (event) => {
@@ -30,12 +62,6 @@ class Navbar extends Component {
     }
   }
 
-  // Change speed of audio playback
-  changeSpeed = (event) => {
-    this.setState({
-      speed: event.target.value
-    });
-  }
 
   render() {
 
@@ -182,16 +208,30 @@ class Navbar extends Component {
               {/* Logout Button */}
 
               <li>
+
                 {/* <button
                   onClick={logout}
                   className="logoutButton btn btn-dark"
                 >
                   Logout
                 </button> */}
-                <OptionsMenu 
-                  user={this.props.user}
-                  logout={logout}
+
+                <FontAwesomeIcon 
+                  className="faCog fa-2x" 
+                  icon="cog" 
+                  onClick={this.showOptionsMenu}
                 />
+
+                {this.state.showOptionsMenu ? ( 
+                  <OptionsMenu 
+                    user={this.props.user}
+                    hide={this.hideOptionsMenu}
+                    logout={logout}
+                  />
+                ) : (
+                  <></>
+                )}
+
               </li>
 
             </ul>
