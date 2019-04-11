@@ -22,7 +22,17 @@ class Settings extends Component {
 
     render() {
         return (
-            <h4>{this.state.user}</h4>
+            <span>
+                <h4>{this.props.user}</h4>
+                <br/>
+
+                <h4 className="border-bottom">Profile</h4>
+                <br/>
+                <p>Change Name</p>
+                <p>Change Photo</p>
+
+                <h4 className="border-bottom">Account</h4>
+            </span>
         );
     }
 }
