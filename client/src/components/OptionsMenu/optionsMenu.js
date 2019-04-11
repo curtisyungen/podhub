@@ -36,8 +36,8 @@ class OptionsMenu extends Component {
             alert("Fine then, loser.");
 
             API.deleteUser(this.state.user)
-                .then(function() {
-                    this.props.logout();
+                .then(res => {
+                    this.logout();
                     alert("And don't come back!");
                 });
         }
