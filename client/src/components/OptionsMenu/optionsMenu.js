@@ -1,6 +1,6 @@
 import React, { Component } from "react";
+import Redirect from "react-router-dom";
 import Container from "../Container/container";
-import Modal from "react-responsive-modal";
 import onClickOutside from "react-onclickoutside";
 import API from "../../utils/API";
 import "./optionsMenu.css";
@@ -11,7 +11,8 @@ class OptionsMenu extends Component {
         super(props);
 
         this.state = {
-            user: null
+            user: null,
+            openSettings: false
         }
     }
 
@@ -24,6 +25,12 @@ class OptionsMenu extends Component {
     handleClickOutside = (event) => {
         event.preventDefault();
         this.props.hideOptionsMenu();
+    }
+
+    openSettings = () => {
+        this.setState({
+            openSettings: true
+        });
     }
 
     logout = () => {
@@ -51,6 +58,13 @@ class OptionsMenu extends Component {
 
                 <ul className="optionsList">
 
+                    {/* PROFILE SETTINGS */}
+                    <li 
+                        onClick={this.openSettings}
+                    >
+                    Settings
+                    </li>
+
                     {/* LOG OUT */}
                     <li
                         onClick={this.logout}
@@ -65,6 +79,19 @@ class OptionsMenu extends Component {
                     Delete Account
                     </li>
                 </ul>
+
+                {this.state.openSettings ? (
+                    <Redirect 
+                        to={{
+                            pathname: "/settings",
+                            state: {
+                                user: this.state.user
+                            }
+                        }}
+                    />
+                ) : (
+                    <></>
+                )}
 
             </Container>
         );

@@ -7,6 +7,7 @@ import Profile from "./pages/Profile";
 import EpisodeList from "./pages/EpisodeList";
 import Listen from "./pages/Listen";
 import UserSearch from "./pages/UserSearch";
+import Settings from "./pages/Settings";
 import API from "./utils/API"
 import Login from './pages/Login';
 import Error from "./pages/Error";
@@ -301,6 +302,8 @@ class App extends Component {
                       />
                     }
                   />
+
+                  <Route exact path="/settings" component={Settings} />
 
                   <Route component={Error} />
                 </Switch>
