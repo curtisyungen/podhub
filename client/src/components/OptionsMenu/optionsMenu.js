@@ -21,15 +21,13 @@ class OptionsMenu extends Component {
         });
     }
 
-    openSettings = (event) => {
-        event.preventDefault();
-        this.props.hideOptionsMenu();
+    openSettings = () => {
         
-        this.setState({
-            showSettingsMenu: true
-        });
+        let that = this;
 
-        console.log(this.state);
+        that.setState({
+            showSettingsMenu: true
+        }, () => {this.props.hideOptionsMenu()});
     }
 
     closeSettings = () => {
@@ -69,8 +67,9 @@ class OptionsMenu extends Component {
                     >
                     Log Out
                     </li>
+                </ul>
 
-                    {/* SETTINGS MENU MODAL */}
+                {/* SETTINGS MENU MODAL */}
 
                 <Modal
                     open={this.state.showSettingsMenu}
@@ -88,9 +87,6 @@ class OptionsMenu extends Component {
                     </p>
 
                 </Modal>
-                </ul>
-
-                
 
             </Container>
         );
