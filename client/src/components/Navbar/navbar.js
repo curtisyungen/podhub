@@ -25,6 +25,20 @@ class Navbar extends Component {
   };
 
 
+  componentDidMount() {
+    document.addEventListener("mousedown", this.handleClick);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.handleClick);
+  }
+
+  handleClick = (event) => {
+    if (this.menuRef && !this.menuRef.contains(event.target)) {
+      this.hideOptionsMenu();
+    }
+  }
+
   // NAVBAR AUDIO PLAYER
   // ====================================
 
@@ -227,6 +241,7 @@ class Navbar extends Component {
                     user={this.props.user}
                     hideOptionsMenu={this.hideOptionsMenu}
                     logout={logout}
+                    ref={this.menuRef}
                   />
                 ) : (
                   <></>
