@@ -34,18 +34,18 @@ class ProfileHeader extends Component {
         this.getNumFollowing();
         this.isUserFollowed();
         this.setState({
-            user: this.props.location.state.user
+            user: this.props.user
           });
     }
 
     // Update profile information if subject user changes
     componentDidUpdate(prevProps, prevState) {
-        if (prevProps.location.state.user.id !== this.props.location.state.user.id) {
+        if (prevProps.user.id !== this.props.user.id) {
             this.getNumFollowers();
             this.getNumFollowing();
             this.isUserFollowed();
             this.setState({
-                user: this.props.location.state.user
+                user: this.props.user
             });
         }
 
@@ -61,7 +61,7 @@ class ProfileHeader extends Component {
 
     // Get number of FOLLOWERS for user
     getNumFollowers = () => {
-        API.getFollowers(this.props.location.state.user.id)
+        API.getFollowers(this.props.user.id)
             .then(res => {
                 this.setState({
                     numFollowers: res.data[0].count
@@ -76,7 +76,7 @@ class ProfileHeader extends Component {
 
     // Get number of other users that current user is FOLLOWING
     getNumFollowing = () => {
-        API.getFollowing(this.props.location.state.user.id)
+        API.getFollowing(this.props.user.id)
             .then(res => {
                 this.setState({
                     numFollowing: res.data[0].count
@@ -256,7 +256,7 @@ class ProfileHeader extends Component {
             <div className="row userProfile rounded bg-dark text-white">
                 <div className="col-3">
                     <img
-                        src={this.props.location.state.user.profileImage}
+                        src={this.props.user.profileImage}
                         alt="User"
                         id="userMainProfileImage"
                         className="rounded border-white"
@@ -268,7 +268,7 @@ class ProfileHeader extends Component {
                     {/* User Name */}
 
                     <Row>
-                        <h2 className="paddingTop userName">{this.props.location.state.user.name}</h2>
+                        <h2 className="paddingTop userName">{this.props.user.name}</h2>
                     </Row>
 
                     {/* Follow / Edit Profile Button */}
