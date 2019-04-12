@@ -309,9 +309,10 @@ class ProfileHeader extends Component {
 
                                     {/* EDIT LOCATION */}
                                     <textarea
-                                        className="userLocationTextarea rounded"
+                                        className="rounded"
+                                        id="userLocationTextarea"
                                         onChange={this.setNewLocation}
-                                        placeholder="City"
+                                        placeholder="Seattle, WA"
                                         value={this.state.newLocation}
                                     >
                                         {this.state.userLocation}
@@ -319,10 +320,11 @@ class ProfileHeader extends Component {
 
                                     {/* EDIT BIO */}
                                     <textarea
-                                        className="userBioTextarea rounded"
+                                        className="rounded"
+                                        id="userBioTextarea"
                                         maxLength="160"
                                         onChange={this.setNewBio}
-                                        placeholder="Bio"
+                                        placeholder="I like listening to podcasts."
                                         value={this.state.newBio}
                                     >
                                         {this.state.userBio}

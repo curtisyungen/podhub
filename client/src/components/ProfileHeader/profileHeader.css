@@ -40,15 +40,22 @@
   margin-top: 0px !important;
 }
 
-.userBioTextarea, 
-.userLocationTextarea {
-  font-size: 13px;
-  height: 25px;
-}
-
 .userStats {
   margin-top: -25px;
   text-align: center;
+}
+
+/* EDIT PROFILE HEADER */
+
+.editProfileHeader {
+  padding-left: 10px;
+}
+
+#userBioTextarea, 
+#userLocationTextarea {
+  display: block;
+  font-size: 13px;
+  height: 25px;
 }
 
 #userLocation,
@@ -56,9 +63,11 @@
   background: rgb(70, 70, 70);
   color: white;
   display: block;
+  max-width: 100%;
+  width: 100%;
 }
 
-#userBio {
+#userBioTextarea {
   max-width: 100%;
   width: 100%;
 }
