@@ -40,13 +40,18 @@
   margin-top: 0px !important;
 }
 
-.userBio, 
-.userLocation {
+.userBioTextarea, 
+.userLocationTextarea {
   font-size: 13px;
   height: 25px;
 }
 
+#userLocation,
+#userBio {
+  color: white;
+}
+
 .userStats {
+  margin-top: -25px;
   text-align: center;
-  width: 100%;
 }

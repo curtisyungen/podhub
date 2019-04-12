@@ -305,7 +305,7 @@ class ProfileHeader extends Component {
 
                                     {/* EDIT LOCATION */}
                                     <textarea
-                                        className="userLocation"
+                                        className="userLocationTextarea"
                                         onChange={this.setNewLocation}
                                         value={this.state.newLocation}
                                     >
@@ -314,7 +314,7 @@ class ProfileHeader extends Component {
 
                                     {/* EDIT BIO */}
                                     <textarea
-                                        className="userBio"
+                                        className="userBioTextarea"
                                         maxLength="160"
                                         onChange={this.setNewBio}
                                         value={this.state.newBio}
@@ -322,7 +322,13 @@ class ProfileHeader extends Component {
                                         {this.state.userBio}
                                     </textarea>
 
+                                    <button >
+                                        Save
+                                    </button>
 
+                                    <button >
+                                        Cancel
+                                    </button>
 
                                 </form>
 
@@ -343,9 +349,7 @@ class ProfileHeader extends Component {
                                     </span>
                                 )}
 
-
                         </Row>
-
 
                     </div>
                 </div>
@@ -354,9 +358,9 @@ class ProfileHeader extends Component {
 
                     {/* POSTS */}
 
-                    <div className="btn btn-dark postsBtn" onClick={this.scrollTo}>
+                    <span className="btn btn-dark postsBtn" onClick={this.scrollTo}>
                         Posts:&nbsp; {this.props.numPosts}
-                    </div>
+                    </span>
 
                     {/* FOLLOWERS */}
 
@@ -375,75 +379,75 @@ class ProfileHeader extends Component {
                     >
                         Following:&nbsp;{this.state.numFollowing}
                     </button>
-
-                    {/* FOLLOWERS MODAL */}
-
-                    <Modal
-                        open={this.state.showFollowersModal}
-                        onClose={this.hideFollowersModal}
-                        classNames={{ modal: "followersModal" }}
-                    >
-                        <h4 className="modalTitle">Followers</h4>
-
-                        {this.state.followers.length ? (
-                            <List>
-                                {this.state.followers.map(user =>
-                                    <div className="container tile m-2 userList" key={user.id}>
-                                        <User
-                                            userId={user.id}
-                                            userName={user.name}
-                                            userImage={user.image}
-                                            handler={this.hideFollowersModal}
-                                        />
-                                    </div>
-                                )}
-                            </List>
-                        ) : (
-                                this.state.message !== "Loading..." ? (
-                                    <h2>No followers found.</h2>
-                                ) : (
-                                        <></>
-                                    )
-                            )}
-
-                        <h2>{this.state.message}</h2>
-
-                    </Modal>
-
-                    {/* FOLLOWING MODAL */}
-
-                    <Modal
-                        open={this.state.showFollowingModal}
-                        onClose={this.hideFollowersModal}
-                        classNames={{ modal: "followersModal" }}
-                    >
-                        <h4 className="modalTitle">Following</h4>
-
-                        {this.state.following.length ? (
-                            <List>
-                                {this.state.following.map(user =>
-                                    <div className="container tile m-2 userList" key={user.id}>
-                                        <User
-                                            userId={user.id}
-                                            userName={user.name}
-                                            userImage={user.profileImage}
-                                            handler={this.hideFollowersModal}
-                                        />
-                                    </div>
-                                )}
-                            </List>
-                        ) : (
-                                this.state.message !== "Loading..." ? (
-                                    <h2>User is not following anyone.</h2>
-                                ) : (
-                                        <></>
-                                    )
-                            )}
-
-                        <h2>{this.state.message}</h2>
-
-                    </Modal>
                 </div>
+
+                {/* FOLLOWERS MODAL */}
+
+                <Modal
+                    open={this.state.showFollowersModal}
+                    onClose={this.hideFollowersModal}
+                    classNames={{ modal: "followersModal" }}
+                >
+                    <h4 className="modalTitle">Followers</h4>
+
+                    {this.state.followers.length ? (
+                        <List>
+                            {this.state.followers.map(user =>
+                                <div className="container tile m-2 userList" key={user.id}>
+                                    <User
+                                        userId={user.id}
+                                        userName={user.name}
+                                        userImage={user.image}
+                                        handler={this.hideFollowersModal}
+                                    />
+                                </div>
+                            )}
+                        </List>
+                    ) : (
+                            this.state.message !== "Loading..." ? (
+                                <h2>No followers found.</h2>
+                            ) : (
+                                    <></>
+                                )
+                        )}
+
+                    <h2>{this.state.message}</h2>
+
+                </Modal>
+
+                {/* FOLLOWING MODAL */}
+
+                <Modal
+                    open={this.state.showFollowingModal}
+                    onClose={this.hideFollowersModal}
+                    classNames={{ modal: "followersModal" }}
+                >
+                    <h4 className="modalTitle">Following</h4>
+
+                    {this.state.following.length ? (
+                        <List>
+                            {this.state.following.map(user =>
+                                <div className="container tile m-2 userList" key={user.id}>
+                                    <User
+                                        userId={user.id}
+                                        userName={user.name}
+                                        userImage={user.profileImage}
+                                        handler={this.hideFollowersModal}
+                                    />
+                                </div>
+                            )}
+                        </List>
+                    ) : (
+                            this.state.message !== "Loading..." ? (
+                                <h2>User is not following anyone.</h2>
+                            ) : (
+                                    <></>
+                                )
+                        )}
+
+                    <h2>{this.state.message}</h2>
+
+                </Modal>
 
             </span>
         );
