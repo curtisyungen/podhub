@@ -273,7 +273,7 @@ class ProfileHeader extends Component {
 
                     {/* Follow / Edit Profile Button */}
 
-                    {this.state.user.id !== JSON.parse(localStorage.getItem("user")).id ? (
+                    {this.props.user.id !== JSON.parse(localStorage.getItem("user")).id ? (
                         this.state.userIsFollowed ? (
                             <button
                                 className="btn btn-outline-light followBtn"
