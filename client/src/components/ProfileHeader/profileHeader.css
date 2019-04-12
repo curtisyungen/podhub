@@ -85,14 +85,9 @@
   word-wrap: break-word;
 }
 
-.cancelBtn,
-.saveBtn {
+#editButtons {
   float: right;
   margin-top: -50px;
-}
-
-.saveBtn {
-  margin-left: -100px;
 }
 
 textarea::placeholder {

@@ -307,19 +307,21 @@ class ProfileHeader extends Component {
                             {this.state.editProfile ? (
                                 <form id="editProfileHeader">
 
-                                    <button
-                                        className="btn btn-light btn-sm cancelBtn"
-                                        onClick={this.cancelEditProfile}
-                                    >
-                                        Cancel
-                                    </button>
+                                    <div id="editButtons">
+                                        <button
+                                            className="btn btn-light btn-sm cancelBtn"
+                                            onClick={this.cancelEditProfile}
+                                        >
+                                            Cancel
+                                        </button>
 
-                                    <button
-                                        className="btn btn-light btn-sm saveBtn"
-                                        onClick={this.saveProfile}
-                                    >
-                                        Save
-                                    </button>
+                                        <button
+                                            className="btn btn-light btn-sm saveBtn"
+                                            onClick={this.saveProfile}
+                                        >
+                                            Save
+                                        </button>
+                                    </div>
 
                                     {/* EDIT LOCATION */}
                                     <textarea
