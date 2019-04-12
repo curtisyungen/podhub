@@ -37,9 +37,9 @@ class Profile extends Component {
     showFollowersModal: false,
     showFollowingModal: false,
     redirect: false,
-    userLocation: "",
+    userLocation: "Seattle, WA",
     newLocation: "",
-    userBio: "",
+    userBio: "My name is Curtis.",
     newBio: "",
     editProfile: false
   };
