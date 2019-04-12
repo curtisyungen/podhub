@@ -2,14 +2,13 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch, faUser, faHome, faCog } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faUser, faHome } from '@fortawesome/free-solid-svg-icons'
 import Logo from "./purple_back.png";
 import NavbarAudio from "../NavbarAudio/navbarAudio";
 import Popup from "reactjs-popup";
-import OptionsMenu from "../OptionsMenu/optionsMenu";
 import "./navbar.css";
 
-library.add(faSearch, faUser, faHome, faCog);
+library.add(faSearch, faUser, faHome);
 
 // NAVBAR COMPONENT
 // Rendered by App.js on every page
@@ -20,13 +19,15 @@ class Navbar extends Component {
 
   state = {
     remove: false,
-    speed: 1.0,
-    showOptionsMenu: false
+    speed: 1.0
   };
 
-
-  // NAVBAR AUDIO PLAYER
-  // ====================================
+  // Prevent Enter keypress from refreshing window
+  suppressEnter = (event) => {
+    if (window.event.keyCode === 13) {
+      event.preventDefault();
+    }
+  }
 
   // Change speed of audio playback
   changeSpeed = (event) => {
@@ -35,31 +36,12 @@ class Navbar extends Component {
     });
   }
 
-
-  // OPTIONS MENU
-  // ====================================
-
-  showOptionsMenu = () => {
-    this.setState({
-      showOptionsMenu: true
-    });
+  itIsMountedNav = (bool) => {
+    this.props.itIsMountedApp(bool);
   }
 
-  hideOptionsMenu = () => {
-    this.setState({
-      showOptionsMenu: false
-    });
-  }
-
-
-  // OTHER
-  // ====================================
-
-  // Prevent Enter keypress from refreshing window
-  suppressEnter = (event) => {
-    if (window.event.keyCode === 13) {
-      event.preventDefault();
-    }
+  isPlaying = (opposite) => {
+    this.props.isPlayingApp(opposite);
   }
 
 
@@ -157,6 +139,10 @@ class Navbar extends Component {
                         initialSpeed={this.state.speed}
                         remove={this.state.remove}
                         aCurrentTime={this.props.rawCurrentTime}
+                        itIsMounted={this.itIsMountedNav}
+                        isPlaying={this.isPlaying}
+                        isItPlaying={this.props.isItPlaying}
+                        isMounted={this.props.isMounted}
                       />
                     </span>
                   }
@@ -208,30 +194,12 @@ class Navbar extends Component {
               {/* Logout Button */}
 
               <li>
-
-                {/* <button
+                <button
                   onClick={logout}
                   className="logoutButton btn btn-dark"
                 >
                   Logout
-                </button> */}
-
-                <FontAwesomeIcon 
-                  className="faCog fa-2x" 
-                  icon="cog" 
-                  onClick={this.showOptionsMenu}
-                />
-
-                {this.state.showOptionsMenu ? ( 
-                  <OptionsMenu 
-                    user={this.props.user}
-                    hideOptionsMenu={this.hideOptionsMenu}
-                    logout={logout}
-                  />
-                ) : (
-                  <></>
-                )}
-
+                </button>
               </li>
 
             </ul>

@@ -14,11 +14,6 @@ import "./Profile.css";
 // Contains info on user's # of posts, followers, and followings
 // Displays user's favorites
 // Displays user's posts
-// Has functionality to like/unlike a post
-// Has functionality to comment on post
-// Has functionality to like/unlike a comment
-// Has modals to display: likes, comments, followers, followings
-// Has functionality to redirect to Episode List and Listen page on post click
 
 class Profile extends Component {
   state = {
@@ -27,6 +22,7 @@ class Profile extends Component {
     favorites: [],
     currentPostId: "",
     redirect: false,
+    message: ""
   };
 
   // Load user profile information
@@ -69,7 +65,7 @@ class Profile extends Component {
         if (res.data.length === 0) {
           this.setState({
             favorites: [],
-            messageNoFav:
+            message:
               "No favorites found."
           });
         } else {
@@ -81,7 +77,7 @@ class Profile extends Component {
       .catch(() => {
         this.setState({
           favorites: [],
-          messageNoFav:
+          message:
             "No favorites found."
         });
       });
@@ -94,7 +90,7 @@ class Profile extends Component {
         if (res.data.length === 0) {
           this.setState({
             posts: [],
-            messageNoPodcast: "No posts found."
+            message: "No posts found."
           });
         } else {
           this.setState({
@@ -105,7 +101,7 @@ class Profile extends Component {
       .catch(() => {
         this.setState({
           posts: [],
-          messageNoPodcast: "No posts found."
+          message: "No posts found."
         });
       });
   };
@@ -154,6 +150,8 @@ class Profile extends Component {
           <div className="col-md-2 col-xs-0"></div>
           <div className="col-md-8 col-xs-12">
             <Container>
+
+              {/* PROFILE HEADER */}
 
               <ProfileHeader 
                 user={this.props.location.state.user}
@@ -244,7 +242,7 @@ class Profile extends Component {
                   </Container>
                 ) : (
                     <div className="col">
-                      <h5 className="text-center">&nbsp;{this.state.messageNoFav}</h5>
+                      <h5 className="text-center">&nbsp;{this.state.message}</h5>
                     </div>
                   )}
               </div>
@@ -282,7 +280,7 @@ class Profile extends Component {
                 ) : (
                     <div className="col">
                       <h5 className="text-center">
-                        &nbsp;{this.state.messageNoPodcast}
+                        &nbsp;{this.state.message}
                       </h5>
                     </div>
                   )}

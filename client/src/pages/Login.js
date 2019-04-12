@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import Container from "../components/Container/container";
 import API from "../utils/API";
 import GoogleLogin from 'react-google-login';
-import Logo from "../components/Navbar/purple_back.png";
 import "./Login.css";
-
+import Logo from "../components/Navbar/purple_back.png";
 require("dotenv").config();
 
 class Login extends Component {
