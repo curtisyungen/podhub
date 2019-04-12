@@ -273,17 +273,17 @@ class ProfileHeader extends Component {
                                     className="btn btn-outline-light followBtn"
                                     onClick={(event) => { event.preventDefault(); this.unfollowUser(this.state.user.id) }}
                                 >
-                                Unfollow
+                                    Unfollow
                                 </button>
                             ) : (
-                                <button
-                                    className="btn btn-outline-light followBtn"
-                                    onClick={(event) => {
-                                        event.preventDefault();
-                                        this.followUser(this.state.user.id)
-                                    }}
-                                >
-                                Follow
+                                    <button
+                                        className="btn btn-outline-light followBtn"
+                                        onClick={(event) => {
+                                            event.preventDefault();
+                                            this.followUser(this.state.user.id)
+                                        }}
+                                    >
+                                        Follow
                                 </button>
                                 )
                         ) : (
@@ -292,11 +292,11 @@ class ProfileHeader extends Component {
                                         className="btn btn-outline-light editProfileBtn"
                                         onClick={this.editProfile}
                                     >
-                                    Edit Profile
+                                        Edit Profile
                                     </button>
                                 ) : (
-                                    <></>
-                                )
+                                        <></>
+                                    )
                             )
                         }
 
@@ -330,14 +330,14 @@ class ProfileHeader extends Component {
                                         {this.state.userBio}
                                     </textarea>
 
-                                    <button 
+                                    <button
                                         className="btn btn-light btn-sm saveBtn"
                                         onClick={this.saveProfile}
                                     >
                                         Save
                                     </button>
 
-                                    <button 
+                                    <button
                                         className="btn btn-light btn-sm cancelBtn"
                                         onClick={this.cancelEditProfile}
                                     >
@@ -362,39 +362,38 @@ class ProfileHeader extends Component {
 
                                     </span>
                                 )}
-
                         </Row>
 
+                        {/* STATS BUTTONS */}
+
+                        <div id="statsBtns">
+
+                            {/* POSTS */}
+
+                            <span className="btn btn-dark postsBtn" onClick={this.scrollTo}>
+                                Posts:&nbsp; {this.props.numPosts}
+                            </span>
+
+                            {/* FOLLOWERS */}
+
+                            <button
+                                className="btn btn-dark"
+                                onClick={this.getFollowers}
+                            >
+                                Followers:&nbsp;{this.state.numFollowers}
+                            </button>
+
+                            {/* FOLLOWING */}
+
+                            <button
+                                className="btn btn-dark"
+                                onClick={this.getUsersFollowed}
+                            >
+                                Following:&nbsp;{this.state.numFollowing}
+                            </button>
+
+                        </div>
                     </div>
-
-                    <div id="statsBtns">
-
-                        {/* POSTS */}
-
-                        <span className="btn btn-dark postsBtn" onClick={this.scrollTo}>
-                            Posts:&nbsp; {this.props.numPosts}
-                        </span>
-
-                        {/* FOLLOWERS */}
-
-                        <button
-                            className="btn btn-dark"
-                            onClick={this.getFollowers}
-                        >
-                            Followers:&nbsp;{this.state.numFollowers}
-                        </button>
-
-                        {/* FOLLOWING */}
-
-                        <button
-                            className="btn btn-dark"
-                            onClick={this.getUsersFollowed}
-                        >
-                            Following:&nbsp;{this.state.numFollowing}
-                        </button>
-
-                    </div>
-
                 </div>
 
                 {/* FOLLOWERS MODAL */}
