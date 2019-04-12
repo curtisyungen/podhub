@@ -54,7 +54,7 @@
 
 .editProfileHeader {
   padding-left: 10px;
-  width: 100%;
+  width: 400px;
 }
 
 #userBioTextarea, 
@@ -90,6 +90,6 @@
 }
 
 textarea::placeholder {
-  color: white;
+  color: lightgray;
   opacity: 1;
 }
