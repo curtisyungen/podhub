@@ -45,7 +45,7 @@
   text-align: center;
 }
 
-.statsBtns {
+#statsBtns {
   text-align: center;
   width: 100%;
 }
@@ -59,22 +59,25 @@
 
 #userBioTextarea, 
 #userLocationTextarea {
+  background: rgb(70, 70, 70);
   display: block;
   font-size: 13px;
   height: 25px;
+  max-width: 350px;
+  width: 350px;
 }
 
 #userLocation,
 #userBio {
-  background: rgb(70, 70, 70);
   color: white;
   display: block;
-  font-size: 12px;
+  font-size: 13px;
   max-width: 100%;
   width: 100%;
 }
 
 #userBioTextarea {
+  margin-top: 5px;
   max-width: 100%;
   width: 100%;
 }
