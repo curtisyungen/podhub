@@ -287,12 +287,16 @@ class ProfileHeader extends Component {
                                 </button>
                                 )
                         ) : (
-                                <button
-                                    className="btn btn-outline-light editProfileBtn"
-                                    onClick={this.editProfile}
-                                >
-                                Edit Profile
-                                </button>
+                                !this.state.editProfile ? (
+                                    <button
+                                        className="btn btn-outline-light editProfileBtn"
+                                        onClick={this.editProfile}
+                                    >
+                                    Edit Profile
+                                    </button>
+                                ) : (
+                                    <></>
+                                )
                             )
                         }
 
@@ -305,8 +309,9 @@ class ProfileHeader extends Component {
 
                                     {/* EDIT LOCATION */}
                                     <textarea
-                                        className="userLocationTextarea"
+                                        className="userLocationTextarea rounded"
                                         onChange={this.setNewLocation}
+                                        placeholder="City"
                                         value={this.state.newLocation}
                                     >
                                         {this.state.userLocation}
@@ -314,9 +319,10 @@ class ProfileHeader extends Component {
 
                                     {/* EDIT BIO */}
                                     <textarea
-                                        className="userBioTextarea"
+                                        className="userBioTextarea rounded"
                                         maxLength="160"
                                         onChange={this.setNewBio}
+                                        placeholder="Bio"
                                         value={this.state.newBio}
                                     >
                                         {this.state.userBio}
