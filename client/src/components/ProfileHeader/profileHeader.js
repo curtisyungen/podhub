@@ -373,38 +373,37 @@ class ProfileHeader extends Component {
 
                         </Row>
 
-                    </div>
+                        {/* STATS BUTTONS */}
 
-                    {/* STATS BUTTONS */}
+                        <div className="row userStats rounded bg-dark">
 
-                    <div className="row userStats rounded bg-dark">
+                            <div id="statsBtns">
 
-                        <div id="statsBtns">
+                                {/* POSTS */}
 
-                            {/* POSTS */}
+                                <span className="btn btn-dark postsBtn" onClick={this.scrollTo}>
+                                    Posts:&nbsp; {this.props.numPosts}
+                                </span>
 
-                            <span className="btn btn-dark postsBtn" onClick={this.scrollTo}>
-                                Posts:&nbsp; {this.props.numPosts}
-                            </span>
+                                {/* FOLLOWERS */}
 
-                            {/* FOLLOWERS */}
+                                <button
+                                    className="btn btn-dark"
+                                    onClick={this.getFollowers}
+                                >
+                                    Followers:&nbsp;{this.state.numFollowers}
+                                </button>
 
-                            <button
-                                className="btn btn-dark"
-                                onClick={this.getFollowers}
-                            >
-                                Followers:&nbsp;{this.state.numFollowers}
-                            </button>
+                                {/* FOLLOWING */}
 
-                            {/* FOLLOWING */}
+                                <button
+                                    className="btn btn-dark"
+                                    onClick={this.getUsersFollowed}
+                                >
+                                    Following:&nbsp;{this.state.numFollowing}
+                                </button>
 
-                            <button
-                                className="btn btn-dark"
-                                onClick={this.getUsersFollowed}
-                            >
-                                Following:&nbsp;{this.state.numFollowing}
-                            </button>
-
+                            </div>
                         </div>
                     </div>
                 </div>
