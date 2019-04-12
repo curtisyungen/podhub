@@ -393,6 +393,7 @@ class ProfileHeader extends Component {
                     >
                         Following:&nbsp;{this.state.numFollowing}
                     </button>
+                    
                 </div>
 
                 {/* FOLLOWERS MODAL */}
