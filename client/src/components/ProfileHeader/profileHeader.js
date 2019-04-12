@@ -309,17 +309,17 @@ class ProfileHeader extends Component {
 
                                     <div id="editButtons">
                                         <button
-                                            className="btn btn-light btn-sm cancelBtn"
-                                            onClick={this.cancelEditProfile}
-                                        >
-                                            Cancel
-                                        </button>
-
-                                        <button
                                             className="btn btn-light btn-sm saveBtn"
                                             onClick={this.saveProfile}
                                         >
                                             Save
+                                        </button>
+
+                                        <button
+                                            className="btn btn-light btn-sm cancelBtn"
+                                            onClick={this.cancelEditProfile}
+                                        >
+                                            Cancel
                                         </button>
                                     </div>
 

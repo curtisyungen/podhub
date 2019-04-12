@@ -67,7 +67,7 @@
   font-size: 13px;
   height: 25px;
   max-height: 25x;
-  width: 400px;
+  width: 500px;
 }
 
 #userBioTextarea {
@@ -88,6 +88,14 @@
 #editButtons {
   float: right;
   margin-top: -50px;
+}
+
+.cancelBtn {
+  float: right;
+}
+
+.saveBtn {
+  float: right;
 }
 
 textarea::placeholder {
