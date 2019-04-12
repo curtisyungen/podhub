@@ -43,6 +43,10 @@
 .userStats {
   margin-top: -25px;
   text-align: center;
+}
+
+.statsBtns {
+  text-align: center;
   width: 100%;
 }
 
@@ -65,6 +69,7 @@
   background: rgb(70, 70, 70);
   color: white;
   display: block;
+  font-size: 12px;
   max-width: 100%;
   width: 100%;
 }
@@ -72,11 +77,6 @@
 #userBioTextarea {
   max-width: 100%;
   width: 100%;
-}
-
-.cancelBtn,
-.saveBtn {
-  display: inline-block;
 }
 
 .saveBtn:hover {

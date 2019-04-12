@@ -370,30 +370,34 @@ class ProfileHeader extends Component {
 
                 <div className="row userStats rounded bg-dark">
 
-                    {/* POSTS */}
+                    <div id="statsBtns">
 
-                    <span className="btn btn-dark postsBtn" onClick={this.scrollTo}>
-                        Posts:&nbsp; {this.props.numPosts}
-                    </span>
+                        {/* POSTS */}
 
-                    {/* FOLLOWERS */}
+                        <span className="btn btn-dark postsBtn" onClick={this.scrollTo}>
+                            Posts:&nbsp; {this.props.numPosts}
+                        </span>
 
-                    <button
-                        className="btn btn-dark"
-                        onClick={this.getFollowers}
-                    >
-                        Followers:&nbsp;{this.state.numFollowers}
-                    </button>
+                        {/* FOLLOWERS */}
 
-                    {/* FOLLOWING */}
+                        <button
+                            className="btn btn-dark"
+                            onClick={this.getFollowers}
+                        >
+                            Followers:&nbsp;{this.state.numFollowers}
+                        </button>
 
-                    <button
-                        className="btn btn-dark"
-                        onClick={this.getUsersFollowed}
-                    >
-                        Following:&nbsp;{this.state.numFollowing}
-                    </button>
-                    
+                        {/* FOLLOWING */}
+
+                        <button
+                            className="btn btn-dark"
+                            onClick={this.getUsersFollowed}
+                        >
+                            Following:&nbsp;{this.state.numFollowing}
+                        </button>
+
+                    </div>
+
                 </div>
 
                 {/* FOLLOWERS MODAL */}
