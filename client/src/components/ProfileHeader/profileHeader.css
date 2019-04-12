@@ -41,13 +41,14 @@
 }
 
 .userStats {
+  border: 1px solid black;
   margin-bottom: 20px;
+  margin-top: -10px;
   text-align: center;
 }
 
 #statsBtns {
   margin-bottom: 5px;
-  margin-top: -10px;
   text-align: center;
   width: 100%;
 }
@@ -65,15 +66,14 @@
   display: block;
   font-size: 13px;
   height: 25px;
-  max-height: 25px;
-  width: 100%;
+  max-height: 25x;
+  width: 400px;
 }
 
 #userBioTextarea {
   margin-bottom: 5px;
   margin-top: 5px;
-  max-width: 100%;
-  width: 100%;
+  max-height: 50px;
 }
 
 #userLocation,
@@ -89,6 +89,10 @@
 .saveBtn {
   float: right;
   margin-top: -50px;
+}
+
+.saveBtn {
+  margin-left: -100px;
 }
 
 textarea::placeholder {
