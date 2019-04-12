@@ -9,7 +9,7 @@ import moment from "moment";
 import Modal from "react-responsive-modal";
 import User from "../components/User/user";
 import List from "../components/List/list";
-import AboutMe from "../components/AboutMe/aboutMe";
+// import AboutMe from "../components/AboutMe/aboutMe";
 import "./Profile.css";
 
 // USER PROFILE PAGE
@@ -36,7 +36,12 @@ class Profile extends Component {
     following: [],
     showFollowersModal: false,
     showFollowingModal: false,
-    redirect: false
+    redirect: false,
+    userLocation: "",
+    newLocation: "",
+    userBio: "",
+    newBio: "",
+    editProfile: false
   };
 
   // Load user profile information
@@ -161,6 +166,42 @@ class Profile extends Component {
         });
       });
   };
+
+
+  // EDIT PROFILE
+  // =============================================== 
+
+  editProfile = () => {
+    this.setState({
+      editProfile: true
+    });
+  }
+
+  setNewBio = (event) => {
+    this.setState({
+      newBio: event.target.value
+    });
+  }
+
+  setNewLocation = (event) => {
+    this.setState({
+      newLocation: event.target.value
+    });
+  }
+
+  saveProfile = () => {
+    this.setState({
+      userBio: this.state.newBio,
+      userLocation: this.state.newLocation,
+      editProfile: false
+    });
+  }
+
+  cancelEditProfile = () => {
+    this.setState({
+      editProfile: false
+    });
+  }
 
 
   // LIST OF FOLLOWERS / FOLLOWINGS, MODALS
@@ -312,7 +353,7 @@ class Profile extends Component {
   // Takes (True, Audio Link) and passes them to App.js
   toHomeAndProfile = (value, link, podName, epName) => {
     this.props.toApp(value, link, podName, epName);
-}
+  }
 
 
   render() {
@@ -367,7 +408,7 @@ class Profile extends Component {
                         className="btn btn-outline-light editProfileBtn"
                         onClick={(event) => 
                           { event.preventDefault(); 
-                            this.editProfile() 
+                            this.editProfile(); 
                           }}
                       >
                       Edit Profile
@@ -379,7 +420,47 @@ class Profile extends Component {
 
                   <Row>
 
+                    {this.state.editProfile ? (
+                      <form>
+
+                        {/* EDIT LOCATION */}
+                        <input 
+                          type="text"
+                          className="userLocation"
+                          onChange={this.setNewLocation}
+                          value={this.state.newLocation}
+                        >
+                        {this.state.userLocation}
+                        </input>
+
+                        {/* EDIT BIO */}
+                        <textarea 
+                          className="userBioTextarea"
+                          maxLength="160"
+                          onChange={this.setNewBio}
+                          value={this.state.newBio}
+                        >
+                        {this.state.userBio}
+                        </textarea>
+
+                      </form>
                     
+                    ) : (
+
+                      <span>
+
+                        {/* LOCATION */}
+                        <div id="userLocation">
+                          {this.state.userLocation}
+                        </div>
+
+                        {/* BIO */}
+                        <div id="userBio">
+                          {this.state.userBio}
+                        </div>
+
+                      </span>
+                    )}
 
                     {/* POSTS */}
 
