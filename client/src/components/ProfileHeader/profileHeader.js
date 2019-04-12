@@ -354,7 +354,7 @@ class ProfileHeader extends Component {
                         {/* POSTS */}
 
                         <div className="btn btn-dark postsBtn" onClick={this.scrollTo}>
-                            Posts:&nbsp; {this.state.posts.length}
+                            Posts:&nbsp; {this.props.numPosts}
                         </div>
 
                         {/* FOLLOWERS */}
