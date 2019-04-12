@@ -378,15 +378,31 @@ class Profile extends Component {
                   {/* User Info: Posts, Followers, Following */}
 
                   <Row>
+
+                    
+
+                    {/* POSTS */}
+
                     <div className="btn btn-dark postsBtn" onClick={this.scrollTo}>
                       Posts:&nbsp; {this.state.posts.length}
                     </div>
+
+                    {/* FOLLOWERS */}
 
                     <button
                       className="btn btn-dark"
                       onClick={this.getFollowers}
                     >
                       Followers:&nbsp;{this.state.numFollowers}
+                    </button>
+
+                    {/* FOLLOWING */}
+
+                    <button
+                      className="btn btn-dark"
+                      onClick={this.getUsersFollowed}
+                    >
+                      Following:&nbsp;{this.state.numFollowing}
                     </button>
 
                     {/* FOLLOWERS MODAL */}
@@ -422,13 +438,6 @@ class Profile extends Component {
                       <h2>{this.state.message}</h2>
 
                     </Modal>
-
-                    <button
-                      className="btn btn-dark"
-                      onClick={this.getUsersFollowed}
-                    >
-                      Following:&nbsp;{this.state.numFollowing}
-                    </button>
 
                     {/* FOLLOWING MODAL */}
 
@@ -469,9 +478,9 @@ class Profile extends Component {
 
               {/* ABOUT ME SECTION */}
 
-              <AboutMe 
+              {/* <AboutMe 
                 user={this.props.location.state.user}
-              />
+              /> */}
 
               {/* FAVORITES SECTION */}
 
