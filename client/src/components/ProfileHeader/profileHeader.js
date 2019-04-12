@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import Container from "../Container/container";
 import API from "../../utils/API";
-import "./aboutMe.css";
+import "./profileHeader.css";
 
 class ProfileHeader extends Component {
 
@@ -27,15 +26,17 @@ class ProfileHeader extends Component {
     }
 
     componentDidMount = () => {
-
+        this.getNumFollowers();
+        this.getNumFollowing();
+        this.isUserFollowed();
+        this.setState({
+            user: this.props.location.state.user
+          });
     }
 
     // Update profile information if subject user changes
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.location.state.user.id !== this.props.location.state.user.id) {
-
-            this.getFavorites();
-            this.getPostsOnlyByUser();
             this.getNumFollowers();
             this.getNumFollowing();
             this.isUserFollowed();
