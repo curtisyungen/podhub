@@ -48,7 +48,6 @@
 }
 
 #statsBtns {
-  margin-bottom: 5px;
   text-align: center;
   width: 100%;
 }
@@ -56,6 +55,7 @@
 /* EDIT PROFILE HEADER */
 
 #editProfileHeader {
+  margin-top: 10px;
   width: 500px;
 }
 
@@ -86,12 +86,13 @@
 }
 
 #editButtons {
-  margin-bottom: 10px;
-  margin-top: -40px;
+  margin-bottom: 40px;
+  margin-top: -50px;
 }
 
 .cancelBtn {
   float: right;
+  margin-right: 0px;
 }
 
 .saveBtn {
