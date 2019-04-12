@@ -39,3 +39,14 @@
 .userImage {
   margin-top: 0px !important;
 }
+
+.userBio, 
+.userLocation {
+  font-size: 13px;
+  height: 25px;
+}
+
+.userStats {
+  text-align: center;
+  width: 100%;
+}

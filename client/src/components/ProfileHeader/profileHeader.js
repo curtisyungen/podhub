@@ -349,97 +349,102 @@ class ProfileHeader extends Component {
 
                     </div>
                 </div>
-                {/* POSTS */}
 
-                <div className="btn btn-dark postsBtn" onClick={this.scrollTo}>
-                    Posts:&nbsp; {this.props.numPosts}
+                <div className="userStats bg-dark">
+
+                    {/* POSTS */}
+
+                    <div className="btn btn-dark postsBtn" onClick={this.scrollTo}>
+                        Posts:&nbsp; {this.props.numPosts}
+                    </div>
+
+                    {/* FOLLOWERS */}
+
+                    <button
+                        className="btn btn-dark"
+                        onClick={this.getFollowers}
+                    >
+                        Followers:&nbsp;{this.state.numFollowers}
+                    </button>
+
+                    {/* FOLLOWING */}
+
+                    <button
+                        className="btn btn-dark"
+                        onClick={this.getUsersFollowed}
+                    >
+                        Following:&nbsp;{this.state.numFollowing}
+                    </button>
+
+                    {/* FOLLOWERS MODAL */}
+
+                    <Modal
+                        open={this.state.showFollowersModal}
+                        onClose={this.hideFollowersModal}
+                        classNames={{ modal: "followersModal" }}
+                    >
+                        <h4 className="modalTitle">Followers</h4>
+
+                        {this.state.followers.length ? (
+                            <List>
+                                {this.state.followers.map(user =>
+                                    <div className="container tile m-2 userList" key={user.id}>
+                                        <User
+                                            userId={user.id}
+                                            userName={user.name}
+                                            userImage={user.image}
+                                            handler={this.hideFollowersModal}
+                                        />
+                                    </div>
+                                )}
+                            </List>
+                        ) : (
+                                this.state.message !== "Loading..." ? (
+                                    <h2>No followers found.</h2>
+                                ) : (
+                                        <></>
+                                    )
+                            )}
+
+                        <h2>{this.state.message}</h2>
+
+                    </Modal>
+
+                    {/* FOLLOWING MODAL */}
+
+                    <Modal
+                        open={this.state.showFollowingModal}
+                        onClose={this.hideFollowersModal}
+                        classNames={{ modal: "followersModal" }}
+                    >
+                        <h4 className="modalTitle">Following</h4>
+
+                        {this.state.following.length ? (
+                            <List>
+                                {this.state.following.map(user =>
+                                    <div className="container tile m-2 userList" key={user.id}>
+                                        <User
+                                            userId={user.id}
+                                            userName={user.name}
+                                            userImage={user.profileImage}
+                                            handler={this.hideFollowersModal}
+                                        />
+                                    </div>
+                                )}
+                            </List>
+                        ) : (
+                                this.state.message !== "Loading..." ? (
+                                    <h2>User is not following anyone.</h2>
+                                ) : (
+                                        <></>
+                                    )
+                            )}
+
+                        <h2>{this.state.message}</h2>
+
+                    </Modal>
                 </div>
 
-                {/* FOLLOWERS */}
-
-                <button
-                    className="btn btn-dark"
-                    onClick={this.getFollowers}
-                >
-                    Followers:&nbsp;{this.state.numFollowers}
-                </button>
-
-                {/* FOLLOWING */}
-
-                <button
-                    className="btn btn-dark"
-                    onClick={this.getUsersFollowed}
-                >
-                    Following:&nbsp;{this.state.numFollowing}
-                </button>
-
-                {/* FOLLOWERS MODAL */}
-
-                <Modal
-                    open={this.state.showFollowersModal}
-                    onClose={this.hideFollowersModal}
-                    classNames={{ modal: "followersModal" }}
-                >
-                    <h4 className="modalTitle">Followers</h4>
-
-                    {this.state.followers.length ? (
-                        <List>
-                            {this.state.followers.map(user =>
-                                <div className="container tile m-2 userList" key={user.id}>
-                                    <User
-                                        userId={user.id}
-                                        userName={user.name}
-                                        userImage={user.image}
-                                        handler={this.hideFollowersModal}
-                                    />
-                                </div>
-                            )}
-                        </List>
-                    ) : (
-                            this.state.message !== "Loading..." ? (
-                                <h2>No followers found.</h2>
-                            ) : (
-                                    <></>
-                                )
-                        )}
-
-                    <h2>{this.state.message}</h2>
-
-                </Modal>
-
-                {/* FOLLOWING MODAL */}
-
-                <Modal
-                    open={this.state.showFollowingModal}
-                    onClose={this.hideFollowersModal}
-                    classNames={{ modal: "followersModal" }}
-                >
-                    <h4 className="modalTitle">Following</h4>
-
-                    {this.state.following.length ? (
-                        <List>
-                            {this.state.following.map(user =>
-                                <div className="container tile m-2 userList" key={user.id}>
-                                    <User
-                                        userId={user.id}
-                                        userName={user.name}
-                                        userImage={user.profileImage}
-                                        handler={this.hideFollowersModal}
-                                    />
-                                </div>
-                            )}
-                        </List>
-                    ) : (
-                            this.state.message !== "Loading..." ? (
-                                <h2>User is not following anyone.</h2>
-                            ) : (
-                                    <></>
-                                )
-                        )}
-
-                    <h2>{this.state.message}</h2>
-
-                </Modal>
             </Container>
         );
     }
