@@ -63,8 +63,9 @@
   background: rgb(70, 70, 70);
   color: white;
   display: block;
-  font-size: 32px;
-  max-height: 42px;
+  font-size: 22px;
+  margin-top: 25px;
+  max-height: 35px;
   width: 300px;
 }
 

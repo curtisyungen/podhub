@@ -277,7 +277,7 @@ class ProfileHeader extends Component {
                                 <form>
                                     <textarea
                                         className="rounded"
-                                        id="userNameTextarea"
+                                        id="usernameTextarea"
                                         maxLength="75"
                                         onChange={this.setNewUsername}
                                         value={this.state.newUsername}
