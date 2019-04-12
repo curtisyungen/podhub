@@ -136,7 +136,8 @@ h4 {
   padding-top:1%;
 }
 
-.followBtn {
+.followBtn,
+.editProfileBtn {
   float: right;
 }
 
