@@ -307,43 +307,42 @@ class ProfileHeader extends Component {
                             {this.state.editProfile ? (
                                 <form id="editProfileHeader">
 
-                                        {/* EDIT LOCATION */}
-                                        <textarea
-                                            className="rounded"
-                                            id="userLocationTextarea"
-                                            onChange={this.setNewLocation}
-                                            placeholder="Seattle, WA"
-                                            value={this.state.newLocation}
-                                        >
-                                            {this.state.userLocation}
-                                        </textarea>
-
-                                        {/* EDIT BIO */}
-                                        <textarea
-                                            className="rounded"
-                                            id="userBioTextarea"
-                                            maxLength="160"
-                                            onChange={this.setNewBio}
-                                            placeholder="I like listening to podcasts."
-                                            value={this.state.newBio}
-                                        >
-                                            {this.state.userBio}
-                                        </textarea>
-
-                                        <button
-                                            className="btn btn-light btn-sm saveBtn"
-                                            onClick={this.saveProfile}
-                                        >
-                                            Save
+                                    <button
+                                        className="btn btn-light btn-sm saveBtn"
+                                        onClick={this.saveProfile}
+                                    >
+                                        Save
                                         </button>
 
-                                        <button
-                                            className="btn btn-light btn-sm cancelBtn"
-                                            onClick={this.cancelEditProfile}
-                                        >
-                                            Cancel
+                                    <button
+                                        className="btn btn-light btn-sm cancelBtn"
+                                        onClick={this.cancelEditProfile}
+                                    >
+                                        Cancel
                                         </button>
 
+                                    {/* EDIT LOCATION */}
+                                    <textarea
+                                        className="rounded"
+                                        id="userLocationTextarea"
+                                        onChange={this.setNewLocation}
+                                        placeholder="Seattle, WA"
+                                        value={this.state.newLocation}
+                                    >
+                                        {this.state.userLocation}
+                                    </textarea>
+
+                                    {/* EDIT BIO */}
+                                    <textarea
+                                        className="rounded"
+                                        id="userBioTextarea"
+                                        maxLength="160"
+                                        onChange={this.setNewBio}
+                                        placeholder="I like listening to podcasts."
+                                        value={this.state.newBio}
+                                    >
+                                        {this.state.userBio}
+                                    </textarea>
                                 </form>
 
                             ) : (
