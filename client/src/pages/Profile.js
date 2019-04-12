@@ -157,6 +157,7 @@ class Profile extends Component {
 
               <ProfileHeader 
                 user={this.props.location.state.user}
+                numPosts={this.state.posts.length}
               />
 
               {/* FAVORITES SECTION */}
