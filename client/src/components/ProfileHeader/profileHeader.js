@@ -307,42 +307,50 @@ class ProfileHeader extends Component {
                             {this.state.editProfile ? (
                                 <form id="editProfileHeader">
 
-                                    {/* EDIT LOCATION */}
-                                    <textarea
-                                        className="rounded"
-                                        id="userLocationTextarea"
-                                        onChange={this.setNewLocation}
-                                        placeholder="Seattle, WA"
-                                        value={this.state.newLocation}
-                                    >
-                                        {this.state.userLocation}
-                                    </textarea>
+                                    <span>
 
-                                    {/* EDIT BIO */}
-                                    <textarea
-                                        className="rounded"
-                                        id="userBioTextarea"
-                                        maxLength="160"
-                                        onChange={this.setNewBio}
-                                        placeholder="I like listening to podcasts."
-                                        value={this.state.newBio}
-                                    >
-                                        {this.state.userBio}
-                                    </textarea>
+                                        {/* EDIT LOCATION */}
+                                        <textarea
+                                            className="rounded"
+                                            id="userLocationTextarea"
+                                            onChange={this.setNewLocation}
+                                            placeholder="Seattle, WA"
+                                            value={this.state.newLocation}
+                                        >
+                                            {this.state.userLocation}
+                                        </textarea>
 
-                                    <button
-                                        className="btn btn-light btn-sm saveBtn"
-                                        onClick={this.saveProfile}
-                                    >
-                                        Save
-                                    </button>
+                                        {/* EDIT BIO */}
+                                        <textarea
+                                            className="rounded"
+                                            id="userBioTextarea"
+                                            maxLength="160"
+                                            onChange={this.setNewBio}
+                                            placeholder="I like listening to podcasts."
+                                            value={this.state.newBio}
+                                        >
+                                            {this.state.userBio}
+                                        </textarea>
 
-                                    <button
-                                        className="btn btn-light btn-sm cancelBtn"
-                                        onClick={this.cancelEditProfile}
-                                    >
-                                        Cancel
-                                    </button>
+                                    </span>
+
+                                    <span>
+
+                                        <button
+                                            className="btn btn-light btn-sm saveBtn"
+                                            onClick={this.saveProfile}
+                                        >
+                                            Save
+                                        </button>
+
+                                        <button
+                                            className="btn btn-light btn-sm cancelBtn"
+                                            onClick={this.cancelEditProfile}
+                                        >
+                                            Cancel
+                                        </button>
+
+                                    </span>
 
                                 </form>
 
@@ -363,7 +371,15 @@ class ProfileHeader extends Component {
                                     </span>
                                 )}
 
-                                <div id="statsBtns">
+                        </Row>
+
+                    </div>
+
+                    {/* STATS BUTTONS */}
+
+                    <div className="row userStats rounded bg-dark">
+
+                        <div id="statsBtns">
 
                             {/* POSTS */}
 
@@ -390,9 +406,6 @@ class ProfileHeader extends Component {
                             </button>
 
                         </div>
-
-                        </Row>
-
                     </div>
                 </div>
 
