@@ -60,6 +60,7 @@
 #userBioTextarea, 
 #userLocationTextarea {
   background: rgb(70, 70, 70);
+  color: white;
   display: block;
   font-size: 13px;
   height: 25px;
@@ -77,15 +78,18 @@
 }
 
 #userBioTextarea {
+  margin-bottom: 5px;
   margin-top: 5px;
   max-width: 100%;
   width: 100%;
 }
 
-.saveBtn:hover {
-  background: rgb(105, 185, 105);
+.cancelBtn,
+.saveBtn {
+  float: right;
 }
 
-.cancelBtn:hover {
-  background: rgb(255, 75, 75);
+textarea::placeholder {
+  color: white;
+  opacity: 1;
 }
