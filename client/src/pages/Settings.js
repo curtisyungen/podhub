@@ -3,6 +3,7 @@ import Container from "../components/Container/container";
 import Row from "../components/Row/row";
 import List from "../components/List/list";
 import API from "../utils/API";
+import "./Settings.css";
 
 class Settings extends Component {
 
@@ -16,7 +17,7 @@ class Settings extends Component {
 
     componentDidMount = () => {
         this.setState({
-            user: this.props.user
+            user: this.props.location.state.user
         });
     }
 
@@ -35,23 +36,31 @@ class Settings extends Component {
 
     render() {
         return (
-            <span>
-                <h4>{this.props.user}</h4>
-                <br/>
-
-                <h4 className="border-bottom">Profile</h4>
-                <br/>
-                <p>Change Name</p>
-                <p>Change Photo</p>
-
-                <h4 className="border-bottom">Account</h4>
-                <p
-                    onClick={this.deleteAccount}
+            <Container>
+                <div
+                    className="bg-dark settings-bg"
                 >
-                Delete Account
-                </p>
-                
-            </span>
+
+                    <h4>{this.props.user}</h4>
+                    <br/>
+
+                    <h4 className="border-bottom">Profile</h4>
+                    <br/>
+                    <div>
+                        Change Name {this.props.location.state.user.name}
+                    </div>
+                    
+                    <p>Change Photo</p>
+
+                    <h4 className="border-bottom">Account</h4>
+                    <p
+                        onClick={this.deleteAccount}
+                    >
+                    Delete Account
+                    </p>
+
+                </div>
+            </Container>
         );
     }
 }
