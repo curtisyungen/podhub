@@ -52,7 +52,7 @@
 
 /* EDIT PROFILE HEADER */
 
-.editProfileHeader {
+#editProfileHeader {
   padding-left: 10px;
   width: 400px;
 }
