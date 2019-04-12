@@ -366,9 +366,6 @@ class ProfileHeader extends Component {
                         </Row>
 
                     </div>
-                </div>
-
-                <div className="row userStats rounded bg-dark">
 
                     <div id="statsBtns">
 
