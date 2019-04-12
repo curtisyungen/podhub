@@ -299,21 +299,20 @@ class ProfileHeader extends Component {
                     <Row>
 
                         {this.state.editProfile ? (
-                            <form>
+                            <form id="editProfileHeader">
 
                                 {/* EDIT LOCATION */}
-                                <input
-                                    type="text"
+                                <textarea
                                     className="userLocation"
                                     onChange={this.setNewLocation}
                                     value={this.state.newLocation}
                                 >
                                     {this.state.userLocation}
-                                </input>
+                                </textarea>
 
                                 {/* EDIT BIO */}
                                 <textarea
-                                    className="userBioTextarea"
+                                    className="userBio"
                                     maxLength="160"
                                     onChange={this.setNewBio}
                                     value={this.state.newBio}
