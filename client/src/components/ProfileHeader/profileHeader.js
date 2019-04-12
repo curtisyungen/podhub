@@ -362,11 +362,8 @@ class ProfileHeader extends Component {
 
                                     </span>
                                 )}
-                        </Row>
 
-                        {/* STATS BUTTONS */}
-
-                        <div id="statsBtns">
+                                <div id="statsBtns">
 
                             {/* POSTS */}
 
@@ -393,6 +390,9 @@ class ProfileHeader extends Component {
                             </button>
 
                         </div>
+
+                        </Row>
+
                     </div>
                 </div>
 
