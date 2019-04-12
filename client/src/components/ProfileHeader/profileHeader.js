@@ -246,7 +246,7 @@ class ProfileHeader extends Component {
 
     render() {
         return (
-            <Container>
+            <span>
                 <div className="row userProfile rounded bg-dark text-white">
                     <div className="col-3">
                         <img
@@ -350,7 +350,7 @@ class ProfileHeader extends Component {
                     </div>
                 </div>
 
-                <div className="userStats bg-dark">
+                <div className="row userStats rounded bg-dark">
 
                     {/* POSTS */}
 
@@ -445,7 +445,7 @@ class ProfileHeader extends Component {
                     </Modal>
                 </div>
 
-            </Container>
+            </span>
         );
     }
 
