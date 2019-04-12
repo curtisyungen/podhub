@@ -46,18 +46,32 @@
   height: 25px;
 }
 
-#userLocation,
-#userBio {
-  background: rgb(70, 70, 70);
-  color: white;
-}
-
 .userStats {
   margin-top: -25px;
   text-align: center;
 }
 
+#userLocation,
+#userBio {
+  background: rgb(70, 70, 70);
+  color: white;
+  display: block;
+}
+
+#userBio {
+  max-width: 100%;
+  width: 100%;
+}
+
 .cancelBtn,
 .saveBtn {
-  float: right;
+  display: inline-block;
+}
+
+.saveBtn:hover {
+  background: rgb(105, 185, 105);
+}
+
+.cancelBtn:hover {
+  background: rgb(255, 75, 75);
 }
