@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Container from "../Container/container";
 import Row from "../Row/row";
 import Modal from "react-responsive-modal";
 import User from "../User/user";
@@ -35,7 +36,7 @@ class ProfileHeader extends Component {
         this.isUserFollowed();
         this.setState({
             user: this.props.user
-          });
+        });
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -245,194 +246,201 @@ class ProfileHeader extends Component {
 
     render() {
         return (
-            <div className="row userProfile rounded bg-dark text-white">
-                <div className="col-3">
-                    <img
-                        src={this.props.user.profileImage}
-                        alt="User"
-                        id="userMainProfileImage"
-                        className="rounded border-white"
-                    />
-                </div>
+            <Container>
+                <div className="row userProfile rounded bg-dark text-white">
+                    <div className="col-3">
+                        <img
+                            src={this.props.user.profileImage}
+                            alt="User"
+                            id="userMainProfileImage"
+                            className="rounded border-white"
+                        />
+                    </div>
 
-                <div className="col">
+                    <div className="col">
 
-                    {/* User Name */}
+                        {/* User Name */}
 
-                    <Row>
-                        <h2 className="paddingTop userName">{this.props.user.name}</h2>
-                    </Row>
+                        <Row>
+                            <h2 className="paddingTop userName">{this.props.user.name}</h2>
+                        </Row>
 
-                    {/* Follow / Edit Profile Button */}
+                        {/* Follow / Edit Profile Button */}
 
-                    {this.props.user.id !== JSON.parse(localStorage.getItem("user")).id ? (
-                        this.state.userIsFollowed ? (
-                            <button
-                                className="btn btn-outline-light followBtn"
-                                onClick={(event) => { event.preventDefault(); this.unfollowUser(this.state.user.id) }}
-                            >
-                                Unfollow
-                        </button>
-                        ) : (
+                        {this.props.user.id !== JSON.parse(localStorage.getItem("user")).id ? (
+                            this.state.userIsFollowed ? (
                                 <button
                                     className="btn btn-outline-light followBtn"
-                                    onClick={(event) => {
-                                        event.preventDefault();
-                                        this.followUser(this.state.user.id)
-                                    }}
+                                    onClick={(event) => { event.preventDefault(); this.unfollowUser(this.state.user.id) }}
                                 >
-                                Follow
+                                    Unfollow
+                        </button>
+                            ) : (
+                                    <button
+                                        className="btn btn-outline-light followBtn"
+                                        onClick={(event) => {
+                                            event.preventDefault();
+                                            this.followUser(this.state.user.id)
+                                        }}
+                                    >
+                                        Follow
                                 </button>
-                            )
-                    ) : (
-                            <button
-                                className="btn btn-outline-light editProfileBtn"
-                                onClick={this.editProfile}
-                            >
-                            Edit Profile
-                            </button>
-                        )
-                    }
-
-                    {/* User Info: Posts, Followers, Following */}
-
-                    <Row>
-
-                        {this.state.editProfile ? (
-                            <form id="editProfileHeader">
-
-                                {/* EDIT LOCATION */}
-                                <textarea
-                                    className="userLocation"
-                                    onChange={this.setNewLocation}
-                                    value={this.state.newLocation}
-                                >
-                                    {this.state.userLocation}
-                                </textarea>
-
-                                {/* EDIT BIO */}
-                                <textarea
-                                    className="userBio"
-                                    maxLength="160"
-                                    onChange={this.setNewBio}
-                                    value={this.state.newBio}
-                                >
-                                    {this.state.userBio}
-                                </textarea>
-
-                            </form>
-
+                                )
                         ) : (
+                                <button
+                                    className="btn btn-outline-light editProfileBtn"
+                                    onClick={this.editProfile}
+                                >
+                                    Edit Profile
+                            </button>
+                            )
+                        }
 
-                                <span>
+                        {/* User Info: Posts, Followers, Following */}
 
-                                    {/* LOCATION */}
-                                    <div id="userLocation">
+                        <Row>
+
+                            {this.state.editProfile ? (
+                                <form id="editProfileHeader">
+
+                                    {/* EDIT LOCATION */}
+                                    <textarea
+                                        className="userLocation"
+                                        onChange={this.setNewLocation}
+                                        value={this.state.newLocation}
+                                    >
                                         {this.state.userLocation}
-                                    </div>
+                                    </textarea>
 
-                                    {/* BIO */}
-                                    <div id="userBio">
+                                    {/* EDIT BIO */}
+                                    <textarea
+                                        className="userBio"
+                                        maxLength="160"
+                                        onChange={this.setNewBio}
+                                        value={this.state.newBio}
+                                    >
                                         {this.state.userBio}
-                                    </div>
+                                    </textarea>
 
-                                </span>
-                            )}
 
-                        {/* POSTS */}
 
-                        <div className="btn btn-dark postsBtn" onClick={this.scrollTo}>
-                            Posts:&nbsp; {this.props.numPosts}
-                        </div>
+                                </form>
 
-                        {/* FOLLOWERS */}
-
-                        <button
-                            className="btn btn-dark"
-                            onClick={this.getFollowers}
-                        >
-                            Followers:&nbsp;{this.state.numFollowers}
-                        </button>
-
-                        {/* FOLLOWING */}
-
-                        <button
-                            className="btn btn-dark"
-                            onClick={this.getUsersFollowed}
-                        >
-                            Following:&nbsp;{this.state.numFollowing}
-                        </button>
-
-                        {/* FOLLOWERS MODAL */}
-
-                        <Modal
-                            open={this.state.showFollowersModal}
-                            onClose={this.hideFollowersModal}
-                            classNames={{ modal: "followersModal" }}
-                        >
-                            <h4 className="modalTitle">Followers</h4>
-
-                            {this.state.followers.length ? (
-                                <List>
-                                    {this.state.followers.map(user =>
-                                        <div className="container tile m-2 userList" key={user.id}>
-                                            <User
-                                                userId={user.id}
-                                                userName={user.name}
-                                                userImage={user.image}
-                                                handler={this.hideFollowersModal}
-                                            />
-                                        </div>
-                                    )}
-                                </List>
                             ) : (
-                                    this.state.message !== "Loading..." ? (
-                                        <h2>No followers found.</h2>
-                                    ) : (
-                                            <></>
-                                        )
+
+                                    <span>
+
+                                        {/* LOCATION */}
+                                        <div id="userLocation">
+                                            {this.state.userLocation}
+                                        </div>
+
+                                        {/* BIO */}
+                                        <div id="userBio">
+                                            {this.state.userBio}
+                                        </div>
+
+                                    </span>
                                 )}
 
-                            <h2>{this.state.message}</h2>
 
-                        </Modal>
+                        </Row>
 
-                        {/* FOLLOWING MODAL */}
 
-                        <Modal
-                            open={this.state.showFollowingModal}
-                            onClose={this.hideFollowersModal}
-                            classNames={{ modal: "followersModal" }}
-                        >
-                            <h4 className="modalTitle">Following</h4>
-
-                            {this.state.following.length ? (
-                                <List>
-                                    {this.state.following.map(user =>
-                                        <div className="container tile m-2 userList" key={user.id}>
-                                            <User
-                                                userId={user.id}
-                                                userName={user.name}
-                                                userImage={user.profileImage}
-                                                handler={this.hideFollowersModal}
-                                            />
-                                        </div>
-                                    )}
-                                </List>
-                            ) : (
-                                    this.state.message !== "Loading..." ? (
-                                        <h2>User is not following anyone.</h2>
-                                    ) : (
-                                            <></>
-                                        )
-                                )}
-
-                            <h2>{this.state.message}</h2>
-
-                        </Modal>
-                    </Row>
+                    </div>
                 </div>
-            </div>
+                {/* POSTS */}
+
+                <div className="btn btn-dark postsBtn" onClick={this.scrollTo}>
+                    Posts:&nbsp; {this.props.numPosts}
+                </div>
+
+                {/* FOLLOWERS */}
+
+                <button
+                    className="btn btn-dark"
+                    onClick={this.getFollowers}
+                >
+                    Followers:&nbsp;{this.state.numFollowers}
+                </button>
+
+                {/* FOLLOWING */}
+
+                <button
+                    className="btn btn-dark"
+                    onClick={this.getUsersFollowed}
+                >
+                    Following:&nbsp;{this.state.numFollowing}
+                </button>
+
+                {/* FOLLOWERS MODAL */}
+
+                <Modal
+                    open={this.state.showFollowersModal}
+                    onClose={this.hideFollowersModal}
+                    classNames={{ modal: "followersModal" }}
+                >
+                    <h4 className="modalTitle">Followers</h4>
+
+                    {this.state.followers.length ? (
+                        <List>
+                            {this.state.followers.map(user =>
+                                <div className="container tile m-2 userList" key={user.id}>
+                                    <User
+                                        userId={user.id}
+                                        userName={user.name}
+                                        userImage={user.image}
+                                        handler={this.hideFollowersModal}
+                                    />
+                                </div>
+                            )}
+                        </List>
+                    ) : (
+                            this.state.message !== "Loading..." ? (
+                                <h2>No followers found.</h2>
+                            ) : (
+                                    <></>
+                                )
+                        )}
+
+                    <h2>{this.state.message}</h2>
+
+                </Modal>
+
+                {/* FOLLOWING MODAL */}
+
+                <Modal
+                    open={this.state.showFollowingModal}
+                    onClose={this.hideFollowersModal}
+                    classNames={{ modal: "followersModal" }}
+                >
+                    <h4 className="modalTitle">Following</h4>
+
+                    {this.state.following.length ? (
+                        <List>
+                            {this.state.following.map(user =>
+                                <div className="container tile m-2 userList" key={user.id}>
+                                    <User
+                                        userId={user.id}
+                                        userName={user.name}
+                                        userImage={user.profileImage}
+                                        handler={this.hideFollowersModal}
+                                    />
+                                </div>
+                            )}
+                        </List>
+                    ) : (
+                            this.state.message !== "Loading..." ? (
+                                <h2>User is not following anyone.</h2>
+                            ) : (
+                                    <></>
+                                )
+                        )}
+
+                    <h2>{this.state.message}</h2>
+
+                </Modal>
+            </Container>
         );
     }
 
