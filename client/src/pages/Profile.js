@@ -341,7 +341,7 @@ class Profile extends Component {
                     <h2 className="paddingTop userName">{this.props.location.state.user.name}</h2>
                   </Row>
 
-                  {/* Follow Button */}
+                  {/* Follow / Edit Profile Button */}
 
                   {this.state.user.id !== JSON.parse(localStorage.getItem("user")).id ? (
                     this.state.userIsFollowed ? (
@@ -354,14 +354,24 @@ class Profile extends Component {
                     ) : (
                         <button
                           className="btn btn-outline-light followBtn"
-                          onClick={(event) => { event.preventDefault(); this.followUser(this.state.user.id) }}
+                          onClick={(event) => 
+                            { event.preventDefault(); 
+                              this.followUser(this.state.user.id) 
+                            }}
                         >
                           Follow
                         </button>
                       )
-
                   ) : (
-                      <></>
+                      <button 
+                        className="btn btn-outline-light editProfileBtn"
+                        onClick={(event) => 
+                          { event.preventDefault(); 
+                            this.editProfile() 
+                          }}
+                      >
+                      Edit Profile
+                      </button>
                     )
                   }
 
