@@ -1,4 +1,8 @@
 import React, { Component } from "react";
+import Row from "../Row/row";
+import Modal from "react-responsive-modal";
+import User from "../User/user";
+import List from "../List/list";
 import API from "../../utils/API";
 import "./profileHeader.css";
 
