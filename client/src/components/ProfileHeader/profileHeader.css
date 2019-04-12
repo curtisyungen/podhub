@@ -1,0 +1,41 @@
+.followBtn,
+.editProfileBtn {
+  float: right;
+}
+
+.postsBtn {
+  cursor: pointer;
+}
+
+/* Modal  */
+
+.followersModal {
+  max-height: 400px;
+  overflow: scroll;
+}
+
+.modalTitle {
+  border-bottom: 1px solid rgb(75, 75, 75);
+  font-size: 24px;
+  padding-bottom: 10px;
+}
+
+.userName {
+  font-size: 32px;
+  padding-left: 10px;
+  width: 100%;
+}
+
+.userProfile {
+  border: 1px solid black;
+  height: 150px;
+  margin-bottom: 20px;
+}
+
+#userMainProfileImage{
+  width: 100px;
+}
+
+.userImage {
+  margin-top: 0px !important;
+}
