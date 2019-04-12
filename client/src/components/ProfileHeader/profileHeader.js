@@ -15,7 +15,7 @@ class ProfileHeader extends Component {
         this.state = {
             user: null,
             userName: null,
-            newUsername: "",
+            newUsername: null,
             userLocation: "",
             userBio: "",
             editProfile: false,
@@ -280,7 +280,7 @@ class ProfileHeader extends Component {
                                         id="usernameTextarea"
                                         maxLength="75"
                                         onChange={this.setNewUsername}
-                                        value={this.state.newUsername}
+                                        value={this.state.newUsername || this.props.user.name}
                                     >
                                         {this.state.userName || this.props.user.name}
                                     </textarea>
