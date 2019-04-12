@@ -273,17 +273,17 @@ class ProfileHeader extends Component {
                                     className="btn btn-outline-light followBtn"
                                     onClick={(event) => { event.preventDefault(); this.unfollowUser(this.state.user.id) }}
                                 >
-                                    Unfollow
-                        </button>
+                                Unfollow
+                                </button>
                             ) : (
-                                    <button
-                                        className="btn btn-outline-light followBtn"
-                                        onClick={(event) => {
-                                            event.preventDefault();
-                                            this.followUser(this.state.user.id)
-                                        }}
-                                    >
-                                        Follow
+                                <button
+                                    className="btn btn-outline-light followBtn"
+                                    onClick={(event) => {
+                                        event.preventDefault();
+                                        this.followUser(this.state.user.id)
+                                    }}
+                                >
+                                Follow
                                 </button>
                                 )
                         ) : (
@@ -291,8 +291,8 @@ class ProfileHeader extends Component {
                                     className="btn btn-outline-light editProfileBtn"
                                     onClick={this.editProfile}
                                 >
-                                    Edit Profile
-                            </button>
+                                Edit Profile
+                                </button>
                             )
                         }
 
@@ -322,11 +322,17 @@ class ProfileHeader extends Component {
                                         {this.state.userBio}
                                     </textarea>
 
-                                    <button >
+                                    <button 
+                                        className="btn btn-light btn-sm saveBtn"
+                                        onClick={this.saveProfile}
+                                    >
                                         Save
                                     </button>
 
-                                    <button >
+                                    <button 
+                                        className="btn btn-light btn-sm cancelBtn"
+                                        onClick={this.cancelEditProfile}
+                                    >
                                         Cancel
                                     </button>
 

@@ -55,3 +55,8 @@
   margin-top: -25px;
   text-align: center;
 }
+
+.cancelBtn,
+.saveBtn {
+  float: right;
+}
