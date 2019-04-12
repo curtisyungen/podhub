@@ -86,8 +86,8 @@
 }
 
 #editButtons {
-  float: right;
-  margin-top: -50px;
+  margin-bottom: 10px;
+  margin-top: -40px;
 }
 
 .cancelBtn {
