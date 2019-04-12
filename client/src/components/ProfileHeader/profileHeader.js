@@ -13,8 +13,8 @@ class ProfileHeader extends Component {
 
         this.state = {
             user: null,
-            userLocation: "Seattle, WA",
-            userBio: "My name is Curtis.",
+            userLocation: "",
+            userBio: "",
             editProfile: false,
             newLocation: "",
             newBio: "",
@@ -38,7 +38,6 @@ class ProfileHeader extends Component {
           });
     }
 
-    // Update profile information if subject user changes
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.user.id !== this.props.user.id) {
             this.getNumFollowers();
@@ -56,7 +55,7 @@ class ProfileHeader extends Component {
     }
 
 
-    // SET UP PROFILE
+    // SET UP HEADER
     // =============================================== 
 
     // Get number of FOLLOWERS for user
@@ -238,13 +237,6 @@ class ProfileHeader extends Component {
     // OTHER
     // ===============================================
 
-    handleInputChange = event => {
-        const { name, value } = event.target;
-        this.setState({
-            [name]: value
-        });
-    };
-
     // Scrolls to post section when Posts is clicked from profile header
     scrollTo = () => {
         window.scrollTo(0, 500);
@@ -289,19 +281,16 @@ class ProfileHeader extends Component {
                                         this.followUser(this.state.user.id)
                                     }}
                                 >
-                                    Follow
-                        </button>
+                                Follow
+                                </button>
                             )
                     ) : (
                             <button
                                 className="btn btn-outline-light editProfileBtn"
-                                onClick={(event) => {
-                                    event.preventDefault();
-                                    this.editProfile();
-                                }}
+                                onClick={this.editProfile}
                             >
-                                Edit Profile
-                      </button>
+                            Edit Profile
+                            </button>
                         )
                     }
 
