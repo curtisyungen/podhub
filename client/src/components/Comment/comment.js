@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import Delete from "../../pages/delete-1.png"
-import Modal from "react-responsive-modal";
+// import { Link } from "react-router-dom";
 import Popup from "reactjs-popup";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -18,12 +16,18 @@ class Comment extends Component {
         super(props);
 
         this.state = {
-            commentHeartClasses: "fa-heart-unliked fas fa-heart"
+            comment: "",
+            userListCommentLikes: [],
+            commentHeartClasses: "fa-heart-unliked fas fa-heart",
+            numberOfLikes: 0
         }
     }
 
     componentDidMount = () => {
-
+        this.setState({
+            comment: this.props.comment,
+            numberOfLikes: this.props.comment.numberOfLikes
+        }, () => {this.getUsersListCommentLikes(this.state.comment.id)});
     }
 
     // Likes or unlikes a comment
@@ -37,20 +41,18 @@ class Comment extends Component {
             if (res.data[1] === false) {
                 API.unlikeComment(commentId, currUserId).then(res => {
                     this.setState({
-                        commentHeartClasses: "fa-heart-unliked fas fa-heart"
+                        commentHeartClasses: "fa-heart-unliked fas fa-heart",
+                        numberOfLikes: this.state.numberOfLikes - 1
                     });
-
-                    this.handleShowCommentsModal(this.state.currentPostId);
                 });
             }
 
             // LIKE COMMENT
             else {
                 this.setState({
-                    commentHeartClasses: "fa-heart-liked fas fa-heart animated bounce"
+                    commentHeartClasses: "fa-heart-liked fas fa-heart animated bounce",
+                    numberOfLikes: this.state.numberOfLikes + 1
                 });
-
-                this.handleShowCommentsModal(this.state.currentPostId);
             }
         });
     }
@@ -84,40 +86,10 @@ class Comment extends Component {
 
     render() {
         return (
-            /* COMMENTS */
-
-            < div className="commentDiv" >
-                <span
-                    className="comments"
-                    onClick={() => this.handleShowCommentsModal(this.state.postId)}
-                >
-                    <FontAwesomeIcon icon="comment" /> &nbsp;&nbsp;
-    {this.state.numComments}
-                </span>
-            </div >
-
             <span>
-
-                {/* PLAY FROM NAVBAR BUTTTON */}
-                <button id="playFromNavButton"
-                    onClick={this.playFromNav}
-                >
-                    Play from Navbar
-</button>
-
-            </span>
-            {/* COMMENTS MODAL */}
-
-            <Modal
-            open={this.state.showCommentsModal}
-            onClose={this.closeCommentsModal}
-            classNames={{ modal: "standardModal" }}
-            center
-        >
-            {this.state.comments.map(comment => (
                 <div
                     className="commentBox rounded border border-top-0 border-left-0 border-right-0 bg-dark text-secondary"
-                    key={comment.id}
+                    key={this.props.comment.id}
                 >
 
                     {/* PREVIOUS COMMENTS */}
@@ -125,47 +97,50 @@ class Comment extends Component {
                     <div
                         className="row comment-top-row"
                     >
-                    <div className="col ml-2">
-                      
+                        <div className="col ml-2">
+
                             <img
-                                src={comment.userImage}
+                                src={this.props.comment.userImage}
                                 alt="User Icon"
                                 id="userImageCommentsModal"
                                 className="rounded border-white mt-2 ml-2 mb-2"
                             />
-                            <span className="ml-3 mr-3 pl-2 pr-2">{comment.userName} &nbsp;&nbsp;|&nbsp; {moment(comment.createdAt).format("LLL")}</span>
+                            <span className="ml-3 mr-3 pl-2 pr-2">
+                                {this.props.comment.userName} &nbsp;&nbsp;|&nbsp;
+                                    {moment(this.props.comment.createdAt).format("LLL")}
+                            </span>
                         </div>
                     </div>
 
                     <div
                         className="row comment-second-row"
                     >
-                        <p className="userComment pl-2 ml-3">{comment.comment}</p>
+                        <p className="userComment pl-2 ml-3">{this.props.comment.comment}</p>
                     </div>
 
                     {/* COMMENT LIKE BUTTON */}
 
                     <div className="row comment-third-row">
-            
+
                         <div className="col-4 mb-2 commentLikes">
                             <span
                                 className="likes ml-4"
-                                onClick={() => this.handleCommentLikeOrUnlike(comment.id)}
                             >
-                                <FontAwesomeIcon 
+                                <FontAwesomeIcon
                                     className={this.state.commentHeartClasses}
-                                    icon="heart" 
+                                    icon="heart"
+                                    onClick={() => this.handleCommentLikeOrUnlike(this.props.comment.id)}
                                 />
                             </span>
 
                             {/* COMMENT LIKES POP UP */}
 
-                            {comment.numberOfLikes > 0
+                            {this.state.numberOfLikes > 0
                                 ?
                                 <Popup
-                                    trigger={<span>{comment.numberOfLikes}</span>}
+                                    trigger={<span>{this.state.numberOfLikes}</span>}
                                     on="hover"
-                                    onOpen={() => this.getUsersListCommentLikes(comment.id)}
+                                    onOpen={() => this.getUsersListCommentLikes(this.state.comment.id)}
                                     position="top left"
                                     closeOnDocumentClick
                                     className="popup"
@@ -174,7 +149,11 @@ class Comment extends Component {
                                     {this.state.userListCommentLikes.map(user => (
                                         <div className="row" key={user.id}>
                                             <div className="col-3 m-0">
-                                                <img src={user.image} alt="User Icon" className="userIconPopup rounded border-white" />
+                                                <img
+                                                    src={user.image}
+                                                    alt="User Icon"
+                                                    className="userIconPopup rounded border-white"
+                                                />
                                             </div>
                                             <div className="col-9 m-0">
                                                 <p>{user.name}</p>
@@ -188,53 +167,24 @@ class Comment extends Component {
 
                         {/* COMMENT DELETE BUTTON */}
 
-                        {JSON.parse(localStorage.getItem("user")).id === comment.commentedBy
+                        {JSON.parse(localStorage.getItem("user")).id === this.props.comment.commentedBy
                             ?
                             <div className="col-8">
                                 <button
                                     className="btn btn-sm deleteComment float-right"
-                                    onClick={(event) =>{
-                                        //event.preventDefault();
-                                        this.deleteComment(comment.id)
-                                    }
-                                    }>
-                                    Delete
+                                    onClick={(event) => {
+                                        event.preventDefault();
+                                        this.props.delete(this.state.comment.id);
+                                    }}
+                                >
+                                Delete
                                 </button>
                             </div>
                             : null
                         }
                     </div>
                 </div>
-            ))}
-
-            {/* COMMENT ENTRY FORM */}
-
-            <form>
-                <div className="form-group mt-4 bg-dark text-secondary">
-                    <textarea type="text" 
-                        className="form-control"                  
-                        rows="3"
-                        id="commentForm"
-                        defaultValue=""
-                        name="currentComment"
-                        placeholder="Enter your comment"
-                        ref={this.state.currentComment}
-                        onChange={this.handleInputChange}
-                    />
-                </div>
-                <button
-                    type="submit"
-                    className="btn btn-light btn-sm mb-2"
-                    onClick={(event) => {
-                        event.preventDefault();
-                        this.addComment()
-                    }
-                    }
-                >
-                    Submit
-                </button>
-            </form>
-        </Modal>
+            </span>
         );
     }
 
