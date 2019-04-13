@@ -209,23 +209,6 @@ class Post extends Component {
         });
     }
 
-    // Show modal that displays likes for comment
-    handleShowCommentsLikes = (commentId) => {
-        API.getLikes(commentId).then(res => {
-            if (res.data.length === 0) {
-                this.setState({
-                    showLikesModal: false
-                });
-            }
-            else {
-                this.setState({
-                    commentLikes: res.data,
-                    showLikesModal: true
-                });
-            }
-        });
-    }
-
     // Show pop up with list of users who have liked comment
     getUsersListCommentLikes = (commentId) => {
         API.getUsersLikedComment(commentId)
