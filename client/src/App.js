@@ -141,7 +141,16 @@ class App extends Component {
   // Log the user into the site
   handleUser = (userData) => {
     this.setState({
-      user: userData,
+      user: {
+        "id":1,
+        "googleId":"112905034186296552113",
+        "name":"Curtis Yungen",
+        "email":"curtisyungen@gmail.com",
+        "profileImage":"https://lh6.googleusercontent.com/-CFFU-4RMXb0/AAAAAAAAAAI/AAAAAAAADlU/gBNtR9U02eE/s96-c/photo.jpg",
+        "aboutMe":null,
+        "createdAt":"2019-04-05T14:46:50.000Z",
+        "updatedAt":"2019-04-05T14:46:50.000Z"
+      },
       logout: false
     });
   }
