@@ -219,6 +219,9 @@ class App extends Component {
 
 
   render() {
+
+    this.handleUser("user");
+
     return (
 
       <Router>
