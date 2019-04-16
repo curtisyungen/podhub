@@ -228,10 +228,10 @@ class Navbar extends Component {
                 /> */}
 
                 <span
-                  className="navbarUserImg"
                   onClick={this.showOptionsMenu}
                 >
                   <img 
+                    className="navbarUserImg"
                     src={this.props.user.profileImage} />
                 </span>
 
