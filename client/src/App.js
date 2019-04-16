@@ -220,8 +220,6 @@ class App extends Component {
 
   render() {
 
-    this.handleUser("user");
-
     return (
 
       <Router>
@@ -242,7 +240,7 @@ class App extends Component {
 
           {/* Render Home page and navbar if user logged in */}
 
-          {false && !this.isLoggedIn() ? (
+          {!this.isLoggedIn() ? (
 
             <Route
               render={() =>
