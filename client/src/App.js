@@ -152,6 +152,9 @@ class App extends Component {
         updatedAt:"2019-04-05T14:46:50.000Z"
       },
       logout: false
+    }, () => {
+      console.log(this.state);
+      localStorage.setItem("user", this.state.user);
     });
   }
 
