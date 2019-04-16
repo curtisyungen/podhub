@@ -74,6 +74,7 @@ class Navbar extends Component {
   render() {
 
     const { podcastSearch, handleInputChange, hidePodcasts, logout, user, showAudio, hideAudio } = this.props;
+    console.log(this.props.user);
 
     return (
 
@@ -231,7 +232,7 @@ class Navbar extends Component {
                   onClick={this.showOptionsMenu}
                 >
                   <img 
-                    src={this.props.user.image} />
+                    src={this.props.user.profileImage} />
                 </span>
 
                 {this.state.showOptionsMenu ? (
