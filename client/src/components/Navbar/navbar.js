@@ -220,11 +220,19 @@ class Navbar extends Component {
               {/* Logout Button */}
 
               <li>
-                <FontAwesomeIcon 
+                {/* <FontAwesomeIcon 
                   className="faCog fa-2x" 
                   icon="cog" 
                   onClick={this.showOptionsMenu}
-                />
+                /> */}
+
+                <span
+                  className="navbarUserImg"
+                  onClick={this.showOptionsMenu}
+                >
+                  <img 
+                    src={this.props.user.image} />
+                </span>
 
                 {this.state.showOptionsMenu ? (
                   <OptionsMenu

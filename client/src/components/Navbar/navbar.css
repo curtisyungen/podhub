@@ -44,6 +44,11 @@ button > div {
     text-align: center;
 }
 
+.navbarUserImg {
+    border-radius: 15px;
+    height: 30px;
+}
+
 #topPopupText:after {
     content: ""; /* This is necessary for the pseudo element to work. */ 
     display: block; /* This will put the pseudo element on its own line. */
