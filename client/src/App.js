@@ -227,7 +227,7 @@ class App extends Component {
 
           {/* Render Home page and navbar if user logged in */}
 
-          {!this.isLoggedIn() ? (
+          {false && !this.isLoggedIn() ? (
 
             <Route
               render={() =>
