@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Popup from "reactjs-popup";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -19,14 +19,15 @@ class Comment extends Component {
             comment: "",
             userListCommentLikes: [],
             commentHeartClasses: "fa-heart-unliked fas fa-heart",
-            numberOfLikes: 0
+            numberOfLikes: null
         }
     }
 
     componentDidMount = () => {
         this.setState({
             comment: this.props.comment,
-            numberOfLikes: this.props.comment.numberOfLikes
+            numberOfLikes: this.props.comment.numberOfLikes,
+            userListCommentLikes: []
         }, () => {this.getUsersListCommentLikes(this.state.comment.id)});
     }
 
@@ -63,12 +64,12 @@ class Comment extends Component {
             .then(res => {
                 if (res.data.length === 0) {
                     this.setState({
-                        userListCommentLikes: [],
+                        userListCommentLikes: []
                     });
                 }
                 else {
 
-                    let heartClasses = "fa-heart-unliked fas fa-heart animated";
+                    let heartClasses = "fa-heart-unliked fas fa-heart";
 
                     for (var like in res.data) {
                         if (res.data[like].id === JSON.parse(localStorage.getItem("user")).id) {
@@ -97,7 +98,19 @@ class Comment extends Component {
                     <div
                         className="row comment-top-row"
                     >
-                        <div className="col ml-2">
+                        <Link 
+                            to={{
+                                pathname: "/profile",
+                                state: {
+                                    user: {
+                                        id: this.props.comment.commentedBy,
+                                        name: this.props.comment.userName,
+                                        profileImage: this.props.comment.userImage
+                                    }
+                                }
+                            }}
+                            className="col ml-2"
+                        >
 
                             <img
                                 src={this.props.comment.userImage}
@@ -106,10 +119,10 @@ class Comment extends Component {
                                 className="rounded border-white mt-2 ml-2 mb-2"
                             />
                             <span className="ml-3 mr-3 pl-2 pr-2">
-                                {this.props.comment.userName} &nbsp;&nbsp;|&nbsp;
+                                {this.props.comment.userName} &nbsp;&nbsp;|&nbsp;&nbsp;
                                     {moment(this.props.comment.createdAt).format("LLL")}
                             </span>
-                        </div>
+                        </Link>
                     </div>
 
                     <div
@@ -138,16 +151,29 @@ class Comment extends Component {
                             {this.state.numberOfLikes > 0
                                 ?
                                 <Popup
-                                    trigger={<span>{this.state.numberOfLikes}</span>}
+                                    trigger={<span>{this.state.numberOfLikes || this.props.comment.numberOfLikes}</span>}
                                     on="hover"
                                     onOpen={() => this.getUsersListCommentLikes(this.state.comment.id)}
-                                    position="top left"
+                                    position="bottom left"
                                     closeOnDocumentClick
                                     className="popup"
                                     arrow={false}
                                 >
                                     {this.state.userListCommentLikes.map(user => (
-                                        <div className="row" key={user.id}>
+                                        <Link 
+                                            to={{
+                                                pathname: "/profile",
+                                                state: {
+                                                    user: {
+                                                            id: user.id,
+                                                            name: user.name,
+                                                            profileImage: user.image,
+                                                        }
+                                                }
+                                            }}
+                                            className="row" 
+                                            key={user.id}
+                                        >
                                             <div className="col-3 m-0">
                                                 <img
                                                     src={user.image}
@@ -158,7 +184,7 @@ class Comment extends Component {
                                             <div className="col-9 m-0">
                                                 <p>{user.name}</p>
                                             </div>
-                                        </div>
+                                        </Link>
                                     ))}
                                 </Popup>
                                 :

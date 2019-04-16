@@ -9,6 +9,7 @@ import moment from "moment";
 import Comment from "../Comment/comment";
 import API from "../../utils/API";
 import "./post.css";
+//import { cpus } from "os";
 
 library.add(faComment);
 library.add(faHeart);
@@ -155,40 +156,41 @@ class Post extends Component {
     // Add a comment to post
     addComment = () => {
         API.addComment(this.state.currentComment, this.state.postId, JSON.parse(localStorage.getItem("user")).id)
-        .then(res => {
-            this.props.updateParentState();
-            this.handleShowCommentsModal();
-            this.closeCommentsModal();
-
-            this.setState({
-                numComments: this.state.numComments + 1,
-                currentComment: ""
+            .then(res => {
+                this.props.updateParentState();
+                this.closeCommentsModal();
+                this.setState({
+                    numComments: this.state.numComments + 1,
+                    currentComment:"",
+                });
             });
-        });
     }
 
     // Delete a comment from post
     deleteComment = (commentId) => {
         API.deleteComment(commentId).then(res => {
             this.props.updateParentState();
-            this.handleShowCommentsModal();
             this.closeCommentsModal();
-
             this.setState({
                 numComments: this.state.numComments - 1
+                
             });
 
+            if (this.state.numComments > 0) 
+            {this.handleShowCommentsModal();}
+            
         });
     };
 
     // Opens modal that displays comments
     handleShowCommentsModal = () => {
-        API.getComments(this.state.postId).then(res => {
-            this.setState({
-                comments: res.data,
-                showCommentsModal: true,
+        API.getComments(this.state.postId)
+            .then(res => {
+                this.setState({
+                    comments: res.data,
+                    showCommentsModal: true,
+                });
             });
-        });
     }
 
     // Close modal that displays comments
@@ -397,16 +399,29 @@ class Post extends Component {
                             className="row rounded favorite bg-dark text-secondary"
                             key={like.id}
                         >
-                            <div className="col-3 mt-0">
+                            <Link 
+                                className="col-3 mt-0"
+                                to={{
+                                    pathname: "/profile",
+                                    state: {
+                                        user: {
+                                            id: like.id,
+                                            name: like.name,
+                                            profileImage: like.image
+                                        }
+                                    }
+                                }}
+                                >
                                 <img
                                     src={like.image}
                                     alt="User Icon"
                                     id="userImageLikesModal"
                                     className="rounded border-white"
                                 />
-                            </div>
-                            <div className="col-9">
-                                <p>{like.name}</p>
+                            </Link>
+
+                            <div className="col-9">	
+                                <p>{like.name}</p>	
                             </div>
                         </div>
                     ))}
@@ -422,6 +437,7 @@ class Post extends Component {
                 >
                     {this.state.comments.map(comment => (
                         <Comment
+                            key={comment.id}
                             comment={comment}
                             delete={this.deleteComment}
                         />
@@ -431,7 +447,8 @@ class Post extends Component {
 
                     <form>
                         <div className="form-group mt-4 bg-dark text-secondary">
-                            <textarea type="text"
+                            <textarea 
+                                type="text"
                                 className="form-control"
                                 rows="3"
                                 id="commentForm"
@@ -440,6 +457,7 @@ class Post extends Component {
                                 placeholder="Enter your comment"
                                 ref={this.state.currentComment}
                                 onChange={this.handleInputChange}
+                                //value={this.state.currentComment}
                             />
                         </div>
                         <button
@@ -447,9 +465,8 @@ class Post extends Component {
                             className="btn btn-light btn-sm mb-2"
                             onClick={(event) => {
                                 event.preventDefault();
-                                this.addComment()
-                            }
-                            }
+                                this.addComment();
+                            }}
                         >
                             Submit
                     </button>

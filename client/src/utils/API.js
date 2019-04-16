@@ -1,4 +1,9 @@
 import axios from "axios";
+import dotenv from 'dotenv';
+dotenv.config();
+
+
+var API_KEY = process.env.REACT_APP_PODCAST_API_KEY;
 
 export default {
 
@@ -21,11 +26,11 @@ export default {
     },
 
     // Removes a like from post
-    unlikePost: function (postId,userId) {
+    unlikePost: function (postId, userId) {
         return axios.delete("/api/posts/unlike/" + postId + "/" + userId);
     },
 
-    
+
     // COMMENTS
     // =====================================
 
@@ -37,14 +42,14 @@ export default {
     // Adds a comment to a post
     addComment: function (comment, postId, userId) {
         let data = {
-            comment:comment,
-            commentedBy:userId,
-            postId:postId
+            comment: comment,
+            commentedBy: userId,
+            postId: postId
         }
 
         return axios.post("/api/comments/", data);
     },
-    
+
     // Removes a comment from a post
     deleteComment: function (commentId) {
         return axios.delete("/api/comments/" + commentId)
@@ -61,12 +66,12 @@ export default {
     },
 
     // Removes a like from a comment
-    unlikeComment: function (commentId,userId) {
+    unlikeComment: function (commentId, userId) {
         return axios.delete("/api/comments/commentUnlikes/" + commentId + "/" + userId);
     },
-    
+
     // Gets the users who liked the comment
-    getUsersLikedComment: function (commentId){
+    getUsersLikedComment: function (commentId) {
         return axios.get("/api/comments/getUsersLikedComment/" + commentId);
     },
 
@@ -75,7 +80,7 @@ export default {
     // =====================================
 
     // Create a new post (share a podcast episode)
-    sharePodcast: function(podcastId, podcastName, podcastLogo, episodeId, episodeName, description, audioLink, userMessage, userId) {
+    sharePodcast: function (podcastId, podcastName, podcastLogo, episodeId, episodeName, description, audioLink, userMessage, userId) {
 
         let data = {
             podcastId: podcastId,
@@ -123,7 +128,7 @@ export default {
     },
 
     // Gets About Me section for user
-    getAboutMe: function(userId) {
+    getAboutMe: function (userId) {
         return axios.get("/api/getAboutMe", userId);
     },
 
@@ -132,7 +137,7 @@ export default {
         return axios.post("/api/users?id_token=" + id_token);
     },
 
-    
+
     // PODCAST, EPISODE SEARCH
     // =====================================
 
@@ -140,7 +145,7 @@ export default {
     getPodcasts: function (userQuery) {
         var URL = "https://listennotes.p.rapidapi.com/api/v1/search?sort_by_date=0&type=podcast&only_in=title&language=English&q=" + userQuery;
 
-        return axios.get(URL, { 'headers': { 'X-RapidAPI-Key': "a063bce4f1msh0a4f44209d57a2fp1225adjsn3f80cc1cf1bb" } })
+        return axios.get(URL, { 'headers': { 'X-RapidAPI-Key': API_KEY } })
             .then((response) => {
                 return response;
             })
@@ -219,13 +224,13 @@ export default {
         console.log("api", id)
         return axios.delete("/api/favorites/delete/" + id);
     },
-    
+
 
     // FOLLOWING AND UNFOLLOWING
     // =====================================   
 
     // Follows a specific user
-    followUser: function(userId, followUserId) {
+    followUser: function (userId, followUserId) {
 
         let data = {
             followedBy: userId,
@@ -236,7 +241,7 @@ export default {
     },
 
     // Unfollows a specific user
-    unFollowUser: function(userId, followUserId) {
+    unFollowUser: function (userId, followUserId) {
 
         let data = {
             "followedBy": userId,
@@ -255,24 +260,24 @@ export default {
     getFollowing: function (userId) {
         return axios.get("/api/users/isFollowing/" + userId);
     },
-    
+
     // Gets users on site - for user search results
     getUsersToFollow: function (userId) {
         return axios.get("/api/users/" + userId);
     },
 
     // Gets number of users followed
-    getUsersFollowed: function(userId){
+    getUsersFollowed: function (userId) {
         return axios.get("/api/users/followings/" + userId);
     },
 
     // Gets list of other users that follow subject user
-    isFollowedByUsers: function(userId) {
+    isFollowedByUsers: function (userId) {
         return axios.get("api/users/followedByUsers/" + userId);
     },
 
     // Gets list of other users that subject user follows
-    isFollowingUsers: function(userId) {
+    isFollowingUsers: function (userId) {
         return axios.get("api/users/isFollowingUsers/" + userId);
     },
 };
