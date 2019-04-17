@@ -315,7 +315,7 @@ class Post extends Component {
                                 }
                             }}
                         >
-                            <div className="postText">
+                            <div className={`postText ${this.props.theme}`}>
                                 <h4 id="podcast-name-home">{this.state.podcastName}</h4>
                                 <p id="episode-name-home">{this.state.episodeName}
                                 </p>
@@ -330,7 +330,7 @@ class Post extends Component {
 
                 <div className="row">
                     <div className="col-md-2 col-xs-1"></div>
-                    <div className="col-md-8 col-xs-10">
+                    <div className={`col-md-8 col-xs-10 ${this.props.theme}`}>
                         <p id="user-message">{this.state.userMessage}</p>
                     </div>
                     <div className="col-md-2 col-xs-1"></div>
@@ -353,7 +353,7 @@ class Post extends Component {
                             </span>
 
                             <span
-                                className="likesNumber"
+                                className={`likesNumber ${this.props.theme}`}
                                 onClick={() => this.handleShowLikesModal(this.state.postId)}
                             >
                                 {this.state.numLikes}
@@ -364,7 +364,7 @@ class Post extends Component {
 
                         <div className="commentDiv">
                             <span
-                                className="comments"
+                                className={`comments ${this.props.theme}`}
                                 onClick={() => this.handleShowCommentsModal(this.state.postId)}
                             >
                                 <FontAwesomeIcon icon="comment" /> &nbsp;&nbsp;
@@ -396,7 +396,7 @@ class Post extends Component {
                 >
                     {this.state.likes.map(like => (
                         <div
-                            className="row rounded favorite bg-dark text-secondary"
+                            className={`row rounded favorite bg-${this.props.theme} text-secondary`}
                             key={like.id}
                         >
                             <Link 
@@ -446,7 +446,7 @@ class Post extends Component {
                     {/* COMMENT ENTRY FORM */}
 
                     <form>
-                        <div className="form-group mt-4 bg-dark text-secondary">
+                        <div className={`form-group mt-4 bg-${this.props.theme} text-secondary`}>
                             <textarea 
                                 type="text"
                                 className="form-control"
