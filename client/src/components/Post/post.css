@@ -118,9 +118,9 @@
 }
 
 #podcastIcon {
-  width: 80px;
   margin: 0px 10px 0px 5px;
-  border: solid 3.4px rgb(212, 208, 208) !important;
+  width: 80px;
+  /* border: solid 3.4px rgb(212, 208, 208) !important; */
 }
 
 .podcast-name-home {
