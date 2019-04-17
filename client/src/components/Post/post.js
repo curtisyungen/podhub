@@ -267,7 +267,7 @@ class Post extends Component {
 
                 {/* PODCAST LOGO / LINK TO EPISODE LIST PAGE */}
 
-                <div className="row" id="second-row-post">
+                <div className="row" id={`second-row-post-${this.props.theme}`}>
 
                     <div className="col-md-2 col-xs-2 p-0">
                         <div id="img-post">

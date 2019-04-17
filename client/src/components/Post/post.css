@@ -143,12 +143,14 @@
   padding-top: 8px; /* This creates some space between the element and the border. */
 }
 
-#post-top-row-dark:after {
+#post-top-row-dark:after,
+#second-row-post-dark:after {
   border-bottom: 1px solid rgb(46, 45, 45);
 }
 
-#post-top-row-light:after {
-  border-bottom: 1px solid rgb(138, 138, 138);
+#post-top-row-light:after,
+#second-row-post-light:after {
+  border-bottom: 1px solid rgb(114, 114, 114);
 }
 
 #profileImage {
