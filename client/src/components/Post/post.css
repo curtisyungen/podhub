@@ -44,11 +44,11 @@
   margin-bottom: 7px !important;
 }
 
-.fa-comment .dark {
+.fa-comment .comment-dark {
   color:white;
 }
 
-.fa-comment .light {
+.fa-comment .comment-light {
   color: lightgray;
 }
 
