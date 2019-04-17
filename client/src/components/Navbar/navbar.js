@@ -173,6 +173,7 @@ class Navbar extends Component {
                         isPlaying={this.isPlaying}
                         isItPlaying={this.props.isItPlaying}
                         isMounted={this.props.isMounted}
+                        theme={this.props.theme}
                       />
                     </span>
                   }

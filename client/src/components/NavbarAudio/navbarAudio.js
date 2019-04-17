@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import "./navbarAudio.css";
-import skipForwardImage from "../../images/skip-forward-white.png";
-import skipBackwardImage from "../../images/skip-back-white.png";
-import playImg from "../../images/play-white.png";
-import pauseImg from "../../images/pause-white.png";
+import skipForwardImagelight from "../../images/skip-forward-white.png";
+import skipBackwardImagelight from "../../images/skip-back-white.png";
+import playImglight from "../../images/play-white.png";
+import pauseImglight from "../../images/pause-white.png";
+import skipForwardImagedark from "../../images/skip-forward.png";
+import skipBackwardImagedark from "../../images/skip-backward.png";
+import playImgdark from "../../images/play.png";
+import pauseImgdark from "../../images/pause.png";
 
 // AUDIO PLAYER COMPONENT
 
@@ -114,14 +118,14 @@ class NavbarAudio extends Component {
 
                 <div id="nav-row-1">
                     <div className="NAV-SKIP-BACKWARD-15">
-                        <img src={skipBackwardImage} alt="skip backward"
+                        <img src={`skipBackwardImage${this.props.theme}`} alt="skip backward"
                             id="nav-skip-backward-15"
                             onClick={this.skipBackward15}
                         />
                     </div>
 
                     <div className="NAV-PLAY-BUTTON">
-                        <img src={this.props.isItPlaying ? pauseImg : playImg} alt="play button"
+                        <img src={this.props.isItPlaying ? `pauseImg${this.props.theme}` : `playImg${this.props.theme}`} alt="play button"
                             id="nav-pButton"
                             onClick={this.playAudio}
                         />
@@ -129,7 +133,7 @@ class NavbarAudio extends Component {
 
 
                     <div className="NAV-SKIP-FORWARD-15">
-                        <img src={skipForwardImage} alt="skip forward"
+                        <img src={`skipForwardImage${this.props.theme}`} alt="skip forward"
                             id="nav-skip-forward-15"
                             onClick={this.skipForward15}
                         />
@@ -149,9 +153,6 @@ class NavbarAudio extends Component {
                         list="steplist"
                     />
                 </div>
-
-
-
 
                 <audio
                     id="music"
