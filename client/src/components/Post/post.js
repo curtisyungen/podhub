@@ -353,7 +353,7 @@ class Post extends Component {
                             </span>
 
                             <span
-                                className={`likesNumber ${this.props.theme}`}
+                                className={`likesNumber post-${this.props.theme}`}
                                 onClick={() => this.handleShowLikesModal(this.state.postId)}
                             >
                                 {this.state.numLikes}

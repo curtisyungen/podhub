@@ -8,6 +8,11 @@
   color: black !important;
 }
 
+.post-dark {
+  background: rgb(51, 57, 63) !important;
+  color: white;
+}
+
 .btn {
   margin-right: 2%;
   right: 0;
