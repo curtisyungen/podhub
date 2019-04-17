@@ -41,8 +41,8 @@ class NavbarAudio extends Component {
             if (this.props.theme === "light") {
                 this.setState({
                     playImg: playImgDark,
-                    skipForwardImage: skipForwardImageDark,
-                    skipBackwardImage: skipBackwardImageDark,
+                    skipForwardImg: skipForwardImageDark,
+                    skipBackwardImg: skipBackwardImageDark,
                     pauseImg: pauseImgDark
                 });
             }
