@@ -315,11 +315,11 @@ class Post extends Component {
                                 }
                             }}
                         >
-                            <div className={`postText ${this.props.theme}`}>
-                                <h4 id="podcast-name-home">{this.state.podcastName}</h4>
-                                <p id="episode-name-home">{this.state.episodeName}
+                            <div className="postText">
+                                <h4 className={`${this.props.theme} podcast-name-home`}>{this.state.podcastName}</h4>
+                                <p className={`${this.props.theme} episode-name-home`}>{this.state.episodeName}
                                 </p>
-                                <p id="episode-description-home" className="ellipses">{this.state.description}</p>
+                                <p className={`${this.props.theme} episode-description-home`} className="ellipses">{this.state.description}</p>
                             </div>
                         </Link>
 
