@@ -78,3 +78,8 @@ button > div {
     margin: 0px 15px 0px 0px;
     width: 50px;
 }
+
+a .light {
+    background: #dbdbdb !important;
+    color: black !important;
+}

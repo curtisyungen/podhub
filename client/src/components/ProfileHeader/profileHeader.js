@@ -254,9 +254,10 @@ class ProfileHeader extends Component {
 
 
     render() {
+
         return (
             <span>
-                <div className="row userProfile rounded bg-dark text-white">
+                <div className={`row userProfile rounded bg-${this.props.theme}`}>
                     <div className="col-3">
                         <img
                             src={this.props.user.profileImage}
@@ -393,20 +394,20 @@ class ProfileHeader extends Component {
 
                 {/* STATS BUTTONS */}
 
-                <div className="row userStats rounded bg-dark">
+                <div className={`row userStats rounded bg-${this.props.theme}`}>
 
                     <div className="rounded" id="statsBtns">
 
                         {/* POSTS */}
 
-                        <span className="btn btn-dark postsBtn" onClick={this.scrollTo}>
+                        <span className={`btn btn-${this.props.theme} postsBtn`} onClick={this.scrollTo}>
                             Posts:&nbsp; {this.props.numPosts}
                         </span>
 
                         {/* FOLLOWERS */}
 
                         <button
-                            className="btn btn-dark"
+                            className={`btn btn-${this.props.theme}`}
                             onClick={this.getFollowers}
                         >
                             Followers:&nbsp;{this.state.numFollowers}
@@ -415,7 +416,7 @@ class ProfileHeader extends Component {
                         {/* FOLLOWING */}
 
                         <button
-                            className="btn btn-dark"
+                            className={`btn btn-${this.props.theme}`}
                             onClick={this.getUsersFollowed}
                         >
                             Following:&nbsp;{this.state.numFollowing}

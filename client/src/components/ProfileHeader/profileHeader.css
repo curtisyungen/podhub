@@ -8,6 +8,10 @@
   cursor: pointer;
 }
 
+.bg-light {
+  color: black;
+}
+
 /* Modal  */
 
 .followersModal {
