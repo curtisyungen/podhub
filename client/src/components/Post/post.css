@@ -49,7 +49,7 @@
 }
 
 .fa-comment .comment-light {
-  color: lightgray;
+  color: lightgray !important;
 }
 
 /* .fa-heart {
