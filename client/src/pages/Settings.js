@@ -56,21 +56,21 @@ class Settings extends Component {
                     <p>Change Photo</p>
 
                     <div>
-                        <span>Change Theme </span>
-                        <span 
-                            className="theme dark"
+                        <p>Change Theme </p>
+                        <button
+                            className="btn btn-dark theme dark"
                             name="dark"
                             onClick={this.props.darkTheme}
                         >
                         Dark 
-                        </span>
-                        <span 
-                            className="theme light"
+                        </button>
+                        <button
+                            className="btn btn-light theme light"
                             name="light"
                             onClick={this.props.lightTheme}
                         >
                         Light
-                        </span>
+                        </button>
                     </div>
 
                     <h4 className="border-bottom">Account</h4>

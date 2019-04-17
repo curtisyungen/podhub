@@ -25,6 +25,11 @@ button > div {
     margin-bottom: 20px; 
 }
 
+.navbar-nav .light {
+    background: rgb(250, 250, 251) !important;
+    color: black;
+}
+
 .navbarAudioPopup {
     background: white;
     color: black !important;
@@ -79,7 +84,7 @@ button > div {
     width: 50px;
 }
 
-a .light {
+.light {
     background: #dbdbdb !important;
     color: black !important;
 }

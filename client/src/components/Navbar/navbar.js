@@ -150,7 +150,7 @@ class Navbar extends Component {
                   }
                 >
                   <FontAwesomeIcon icon="search" />
-                  <span>&nbsp; Find Users</span>
+                  <span className={this.props.theme}>&nbsp; Find Users</span>
                 </Link>
               </li>
             </ul>

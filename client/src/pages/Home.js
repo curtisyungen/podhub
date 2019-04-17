@@ -99,6 +99,7 @@ class Home extends Component {
                                         postId={post.id}
                                         updateParentState={this.getPosts}
                                         toHomeAndProfile={this.toHomeAndProfile}
+                                        theme={this.props.theme}
                                   />
                                 ))}
                             </Container>
