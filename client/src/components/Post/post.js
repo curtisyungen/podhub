@@ -316,10 +316,10 @@ class Post extends Component {
                             }}
                         >
                             <div className="postText">
-                                <h4 className={`${this.props.theme} podcast-name-home`}>{this.state.podcastName}</h4>
-                                <p className={`${this.props.theme} episode-name-home`}>{this.state.episodeName}
+                                <h4 className={`post-${this.props.theme} podcast-name-home`}>{this.state.podcastName}</h4>
+                                <p className={`post-${this.props.theme} episode-name-home`}>{this.state.episodeName}
                                 </p>
-                                <p className={`${this.props.theme} episode-description-home`} className="ellipses">{this.state.description}</p>
+                                <p className={`post-${this.props.theme} episode-description-home`} className="ellipses">{this.state.description}</p>
                             </div>
                         </Link>
 
@@ -330,7 +330,7 @@ class Post extends Component {
 
                 <div className="row">
                     <div className="col-md-2 col-xs-1"></div>
-                    <div className={`col-md-8 col-xs-10 ${this.props.theme}`}>
+                    <div className={`col-md-8 col-xs-10 post-${this.props.theme}`}>
                         <p id="user-message">{this.state.userMessage}</p>
                     </div>
                     <div className="col-md-2 col-xs-1"></div>
@@ -364,7 +364,7 @@ class Post extends Component {
 
                         <div className="commentDiv">
                             <span
-                                className={`comments ${this.props.theme}`}
+                                className={`comments post-${this.props.theme}`}
                                 onClick={() => this.handleShowCommentsModal(this.state.postId)}
                             >
                                 <FontAwesomeIcon icon="comment" /> &nbsp;&nbsp;
