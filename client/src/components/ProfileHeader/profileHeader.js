@@ -273,7 +273,7 @@ class ProfileHeader extends Component {
 
                         <Row>
                             {!this.state.editProfile ? (
-                                <h2 className="paddingTop userName">{this.state.userName || this.props.user.name}</h2>
+                                <h2 className={`paddingTop userName profile-${this.props.theme}`}>{this.state.userName || this.props.user.name}</h2>
                             ) : (
                                 <form>
                                     <textarea
@@ -294,14 +294,14 @@ class ProfileHeader extends Component {
                         {this.props.user.id !== JSON.parse(localStorage.getItem("user")).id ? (
                             this.state.userIsFollowed ? (
                                 <button
-                                    className="btn btn-outline-light followBtn"
+                                    className={`btn btn-outline-${this.props.theme} followBtn`}
                                     onClick={(event) => { event.preventDefault(); this.unfollowUser(this.state.user.id) }}
                                 >
                                     Unfollow
                                 </button>
                             ) : (
                                     <button
-                                        className="btn btn-outline-light followBtn"
+                                        className={`btn btn-outline-${this.props.theme} followBtn`}
                                         onClick={(event) => {
                                             event.preventDefault();
                                             this.followUser(this.state.user.id)
@@ -313,7 +313,7 @@ class ProfileHeader extends Component {
                         ) : (
                                 !this.state.editProfile ? (
                                     <button
-                                        className="btn btn-outline-light editProfileBtn"
+                                        className={`btn btn-outline-${this.props.theme} editProfileBtn`}
                                         onClick={this.editProfile}
                                     >
                                         Edit Profile
@@ -333,13 +333,13 @@ class ProfileHeader extends Component {
 
                                     <div id="editButtons">
                                         <button
-                                            className="btn btn-light btn-sm cancelBtn"
+                                            className={`btn btn-${this.props.theme} btn-sm cancelBtn`}
                                             onClick={this.cancelEditProfile}
                                         >
                                             Cancel
                                         </button>
                                         <button
-                                            className="btn btn-light btn-sm saveBtn"
+                                            className={`btn btn-${this.props.theme} btn-sm saveBtn`}
                                             onClick={this.saveProfile}
                                         >
                                             Save
