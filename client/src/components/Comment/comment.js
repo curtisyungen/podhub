@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faComment, faHeart } from '@fortawesome/free-solid-svg-icons'
 import moment from "moment";
 import API from "../../utils/API";
+import "./comment.css/";
 
 library.add(faComment);
 library.add(faHeart);
