@@ -24,20 +24,14 @@ class Settings extends Component {
     deleteAccount = () => {
         if (window.confirm("Are you sure?")) {
 
-            alert("Fine then, loser.");
-
             API.deleteUser(this.state.user)
                 .then(res => {
                     this.logout();
-                    alert("And don't come back!");
                 });
         }
     }
 
     render() {
-
-        console.log(this.props);
-
         return (
             <Container>
                 <div
