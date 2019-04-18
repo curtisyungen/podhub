@@ -446,7 +446,7 @@ class Post extends Component {
                     {/* COMMENT ENTRY FORM */}
 
                     <form>
-                        <div className={`form-group mt-4 bg-${this.props.theme} text-secondary`}>
+                        <div className={`form-group mt-4 bg-${this.props.theme} text-secondary comment`}>
                             <textarea 
                                 type="text"
                                 className="form-control"

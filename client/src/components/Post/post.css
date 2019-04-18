@@ -22,6 +22,10 @@
   margin-top: 10px;
 }
 
+.comment {
+  margin-bottom: 3px;
+}
+
 .comment-dark {
   color:white;
 }
