@@ -49,8 +49,15 @@ class UserSearch extends Component {
         else if (this.state.userSearch === "") {
             this.getFollowings();
         }
+
+        else if (this.state.userSearch === "findall") {
+            this.setState({
+                users: this.state.allUsers
+            });
+        }
     }
 
+    // Get list of other users current user is following
     getFollowings = () => {
         API.getUsersFollowed(this.props.user.id)
             .then(res => {
@@ -66,6 +73,7 @@ class UserSearch extends Component {
         });
     }
 
+    // Get all users and store in state
     getUsers = () => {
         var usersToRender = [];
         var followings = [];
@@ -97,6 +105,7 @@ class UserSearch extends Component {
             });
     }
 
+    // Follow a user
     followUser = (id) => {
         let that = this;
         API.followUser(this.props.user.id, id)
@@ -114,6 +123,8 @@ class UserSearch extends Component {
                 console.log(err)
             )
     }
+
+    // Unfollow a user
     unFollowUser = (id) => {
         let that = this;
         API.unFollowUser(this.props.user.id, id)
