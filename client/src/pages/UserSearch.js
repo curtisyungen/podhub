@@ -46,15 +46,15 @@ class UserSearch extends Component {
             this.setState({ users: filteredUsers });
         }
 
-        else if (this.state.userSearch === "") {
-            this.getFollowings();
-        }
-
-        else if (this.state.userSearch == "findall") {
+        else if (this.state.userSearch === "findall") {
             this.getUsers();
             this.setState({
                 users: this.state.allUsers
             }, () => {console.log(this.state)})
+        }
+
+        else if (this.state.userSearch === "") {
+            this.getFollowings();
         }
     }
 
