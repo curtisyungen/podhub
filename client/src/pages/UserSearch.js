@@ -50,13 +50,11 @@ class UserSearch extends Component {
             this.getFollowings();
         }
 
-        else if (this.state.userSearch === "findall") {
-            API.getUsersToFollow(this.props.user.id)
-                .then(res => {
-                    this.setState({
-                        users: res.data
-                    });
-            });
+        else if (this.state.userSearch == "findall") {
+            this.getUsers();
+            this.setState({
+                users: this.state.allUsers
+            }, () => {console.log(this.state)})
         }
     }
 
