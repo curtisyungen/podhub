@@ -39,7 +39,7 @@ class OptionsMenu extends Component {
 
     render() {
         return (
-            <div className="options">
+            <Container>
 
                 {/* OPTIONS MENU */}
 
@@ -74,7 +74,7 @@ class OptionsMenu extends Component {
                     <></>
                 )}
 
-            </div>
+            </Container>
         );
     }
 };

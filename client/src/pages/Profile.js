@@ -166,78 +166,86 @@ class Profile extends Component {
 
                 {this.state.favorites.length ? (
 
+                  <Container>
 
-                  <div id="entire-favorites-column">
+                    <div className="row rounded favorite text-secondary">
 
-                    {this.state.favorites.map(favorite => (
+                      <div className="col-12" id="entire-favorites-column">
 
-                      // FAVORITES: PODCAST LOGO, LINK TO EPISODE LIST PAGE
+                        {this.state.favorites.map(favorite => (
 
-                      <div className="py-5 px-3 pad card bg-transparent" id="card-contain">
+                          // FAVORITES: PODCAST LOGO, LINK TO EPISODE LIST PAGE
 
-                        {/* FAVORITES: DELETE BUTTON */}
-                          {JSON.parse(localStorage.getItem("user")).id === favorite.userId ?
-                            (<div>
+                          <div className="py-5 px-3 pad card bg-transparent" id="card-contain">
 
-                              <button
-                                className="btn btn-sm mb-1 float-right deleteButtonX"
-                                onClick={() => this.handleFavoriteDelete(favorite.id)}
+                            <Link
+                              to={{
+                                pathname: "/episodeList",
+                                state: {
+                                  podcastId: favorite.podcastId,
+                                  podcastName: favorite.podcastName,
+                                  podcastLogo: favorite.podcastLogo,
+                                  loadMore: true
+                                }
+                              }}
+                            >
+                              <span>
+                                <img
+                                  id="podcastIcon"
+                                  src={favorite.podcastLogo}
+                                  alt="Podcast Logo"
+                                  className="border-white favoriteIcon card-img-top"
+                                />
+                                {/* FAVORITES: DELETE BUTTON */}
+                                {JSON.parse(localStorage.getItem("user")).id === favorite.userId
+                                  ?
+                                  <div>
+                                    <button
+                                      className="btn btn-sm mb-1 float-right deleteButtonX"
+                                      onClick={() => this.handleFavoriteDelete(favorite.id)}
+                                    >
+                                      <img src={Delete} alt="delete" className="size delbtn" />
+                                    </button>
+                                  </div>
+                                  : null
+                                }
+                              </span>
+                            </Link>
+
+
+                            <div className="card-body">
+                              {/* FAVORITES: BODY, LINK TO LISTEN PAGE */}
+
+                              <Link
+                                to={{
+                                  pathname: "/listen",
+                                  state: {
+                                    podcastId: favorite.podcastId,
+                                    podcastName: favorite.podcastName,
+                                    podcastLogo: favorite.podcastLogo,
+                                    episodeId: favorite.episodeId,
+                                    episodeName: favorite.episodeName,
+                                    date: moment(favorite.date).format("LLL"),
+                                    description: favorite.description,
+                                    audioLink: favorite.audioLink
+                                  }
+                                }}
+                                className={`favoriteLink ${this.props.theme}`}
                               >
-                                <img src={Delete} alt="delete" className="size delbtn" />
-                              </button>
-                            </div>)
-                            : (null)
-                          }
+                                <h4>{favorite.podcastName}</h4>
+                                <hr/>
+                                <p className="favoriteDescription">{favorite.episodeName}</p>
+                              </Link>
+                            </div>
 
-                          <Link
-                            to={{
-                              pathname: "/episodeList",
-                              state: {
-                                podcastId: favorite.podcastId,
-                                podcastName: favorite.podcastName,
-                                podcastLogo: favorite.podcastLogo,
-                                loadMore: true
-                              }
-                            }}
-                          >
-                              <img
-                                id="podcastIcon"
-                                src={favorite.podcastLogo}
-                                alt="Podcast Logo"
-                                className="border-white favoriteIcon card-img-top"
-                              />
-                          </Link>
+                          </div>
 
-                        <div className="card-body">
-                          {/* FAVORITES: BODY, LINK TO LISTEN PAGE */}
-
-                          <Link
-                            to={{
-                              pathname: "/listen",
-                              state: {
-                                podcastId: favorite.podcastId,
-                                podcastName: favorite.podcastName,
-                                podcastLogo: favorite.podcastLogo,
-                                episodeId: favorite.episodeId,
-                                episodeName: favorite.episodeName,
-                                date: moment(favorite.date).format("LLL"),
-                                description: favorite.description,
-                                audioLink: favorite.audioLink
-                              }
-                            }}
-                            className={`favoriteLink ${this.props.theme}`}
-                          >
-                            <h4>{favorite.podcastName}</h4>
-                            <hr />
-                            <p className="favoriteDescription">{favorite.episodeName}</p>
-                          </Link>
-                        </div>
-
+                        ))}
                       </div>
 
-                    ))}
-                  </div>
+                    </div>
 
+                  </Container>
 
                 ) : (
                     <div className="col">
