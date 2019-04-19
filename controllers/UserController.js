@@ -58,7 +58,10 @@ class UserController {
 
     db.follow
       .findAll({
-        where: { followedBy: req.params.id }
+        where: { followedBy: req.params.id },
+        order: [
+          ['name', 'ASC'],
+        ],
       })
       .then(dbfollow => res.json([{ count: dbfollow.length }]));
   }
