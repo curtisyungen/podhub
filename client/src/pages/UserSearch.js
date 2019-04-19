@@ -34,15 +34,19 @@ class UserSearch extends Component {
 
     // Check if User Search input has text and show/hide
     checkContent = () => {
-        // Show Podcast search results
-        if (this.state.userSearch !== "" && this.state.userSearch.length > 1) {
+
+        if (this.state.userSearch !== "") {
             let filteredUsers = [];
-            this.state.allUsers.forEach(u => {
-                if (u.name.toLowerCase().includes(this.state.userSearch.toLowerCase())) {
-                    filteredUsers.push(u);
+            this.state.allUsers.forEach(user => {
+                if (user.name.toLowerCase().includes(this.state.userSearch.toLowerCase())) {
+                    filteredUsers.push(user);
                 }
             });
             this.setState({ users: filteredUsers });
+        }
+
+        else if (this.state.userSearch === "") {
+            this.getFollowings();
         }
     }
 
@@ -50,13 +54,12 @@ class UserSearch extends Component {
         API.getUsersFollowed(this.props.user.id)
             .then(res => {
                 this.setState({
-                    users: res.data,
-                    allUsers: res.data
+                    users: res.data
                 });
         })
         .catch(() => {
             this.setState({
-                allUsers: [],
+                users: [],
                 message: "No user found."
             });
         });
@@ -81,7 +84,6 @@ class UserSearch extends Component {
                             });
                         });
                         this.setState({
-                            users: usersToRender,
                             allUsers: usersToRender
                         });
                     })
@@ -130,9 +132,6 @@ class UserSearch extends Component {
     }
 
     render() {
-        //var userId = JSON.parse(localStorage.getItem("user")).id;
-        //console.log("Render", userId);
-
         return (
             <Container>
 
