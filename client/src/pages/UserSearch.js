@@ -36,7 +36,7 @@ class UserSearch extends Component {
     // Check if User Search input has text and show/hide
     checkContent = () => {
 
-        if (this.state.userSearch !== "") {
+        if (this.state.userSearch !== "" && this.state.userSearch !== "findall") {
             let filteredUsers = [];
             this.state.allUsers.forEach(user => {
                 if (user.name.toLowerCase().includes(this.state.userSearch.toLowerCase())) {
@@ -46,15 +46,14 @@ class UserSearch extends Component {
             this.setState({ users: filteredUsers });
         }
 
-        else if (this.state.userSearch === "findall") {
-            this.getUsers();
-            this.setState({
-                users: this.state.allUsers
-            }, () => {console.log(this.state)})
-        }
-
         else if (this.state.userSearch === "") {
             this.getFollowings();
+        }
+
+        else if (this.state.userSearch === "findall") {
+            this.setState({
+                users: this.state.allUsers
+            });
         }
     }
 
