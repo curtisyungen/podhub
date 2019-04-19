@@ -49,6 +49,10 @@ a:hover {
   margin-top: -38px !important;
 }
 
+.favoriteLink {
+  color: white !important;
+}
+
 .favoriteDescription {
   font-size: 12px;
   padding-right: 35px;
@@ -88,7 +92,6 @@ a:hover {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  
 }
 
 .pad {
@@ -99,13 +102,66 @@ h4 {
   padding-top:1%;
 }
 
-.favorite:after {
-  content: ""; /* This is necessary for the pseudo element to work. */ 
-  display: block; /* This will put the pseudo element on its own line. */
-  margin: 0 auto; /* This will center the border. */
-  width: 95%; /* Change this to whatever width you want. */
-  padding-top: 0px; /* This creates some space between the element and the border. */
-  border-bottom: 1px solid rgb(46, 45, 45); 
+.favoriteIcon {
+  width: 40% !important;
+  height: auto !important ;
+  border: 1px solid white !important;
+  margin: 0px !important;
+  margin-top: -10px !important;
 }
 
+#card-contain {
+  text-align: center;
+  border: 1px solid #ffffff;
+  height: auto;
+  margin: 13px;
+  padding: 20px 3px 3px 3px !important;
+  border-radius: 10px;
+  box-shadow: 6px 0px 21px -2px rgba(0,0,0,0.47);
+  transition: 0.3s;
+  padding-top: 0px !important;
+}
+#card-contain h4 {
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.favoriteDescription {
+  font-size: 12px;
+  padding-right: 8px;
+  padding-left: 8px;
+}
+
+.card-body hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+  width: 97%;
+  text-align:center; 
+  margin: 15px auto 15px auto;
+}
+
+.delbtn, .deleteButtonX {
+  float: right;
+  margin: 0px !important;
+  padding: 4px 2px 0px 0px !important;
+}
+
+#entire-favorites-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 10px;
+}
+
+.card-body {
+  padding: 0px 5px 5px 5px;
+}
+
+.card-img-top  {
+  border: 1px solid white !important;
+}
 
