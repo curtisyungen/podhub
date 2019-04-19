@@ -18,7 +18,7 @@ class UserSearch extends Component {
     }
 
     componentDidMount() {
-        this.getUsers();
+        this.getFollowings();
     };
 
     // Listen for when user enters text into User search field
@@ -44,6 +44,22 @@ class UserSearch extends Component {
             });
             this.setState({ users: filteredUsers });
         }
+    }
+
+    getFollowings = () => {
+        API.getUsersFollowed(this.props.user.id)
+            .then(res => {
+                this.setState({
+                    users: res.data,
+                    allUsers: res.data
+                });
+        })
+        .catch(() => {
+            this.setState({
+                allUsers: [],
+                message: "No user found."
+            });
+        });
     }
 
     getUsers = () => {
