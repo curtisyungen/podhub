@@ -58,10 +58,7 @@ class UserController {
 
     db.follow
       .findAll({
-        where: { followedBy: req.params.id },
-        order: [
-          ['name', 'ASC'],
-        ],
+        where: { followedBy: req.params.id }
       })
       .then(dbfollow => res.json([{ count: dbfollow.length }]));
   }
@@ -89,7 +86,10 @@ class UserController {
 
     db.follow
       .findAll({
-        where: { followedBy: req.params.id }
+        where: { followedBy: req.params.id },
+        order: [
+          ['name', 'ASC'],
+        ],
       })
       .then(dbfollows => {
         let userIds = dbfollows.map(dbfollow => dbfollow.isFollowing)
@@ -122,7 +122,10 @@ class UserController {
     console.log(req.params.id);
     db.follow
       .findAll({
-        where: { isFollowing: req.params.id }
+        where: { isFollowing: req.params.id },
+        order: [
+          ['name', 'ASC'],
+        ],
       })
       .then(dbfollows => {
         let userIds = dbfollows.map(dbfollow => dbfollow.followedBy)
