@@ -51,14 +51,11 @@ class UserSearch extends Component {
         }
 
         else if (this.state.userSearch === "findall") {
-            let allUsers = [];
-
-            this.state.allUsers.forEach(user => {
-                allUsers.push(user);
-            });
-            
-            this.setState({
-                users: allUsers
+            API.getUsersToFollow(this.props.user.id)
+                .then(res => {
+                    this.setState({
+                        users: res.data
+                    });
             });
         }
     }
