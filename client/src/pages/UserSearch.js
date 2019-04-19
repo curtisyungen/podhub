@@ -19,6 +19,7 @@ class UserSearch extends Component {
 
     componentDidMount() {
         this.getFollowings();
+        this.getUsers();
     };
 
     // Listen for when user enters text into User search field
