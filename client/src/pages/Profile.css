@@ -159,6 +159,7 @@ h4 {
 
 #entire-favorites-column {
   height: 270px;
+  overflow-x: scroll;
   white-space: nowrap;
 }
 
