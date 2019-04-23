@@ -152,7 +152,6 @@ class Profile extends Component {
   scrollFavorites = (direction) => {
 
     let element = document.getElementById("entire-favorites-column");
-    console.log(element.scrollLeft);
 
     let start = element.scrollLeft;
     let change = -250;
@@ -162,6 +161,7 @@ class Profile extends Component {
     }
 
     element.scrollLeft = start + change;
+    console.log(element.scrollLeft);
   }
 
   render() {
@@ -184,18 +184,19 @@ class Profile extends Component {
 
               <h4 id="favoritesTitle">Favorites</h4>
 
-              <FontAwesomeIcon
-                className="left-arrow fa-3x"
-                icon="arrow-circle-left"
-                onClick={(event) => {
-                  event.preventDefault();
-                  this.scrollFavorites("left");
-                }}
-              />
-
               <div
                 className={`row favorites rounded bg-${this.props.theme}`}
               >
+
+                <FontAwesomeIcon
+                  className="left-arrow fa-3x"
+                  icon="arrow-circle-left"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    this.scrollFavorites("left");
+                  }}
+                />
+
                 {this.state.favorites.length ? (
 
                   <div id="entire-favorites-column">
@@ -275,16 +276,16 @@ class Profile extends Component {
                       <h5 className="text-center">&nbsp;{this.state.message}</h5>
                     </div>
                   )}
-              </div>
 
-              <FontAwesomeIcon
-                className="right-arrow fa-3x"
-                icon="arrow-circle-right"
-                onClick={(event) => {
-                  event.preventDefault();
-                  this.scrollFavorites("right");
-                }}
-              />
+                <FontAwesomeIcon
+                  className="right-arrow fa-3x"
+                  icon="arrow-circle-right"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    this.scrollFavorites("right");
+                  }}
+                />
+              </div>
 
               {/* POSTS SECTION */}
 
