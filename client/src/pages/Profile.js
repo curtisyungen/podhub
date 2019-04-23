@@ -11,9 +11,9 @@ import "./Profile.css";
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { chevronRight } from '@fortawesome/free-solid-svg-icons'
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 
-library.add(chevronRight);
+library.add(faChevronLeft, faChevronRight);
 
 // USER PROFILE PAGE
 
@@ -185,7 +185,7 @@ class Profile extends Component {
 
                 <FontAwesomeIcon
                   className="left-arrow fa-3x"
-                  icon="chevron-right"
+                  icon="chevron-left"
                   onClick={this.scrollLeft}
                 />
 

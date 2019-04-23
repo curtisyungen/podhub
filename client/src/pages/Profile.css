@@ -182,7 +182,6 @@ h4 {
 
 .left-arrow {
   float: left;
-  transform: rotate(180);
 }
 
 .right-arrow {
