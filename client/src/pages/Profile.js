@@ -150,11 +150,11 @@ class Profile extends Component {
   }
 
   scrollLeft = () => {
-    this.refs.scroller.scrollLeft -= 100;
+    this.refs.scroller.scrollLeft -= 600;
   }
 
   scrollRight = () => {
-    this.refs.scroller.scrollLeft += 100;
+    this.refs.scroller.scrollLeft += 600;
   }
 
   render() {
