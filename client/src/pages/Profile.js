@@ -151,9 +151,11 @@ class Profile extends Component {
 
   scrollFavorites = (direction) => {
 
+    console.log("scroll", direction);
+
     let element = document.getElementById("entire-favorites-column");
 
-    let start = 
+    let start =
       element.scrollLeft,
       currentTime = 0,
       increment = 20;
@@ -166,7 +168,7 @@ class Profile extends Component {
       change = 300;
     }
 
-    let animateScroll = function() {
+    let animateScroll = function () {
       currentTime += increment;
       val = this.easeInOutQuad(currentTime, start, change, duration);
       element.scrollLeft = val;
@@ -178,15 +180,15 @@ class Profile extends Component {
 
     animateScroll();
   }
- 
+
   easeInOutQuad = (currentTime, start, change, duration) => {
-    currentTime /= duration/2;
+    currentTime /= duration / 2;
     if (currentTime < 1) {
-      return change/2*currentTime*currentTime + start;
+      return change / 2 * currentTime * currentTime + start;
     }
     currentTime--;
 
-    return -change/2 * (currentTime*(currentTime-2) - 1) + start;
+    return -change / 2 * (currentTime * (currentTime - 2) - 1) + start;
   };
 
   render() {
@@ -208,30 +210,18 @@ class Profile extends Component {
               {/* FAVORITES SECTION */}
 
               <h4 id="favoritesTitle">Favorites</h4>
-              <div 
+              <div
                 className={`row favorites rounded bg-${this.props.theme}`}
               >
 
-                <span
-                  className="arrows"
-                >
-                  <FontAwesomeIcon 
-                    className="left-arrow fa-3x"
-                    icon="arrow-circle-left" 
-                    onClick={(event) => {
-                      event.preventDefault();
-                      this.scrollFavorites("left");
-                    }}
-                  />
-                  <FontAwesomeIcon 
-                    className="right-arrow fa-3x"
-                    icon="arrow-circle-right" 
-                    onClick={(event) => {
-                      event.preventDefault();
-                      this.scrollFavorites("right");
-                    }}
-                  />
-                </span>
+                <FontAwesomeIcon
+                  className="left-arrow fa-3x"
+                  icon="arrow-circle-left"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    this.scrollFavorites("left");
+                  }}
+                />
 
                 {this.state.favorites.length ? (
 
@@ -244,37 +234,37 @@ class Profile extends Component {
                       <div className="py-5 px-3 pad card bg-transparent" id="card-contain">
 
                         {/* FAVORITES: DELETE BUTTON */}
-                          {JSON.parse(localStorage.getItem("user")).id === favorite.userId ?
-                            (<div>
+                        {JSON.parse(localStorage.getItem("user")).id === favorite.userId ?
+                          (<div>
 
-                              <button
-                                className="btn btn-sm mb-1 float-right deleteButtonX"
-                                onClick={() => this.handleFavoriteDelete(favorite.id)}
-                              >
-                                <img src={Delete} alt="delete" className="size delbtn" />
-                              </button>
-                            </div>)
-                            : (null)
-                          }
+                            <button
+                              className="btn btn-sm mb-1 float-right deleteButtonX"
+                              onClick={() => this.handleFavoriteDelete(favorite.id)}
+                            >
+                              <img src={Delete} alt="delete" className="size delbtn" />
+                            </button>
+                          </div>)
+                          : (null)
+                        }
 
-                          <Link
-                            to={{
-                              pathname: "/episodeList",
-                              state: {
-                                podcastId: favorite.podcastId,
-                                podcastName: favorite.podcastName,
-                                podcastLogo: favorite.podcastLogo,
-                                loadMore: true
-                              }
-                            }}
-                          >
-                              <img
-                                id="podcastIcon"
-                                src={favorite.podcastLogo}
-                                alt="Podcast Logo"
-                                className="border-white favoriteIcon card-img-top"
-                              />
-                          </Link>
+                        <Link
+                          to={{
+                            pathname: "/episodeList",
+                            state: {
+                              podcastId: favorite.podcastId,
+                              podcastName: favorite.podcastName,
+                              podcastLogo: favorite.podcastLogo,
+                              loadMore: true
+                            }
+                          }}
+                        >
+                          <img
+                            id="podcastIcon"
+                            src={favorite.podcastLogo}
+                            alt="Podcast Logo"
+                            className="border-white favoriteIcon card-img-top"
+                          />
+                        </Link>
 
                         <div className="card-body">
                           {/* FAVORITES: BODY, LINK TO LISTEN PAGE */}
@@ -304,9 +294,17 @@ class Profile extends Component {
                       </div>
 
                     ))}
+
+                    <FontAwesomeIcon
+                      className="right-arrow fa-3x"
+                      icon="arrow-circle-right"
+                      onClick={(event) => {
+                        event.preventDefault();
+                        this.scrollFavorites("right");
+                      }}
+                    />
                   </div>
-
-
+                  
                 ) : (
                     <div className="col">
                       <h5 className="text-center">&nbsp;{this.state.message}</h5>
