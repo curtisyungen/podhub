@@ -150,11 +150,11 @@ class Profile extends Component {
   }
 
   scrollLeft = () => {
-    this.refs.scroller.scrollLeft -= 600;
+    this.refs.scroller.scrollLeft -= 100;
   }
 
   scrollRight = () => {
-    this.refs.scroller.scrollLeft += 600;
+    this.refs.scroller.scrollLeft += 100;
   }
 
   render() {
@@ -255,7 +255,7 @@ class Profile extends Component {
                             className={`favoriteLink ${this.props.theme}`}
                           >
                             <h4>{favorite.podcastName}</h4>
-                            <span className="title-break"></span>
+                            <hr />
                             <p className="favoriteDescription">{favorite.episodeName}</p>
                           </Link>
                         </div>
@@ -336,4 +336,3 @@ class Profile extends Component {
 }
 
 export default Profile;
-
