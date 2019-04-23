@@ -174,9 +174,9 @@ export default {
 
         function request(podcastId, pagination, episodes) {
 
-            let URL = "https://listennotes.p.rapidapi.com/api/v1/podcasts/" + podcastId + "?sort=recent_first&next_episode_pub_date=" + pagination;
+            let URL = "https://listen-api.listennotes.com/api/v2/episodes/" + podcastId + "?sort=recent_first&next_episode_pub_date=" + pagination;
 
-            return axios.get(URL, { 'headers': { 'X-RapidAPI-Key': "a063bce4f1msh0a4f44209d57a2fp1225adjsn3f80cc1cf1bb" } })
+            return axios.get(URL, { 'headers': { 'X-ListenAPI-Key': API_KEY } })
                 .then((response => {
                     numEpisodes = response.data.episodes.length;
 
