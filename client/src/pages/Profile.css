@@ -107,6 +107,11 @@ h4 {
   white-space: normal;
 }
 
+.title-break {
+  border-top: 1px solid lightgray;
+  margin-top: 10px;
+}
+
 .favoriteIcon {
   border: 1px solid white;
   flex: 0 1 auto;
