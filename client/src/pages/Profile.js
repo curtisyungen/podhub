@@ -28,7 +28,8 @@ class Profile extends Component {
     favorites: [],
     currentPostId: "",
     redirect: false,
-    message: ""
+    message: "",
+    scrollLeft: 0
   };
 
   // Load user profile information
@@ -161,6 +162,11 @@ class Profile extends Component {
     }
 
     element.scrollLeft = start + change;
+
+    this.setState({
+      scrollLeft: element.scrollLeft
+    });
+
     console.log(element.scrollLeft);
   }
 
@@ -199,7 +205,10 @@ class Profile extends Component {
 
                 {this.state.favorites.length ? (
 
-                  <div id="entire-favorites-column">
+                  <div 
+                    scrollLeft={this.state.scrollLeft} 
+                    id="entire-favorites-column"
+                  >
 
                     {this.state.favorites.map(favorite => (
 
