@@ -169,18 +169,18 @@ class Profile extends Component {
       change = 300;
     }
 
-    animateScroll(currentTime, start, change, duration, increment);
-  }
+    let animateScroll = () => {
+      currentTime += increment;
+      val = that.easeInOutQuad(currentTime, start, change, duration);
+      element.scrollLeft = val;
   
-  animateScroll = (currentTime, start, change, duration, increment) => {
-    currentTime += increment;
-    val = that.easeInOutQuad(currentTime, start, change, duration);
-    element.scrollLeft = val;
+      if (currentTime < duration) {
+        setTimeout(animateScroll, increment);
+      }
+    };
 
-    if (currentTime < duration) {
-      setTimeout(animateScroll, increment);
-    }
-  };
+    animateScroll();
+  }
 
   easeInOutQuad = (currentTime, start, change, duration) => {
     currentTime /= duration / 2;
