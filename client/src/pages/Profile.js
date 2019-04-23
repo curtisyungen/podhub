@@ -150,17 +150,11 @@ class Profile extends Component {
   }
 
   scrollLeft = () => {
-    setTimeout(
-      () => {this.refs.scroller.scrollLeft -= 10},
-      1000
-    );
+    this.refs.scroller.scrollLeft -= 100;
   }
 
   scrollRight = () => {
-    setTimeout(
-      () => {this.refs.scroller.scrollLeft += 10},
-      1000
-    );
+    this.refs.scroller.scrollLeft += 100;
   }
 
   render() {
@@ -186,6 +180,8 @@ class Profile extends Component {
               <div
                 className={`row favorites rounded bg-${this.props.theme}`}
               >
+
+                {/* SCROLL LEFT ARROW */}
 
                 <FontAwesomeIcon
                   className="left-arrow fa-3x"
@@ -271,16 +267,19 @@ class Profile extends Component {
                   </div>
                   
                 ) : (
-                    <div className="col">
-                      <h5 className="text-center">&nbsp;{this.state.message}</h5>
-                    </div>
-                  )}
+                  <div className="col">
+                    <h5 className="text-center">&nbsp;{this.state.message}</h5>
+                  </div>
+                )}
+
+                {/* SCROLL RIGHT ARROW */}
 
                 <FontAwesomeIcon
                   className="right-arrow fa-3x"
                   icon="arrow-circle-right"
                   onClick={this.scrollRight}
                 />
+                
               </div>
 
               {/* POSTS SECTION */}
