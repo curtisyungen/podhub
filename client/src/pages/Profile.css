@@ -10,8 +10,9 @@
 /* Favorite Container */
 
 .favorites {
-  max-height: 300px;
-  overflow-y: scroll;
+  max-height: 270px;
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
 
 .favorites, 
@@ -116,15 +117,17 @@ h4 {
 }
 
 #card-contain {
-  text-align: center;
   border: 1px solid #ffffff;
-  max-height: 230px !important;
-  margin: 13px;
-  padding: 20px 3px 3px 3px !important;
   border-radius: 10px;
   box-shadow: 6px 0px 21px -2px rgba(0,0,0,0.47);
-  transition: 0.3s;
+  display: inline-block;
+  margin: 13px;
+  max-height: 230px !important;
+  padding: 20px 3px 3px 3px !important;
   padding-top: 0px !important;
+  text-align: center;
+  transition: 0.3s;
+  width: 200px;
 }
 #card-contain h4 {
   font-size: 12px;
@@ -155,9 +158,8 @@ h4 {
 }
 
 #entire-favorites-column {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-column-gap: 10px;
+  height: 270px;
+  white-space: nowrap;
 }
 
 .card-body {
@@ -165,6 +167,7 @@ h4 {
 }
 
 .arrows {
+  position: absolute;
   width: 100%;
 }
 
