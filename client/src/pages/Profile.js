@@ -28,8 +28,7 @@ class Profile extends Component {
     favorites: [],
     currentPostId: "",
     redirect: false,
-    message: "",
-    scrollLeft: 0
+    message: ""
   };
 
   // Load user profile information
@@ -150,17 +149,12 @@ class Profile extends Component {
     this.props.toApp(value, link, podName, epName);
   }
 
-  scrollFavorites = (direction) => {
+  scrollLeft = () => {
+    this.refs.scroller.scrollLeft -= 300;
+  }
 
-    let change = -250;
-    
-    if (direction === "right") {
-      change = 250;
-    }
-
-    this.setState({
-      scrollLeft: this.state.scrollLeft + change
-    }, () => {console.log(this.state.scrollLeft);});
+  scrollRight = () => {
+    this.refs.scroller.scrollLeft += 300;
   }
 
   render() {
@@ -190,16 +184,13 @@ class Profile extends Component {
                 <FontAwesomeIcon
                   className="left-arrow fa-3x"
                   icon="arrow-circle-left"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    this.scrollFavorites("left");
-                  }}
+                  onClick={this.scrollLeft}
                 />
 
                 {this.state.favorites.length ? (
 
                   <div 
-                    scrollLeft={this.state.scrollLeft} 
+                    ref="scroller"
                     id="entire-favorites-column"
                   >
 
@@ -282,10 +273,7 @@ class Profile extends Component {
                 <FontAwesomeIcon
                   className="right-arrow fa-3x"
                   icon="arrow-circle-right"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    this.scrollFavorites("right");
-                  }}
+                  onClick={this.scrollRight}
                 />
               </div>
 
