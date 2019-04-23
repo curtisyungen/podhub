@@ -16,13 +16,16 @@
   padding: 10px 50px;
 }
 
+.posts {
+  padding: 5px;
+  padding-top: 10px;
+}
+
 .favorites, 
 .posts {
   border: 1px solid black;
   color: white;
   margin-bottom: 20px;
-  padding: 5px;
-  padding-top: 10px;
 }
 
 ::-webkit-scrollbar {
