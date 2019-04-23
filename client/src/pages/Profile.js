@@ -169,6 +169,10 @@ class Profile extends Component {
       change = 300;
     }
 
+    animateScroll(currentTime, start, change, duration, increment);
+  }
+  
+  animateScroll = (currentTime, start, change, duration, increment) => {
     currentTime += increment;
     val = that.easeInOutQuad(currentTime, start, change, duration);
     element.scrollLeft = val;
@@ -176,11 +180,10 @@ class Profile extends Component {
     if (currentTime < duration) {
       setTimeout(animateScroll, increment);
     }
-  }
+  };
 
   easeInOutQuad = (currentTime, start, change, duration) => {
     currentTime /= duration / 2;
-    
     if (currentTime < 1) {
       return change / 2 * currentTime * currentTime + start;
     }
