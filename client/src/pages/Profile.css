@@ -167,20 +167,19 @@ h4 {
   padding: 0px 5px 5px 5px;
 }
 
-.arrows {
+.left-arrow,
+.right-arrow {
+  cursor: pointer;
+  margin-top: 110px;
   position: absolute;
-  width: 100%;
+  z-index: 99;
 }
 
 .left-arrow {
-  cursor: pointer;
   float: left;
-  position: absolute;
 }
 
 .right-arrow {
-  cursor: pointer;
-  position: absolute;
   right: 25px;
 }
 
