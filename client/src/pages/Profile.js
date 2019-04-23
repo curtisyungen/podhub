@@ -152,22 +152,15 @@ class Profile extends Component {
 
   scrollFavorites = (direction) => {
 
-    let element = document.getElementById("entire-favorites-column");
-
-    let start = element.scrollLeft;
     let change = -250;
     
     if (direction === "right") {
       change = 250;
     }
 
-    element.scrollLeft = start + change;
-
     this.setState({
-      scrollLeft: element.scrollLeft
-    });
-
-    console.log(element.scrollLeft);
+      scrollLeft: this.state.scrollLeft + change
+    }, () => {console.log(this.state.scrollLeft);});
   }
 
   render() {
