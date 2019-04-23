@@ -11,9 +11,9 @@ import "./Profile.css";
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowCircleLeft, faArrowCircleRight } from '@fortawesome/free-solid-svg-icons'
+import { chevronRight } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faArrowCircleLeft, faArrowCircleRight);
+library.add(chevonRight);
 
 // USER PROFILE PAGE
 
@@ -185,7 +185,7 @@ class Profile extends Component {
 
                 <FontAwesomeIcon
                   className="left-arrow fa-3x"
-                  icon="arrow-circle-left"
+                  icon="chevron-right"
                   onClick={this.scrollLeft}
                 />
 
@@ -276,10 +276,10 @@ class Profile extends Component {
 
                 <FontAwesomeIcon
                   className="right-arrow fa-3x"
-                  icon="arrow-circle-right"
+                  icon="chevron-right"
                   onClick={this.scrollRight}
                 />
-                
+
               </div>
 
               {/* POSTS SECTION */}

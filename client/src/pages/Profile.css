@@ -176,13 +176,13 @@ h4 {
   cursor: pointer;
   margin-left: -50px;
   margin-top: 100px;
-  padding: 3px;
   position: absolute;
   z-index: 99;
 }
 
 .left-arrow {
   float: left;
+  transform: rotate(180);
 }
 
 .right-arrow {
