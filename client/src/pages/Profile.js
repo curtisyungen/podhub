@@ -152,45 +152,17 @@ class Profile extends Component {
   scrollFavorites = (direction) => {
 
     let element = document.getElementById("entire-favorites-column");
+    console.log(element);
 
-    let start =
-      element.scrollLeft,
-      currentTime = 0,
-      increment = 20;
-
-    console.log(start);
-
-    let change = -300;
-    let duration = 1000;
-    let val;
-    let that = this;
-
+    let start = element.scrollLeft;
+    let change = -250;
+    
     if (direction === "right") {
-      change = 300;
+      change = 250;
     }
 
-    let animateScroll = () => {
-      currentTime += increment;
-      val = that.easeInOutQuad(currentTime, start, change, duration);
-      element.scrollLeft = val;
-  
-      if (currentTime < duration) {
-        setTimeout(animateScroll, increment);
-      }
-    };
-
-    animateScroll();
+    element.scrollLeft = start + change;
   }
-
-  easeInOutQuad = (currentTime, start, change, duration) => {
-    currentTime /= duration / 2;
-    if (currentTime < 1) {
-      return change / 2 * currentTime * currentTime + start;
-    }
-    currentTime--;
-
-    return -change / 2 * (currentTime * (currentTime - 2) - 1) + start;
-  };
 
   render() {
     return (
