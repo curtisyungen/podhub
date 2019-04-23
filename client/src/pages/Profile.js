@@ -152,7 +152,7 @@ class Profile extends Component {
   scrollFavorites = (direction) => {
 
     let element = document.getElementById("entire-favorites-column");
-    console.log(element);
+    console.log(element.scrollLeft);
 
     let start = element.scrollLeft;
     let change = -250;
@@ -183,19 +183,19 @@ class Profile extends Component {
               {/* FAVORITES SECTION */}
 
               <h4 id="favoritesTitle">Favorites</h4>
+
+              <FontAwesomeIcon
+                className="left-arrow fa-3x"
+                icon="arrow-circle-left"
+                onClick={(event) => {
+                  event.preventDefault();
+                  this.scrollFavorites("left");
+                }}
+              />
+
               <div
                 className={`row favorites rounded bg-${this.props.theme}`}
               >
-
-                <FontAwesomeIcon
-                  className="left-arrow fa-3x"
-                  icon="arrow-circle-left"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    this.scrollFavorites("left");
-                  }}
-                />
-
                 {this.state.favorites.length ? (
 
                   <div id="entire-favorites-column">
@@ -268,14 +268,6 @@ class Profile extends Component {
 
                     ))}
 
-                    <FontAwesomeIcon
-                      className="right-arrow fa-3x"
-                      icon="arrow-circle-right"
-                      onClick={(event) => {
-                        event.preventDefault();
-                        this.scrollFavorites("right");
-                      }}
-                    />
                   </div>
                   
                 ) : (
@@ -284,6 +276,15 @@ class Profile extends Component {
                     </div>
                   )}
               </div>
+
+              <FontAwesomeIcon
+                className="right-arrow fa-3x"
+                icon="arrow-circle-right"
+                onClick={(event) => {
+                  event.preventDefault();
+                  this.scrollFavorites("right");
+                }}
+              />
 
               {/* POSTS SECTION */}
 
