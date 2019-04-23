@@ -174,7 +174,7 @@ export default {
 
         function request(podcastId, pagination, episodes) {
 
-            let URL = "https://listen-api.listennotes.com/api/v2/episodes/" + podcastId + "?sort=recent_first&next_episode_pub_date=" + pagination;
+            let URL = "https://listen-api.listennotes.com/api/v2/podcasts/" + podcastId + "?sort=recent_first&next_episode_pub_date=" + pagination;
 
             return axios.get(URL, { 'headers': { 'X-ListenAPI-Key': API_KEY } })
                 .then((response => {
