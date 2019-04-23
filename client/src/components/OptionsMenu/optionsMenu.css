@@ -4,10 +4,12 @@
     float: right;
     font-size: 14px;
     list-style-type: none;
+    margin-left: 5px;
+    margin-top: 40px;
     padding: 10px;
     position: absolute;
     text-align: left;
-    width: 150px;
+    width: 100px;
     z-index: 99;
 }
 
