@@ -164,5 +164,21 @@ h4 {
   padding: 0px 5px 5px 5px;
 }
 
+.arrows {
+  width: 100%;
+}
+
+.left-arrow {
+  float: left;
+  position: absolute;
+}
+
+.right-arrow {
+  float: right;
+  position: absolute;
+}
+
+
+
 
 

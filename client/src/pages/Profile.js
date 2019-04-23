@@ -9,6 +9,12 @@ import moment from "moment";
 import ProfileHeader from "../components/ProfileHeader/profileHeader";
 import "./Profile.css";
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowCircleLeft, faArrowCircleRight } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faArrowCircleLeft, faArrowCircleRight);
+
 // USER PROFILE PAGE
 
 // Contains info on user's # of posts, followers, and followings
@@ -143,6 +149,46 @@ class Profile extends Component {
     this.props.toApp(value, link, podName, epName);
   }
 
+  scrollFavorites = (direction) => {
+
+    let element = document.getElementById("entire-favorites-column");
+
+    let start = 
+      element.scrollLeft,
+      currentTime = 0,
+      increment = 20;
+
+    let change = -300;
+    let duration = 1000;
+    let val;
+
+    if (direction === "right") {
+      change = 300;
+    }
+
+    let animateScroll = function() {
+      currentTime += increment;
+      val = easeInOutQuad(currentTime, start, change, duration);
+      element.scrollLeft = val;
+
+      if (currentTime < duration) {
+        setTimeout(animateScroll, increment);
+      }
+    };
+
+    animateScroll();
+  }
+ 
+  easeInOutQuad = (currentTime, start, change, duration) => {
+    currentTime /= duration/2;
+    if (currentTime < 1) {
+      return change/2*currentTime*currentTime + start;
+    }
+    currentTime--;
+
+    return -change/2 * (currentTime*(currentTime-2) - 1) + start;
+  };
+
   render() {
     return (
       <div className="container">
@@ -162,10 +208,32 @@ class Profile extends Component {
               {/* FAVORITES SECTION */}
 
               <h4 id="favoritesTitle">Favorites</h4>
-              <div className={`row favorites rounded bg-${this.props.theme}`}>
+              <div 
+                className={`row favorites rounded bg-${this.props.theme}`}
+              >
+
+                <span
+                  className="arrows"
+                >
+                  <FontAwesomeIcon 
+                    className="left-arrow fa-3x"
+                    icon="arrow-circle-left" 
+                    onClick={(event) => {
+                      event.preventDefault();
+                      this.scrollFavorites("left");
+                    }}
+                  />
+                  <FontAwesomeIcon 
+                    className="right-arrow fa-3x"
+                    icon="arrow-circle-right" 
+                    onClick={(event) => {
+                      event.preventDefault();
+                      this.scrollFavorites("right");
+                    }}
+                  />
+                </span>
 
                 {this.state.favorites.length ? (
-
 
                   <div id="entire-favorites-column">
 
