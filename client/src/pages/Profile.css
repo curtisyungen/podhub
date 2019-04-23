@@ -13,6 +13,7 @@
   max-height: 270px;
   overflow-x: scroll;
   overflow-y: hidden;
+  padding: 10px 50px;
 }
 
 .favorites, 
@@ -170,7 +171,9 @@ h4 {
 .left-arrow,
 .right-arrow {
   cursor: pointer;
+  margin-left: -50px;
   margin-top: 100px;
+  padding: 3px;
   position: absolute;
   z-index: 99;
 }
