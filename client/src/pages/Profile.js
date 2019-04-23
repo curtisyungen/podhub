@@ -168,7 +168,7 @@ class Profile extends Component {
 
     let animateScroll = function() {
       currentTime += increment;
-      val = easeInOutQuad(currentTime, start, change, duration);
+      val = this.easeInOutQuad(currentTime, start, change, duration);
       element.scrollLeft = val;
 
       if (currentTime < duration) {
