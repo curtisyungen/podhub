@@ -146,7 +146,7 @@ export default {
 
     // Gets list of podcasts according to user query
     getPodcasts: function (userQuery) {
-        var URL = "https://listen-api.listennotes.com/api/v2/search?sort_by_date=0&type=podcast&only_in=title&language=English&q=" + userQuery;
+        var URL = "https://listen-api.listennotes.com/api/v2/search?sort_by_date=0&type=podcast&offset=10&only_in=title&language=English&q=" + userQuery;
 
         return axios.get(URL, { 'headers': { 'X-ListenAPI-Key': API_KEY } })
             .then((response) => {
