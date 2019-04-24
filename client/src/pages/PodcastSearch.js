@@ -63,6 +63,13 @@ class PodcastSearch extends Component {
                 ) : (
                     <h4>{this.state.message}</h4>
                 )}
+
+                <button 
+                    className="btn btn-dark" 
+                    onClick={this.getPodcasts}
+                >
+                    Load More
+                </button>
             </Container>
         );
     }
