@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar/navbar";
 import PodcastSearch from "./components/PodcastSearch/podcastSearch";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
-import PodcastSearch from "./pages/PodcastSearch";
+import PodcastSearchPage from "./pages/PodcastSearch";
 import EpisodeList from "./pages/EpisodeList";
 import Listen from "./pages/Listen";
 import UserSearch from "./pages/UserSearch";
@@ -326,7 +326,7 @@ class App extends Component {
                     }
                   />
 
-                  <Route exact path="/podcastSearch" component={PodcastSearch} />
+                  <Route exact path="/podcastSearch" component={PodcastSearchPage} />
                   <Route exact path="/episodeList" component={EpisodeList} />
                   <Route exact path="/listen"
                     render={(props) =>
