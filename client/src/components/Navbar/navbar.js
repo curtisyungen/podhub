@@ -78,6 +78,12 @@ class Navbar extends Component {
         goToPodcastPage: true
       });
     }
+
+    else {
+      this.setState({
+        goToPodcastPage: false
+      });
+    }
   }
 
   scrollToTop = () => {
