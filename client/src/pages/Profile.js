@@ -30,8 +30,7 @@ class Profile extends Component {
     redirect: false,
     postMessage: "",
     favMessage: "",
-    scrollLeft: 0,
-    scrolling: false
+    scrollLeft: 0
   };
 
   // Load user profile information
@@ -159,7 +158,7 @@ class Profile extends Component {
     let that = this;
 
     var start = element.scrollLeft,
-      change = (618 - ((1236 % 618)) - 618),
+      change = (618 - ((start % 618)) - 618),
       currentTime = 0,
       increment = 20;
 
@@ -181,23 +180,17 @@ class Profile extends Component {
       if (currentTime < duration) {
         setTimeout(animateScroll, increment);
       }
-
-      that.setState({
-        scrolling: false
-      });
     }
 
     let maxScroll = this.state.favorites.length * 193;
 
     if (this.state.scrollLeft >= 0 && this.state.scrollLeft <= maxScroll) {
-      that.setState({
+      this.setState({
         scrollLeft: that.state.scrollLeft + change
       });
     }
-    
-    if (!this.state.scrolling) {
-      animateScroll();
-    }
+
+    animateScroll();
   }
 
   easeInAndOut = (time, value, change, duration) => {
@@ -252,9 +245,6 @@ render() {
                     icon="chevron-left"
                     onClick={ (event) => {
                       event.preventDefault();
-                      this.setState({
-                        scrolling: true
-                      });
                       this.scrollTo("left");
                     }}
                   />
@@ -334,9 +324,6 @@ render() {
                     icon="chevron-right"
                     onClick={ (event) => {
                       event.preventDefault();
-                      this.setState({
-                        scrolling: true
-                      });
                       this.scrollTo("right");
                     }}
                   />
