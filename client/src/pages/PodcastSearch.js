@@ -44,14 +44,15 @@ class PodcastSearch extends Component {
             <Container>
                 {this.state.podcasts.length > 0 ? (
                     this.state.podcasts.map((podcast) => 
-                        <Podcast 
-                            key={podcast.id}
-                            podcastId={podcast.id}
-                            podcastName={podcast.title_original}
-                            podcastLogo={podcast.image}
-                            thumbnail={podcast.thumbnail}
-                            className="podcastResult"
-                        />
+                        <span className="podcastResult">
+                            <Podcast 
+                                key={podcast.id}
+                                podcastId={podcast.id}
+                                podcastName={podcast.title_original}
+                                podcastLogo={podcast.image}
+                                thumbnail={podcast.thumbnail}
+                            />
+                        </span>
                     )
                 ) : (
                     <h4>{this.state.message}</h4>
