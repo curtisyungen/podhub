@@ -25,6 +25,10 @@ class Navbar extends Component {
     goToPodcastPage: false
   };
 
+  componentDidMount = () => {
+    console.log("Navbar props", this.props);
+  }
+
 
   // NAVBAR AUDIO PLAYER
   // ====================================
@@ -64,8 +68,9 @@ class Navbar extends Component {
   // OTHER
   // ====================================
 
-  // Prevent Enter keypress from refreshing window
-  suppressEnter = (event) => {
+  // This will redirect user to Podcast Search page 
+  // if user clicks Enter with input in search box
+  handleEnter = (event) => {
     if (window.event.keyCode === 13) {
       event.preventDefault();
 
@@ -227,7 +232,7 @@ class Navbar extends Component {
                     name="podcastSearch"
                     autoComplete="off"
                     onBlur={hidePodcasts}
-                    onKeyPress={this.suppressEnter}
+                    onKeyPress={this.handleEnter}
                     onChange={handleInputChange}
                     onFocus={handleInputChange}
                     required
