@@ -326,7 +326,14 @@ class App extends Component {
                     }
                   />
 
-                  <Route exact path="/podcastSearch" component={PodcastSearchPage} />
+                  <Route exact path="/podcastSearch" render={(props) =>
+                      <PodcastSearchPage {...props}
+                        userQuery={this.state.podcastSearch}
+                        theme={this.state.theme}
+                      />
+                    }
+                  />
+
                   <Route exact path="/episodeList" component={EpisodeList} />
                   <Route exact path="/listen"
                     render={(props) =>

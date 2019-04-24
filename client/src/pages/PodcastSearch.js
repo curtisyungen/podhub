@@ -9,13 +9,17 @@ class PodcastSearch extends Component {
         super(props);
 
         this.state = {
+            podcastSearch: "",
             podcasts: [],
             message: ""
         }
     }
 
     componentDidMount = () => {
-        this.getPodcasts();
+        console.log(this.props);
+        this.setState({
+            podcastSearch: this.props.userQuery,
+        }, () => this.getPodcasts());
     }
 
     getPodcasts = () => {
@@ -36,19 +40,21 @@ class PodcastSearch extends Component {
 
     render() {
         return (
-            this.state.podcasts.length > 0 ? (
-                this.state.podcasts.map((podcast) => 
-                    <Podcast 
-                        key={podcast.id}
-                        podcastId={podcast.id}
-                        podcastName={podcast.title_original}
-                        podcastLogo={podcast.image}
-                        thumbnail={podcast.thumbnail}
-                    />
-                )
-            ) : (
-                <h4>{this.state.message}</h4>
-            )
+            <Container>
+                {this.state.podcasts.length > 0 ? (
+                    this.state.podcasts.map((podcast) => 
+                        <Podcast 
+                            key={podcast.id}
+                            podcastId={podcast.id}
+                            podcastName={podcast.title_original}
+                            podcastLogo={podcast.image}
+                            thumbnail={podcast.thumbnail}
+                        />
+                    )
+                ) : (
+                    <h4>{this.state.message}</h4>
+                )}
+            </Container>
         );
     }
 }
