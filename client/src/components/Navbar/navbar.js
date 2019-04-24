@@ -78,17 +78,17 @@ class Navbar extends Component {
         goToPodcastPage: true
       });
     }
+  }
 
-    else {
-      this.setState({
-        goToPodcastPage: false
-      });
-    }
+  resetState = () => {
+    this.setState({
+      goToPodcastPage: false
+    });
   }
 
   scrollToTop = () => {
     window.scrollTo(0, 0);
-}
+  }
 
   render() {
 
@@ -251,7 +251,8 @@ class Navbar extends Component {
               {this.state.goToPodcastPage ? (
                 <Redirect 
                   to={{
-                    pathname: "/podcastSearch"
+                    pathname: "/podcastSearch",
+                    resetState: this.resetState
                   }}
                 />
               ) : (
