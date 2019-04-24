@@ -182,7 +182,7 @@ class Profile extends Component {
         setTimeout(animateScroll, increment);
       }
 
-      this.setState({
+      that.setState({
         scrolling: false
       });
     }
