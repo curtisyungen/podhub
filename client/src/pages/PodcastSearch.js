@@ -17,9 +17,13 @@ class PodcastSearch extends Component {
     }
 
     componentDidMount = () => {
+        console.log(this.props);
         this.setState({
             podcastSearch: this.props.userQuery,
-        }, () => this.getPodcasts());
+        }, () => {
+            this.props.resetState();
+            this.getPodcasts();
+        });
     }
 
     getPodcasts = () => {
