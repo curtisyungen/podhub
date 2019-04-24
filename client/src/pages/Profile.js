@@ -158,12 +158,16 @@ class Profile extends Component {
     let that = this;
 
     var start = element.scrollLeft,
-      change = -618,
+      change = (618 - ((1236 % 618)) - 618),
       currentTime = 0,
       increment = 20;
 
+    if (change === 0) {
+      change = -618;
+    }
+
     if (direction === "right") {
-      change = 618;
+      change = 618 - (start % 618);
     }
 
     var animateScroll = function () {
@@ -187,11 +191,16 @@ class Profile extends Component {
   }
 
   easeInAndOut = (time, value, change, duration) => {
-  time /= duration / 2;
-  if (time < 1) return change / 2 * time * time + value;
-  time--;
-  return -change / 2 * (time * (time - 2) - 1) + value;
-};
+    time /= duration / 2;
+
+    if (time < 1) {
+      return change / 2 * time * time + value;
+    }
+
+    time--;
+
+    return -change / 2 * (time * (time - 2) - 1) + value;
+  };
 
 render() {
 
