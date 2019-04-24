@@ -135,7 +135,7 @@ class Profile extends Component {
     });
   };
 
-  // Handles scrolling left and right through Favorites section
+  // Handles SCROLLING left and right through Favorites section
   scrollTo = (direction) => {
     let element = document.getElementById("entire-favorites-column");
 

@@ -21,7 +21,8 @@ class Navbar extends Component {
   state = {
     remove: false,
     speed: 1.0,
-    showOptionsMenu: false
+    showOptionsMenu: false,
+    goToPodcastPage: false
   };
 
 
@@ -67,6 +68,10 @@ class Navbar extends Component {
   suppressEnter = (event) => {
     if (window.event.keyCode === 13) {
       event.preventDefault();
+
+      this.setState({
+        goToPodcastPage: true
+      });
     }
   }
 
@@ -229,6 +234,18 @@ class Navbar extends Component {
                   />
                 </form>
               </li>
+
+              {/* REDIRECT TO PODCAST SEARCH PAGE */}
+
+              {this.state.goToPodcastPage ? (
+                <Redirect 
+                  to={{
+                    pathname: "/podcastSearch"
+                  }}
+                />
+              ) : (
+                <></>
+              )}
 
               {/* Settings/Logout Dropdown Menu */}
 
