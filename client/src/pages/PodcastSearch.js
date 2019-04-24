@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Container from "../components/Container/container";
 import Podcast from "../components/Podcast/podcast";
 import API from "../utils/API";
+import "./PodcastSearch.css";
 
 class PodcastSearch extends Component {
 
@@ -49,6 +50,7 @@ class PodcastSearch extends Component {
                             podcastName={podcast.title_original}
                             podcastLogo={podcast.image}
                             thumbnail={podcast.thumbnail}
+                            className="podcastResult"
                         />
                     )
                 ) : (
