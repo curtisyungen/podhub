@@ -25,10 +25,6 @@ class Navbar extends Component {
     goToPodcastPage: false
   };
 
-  componentDidMount = () => {
-    console.log("Navbar props", this.props);
-  }
-
 
   // NAVBAR AUDIO PLAYER
   // ====================================
@@ -251,12 +247,17 @@ class Navbar extends Component {
               {/* REDIRECT TO PODCAST SEARCH PAGE */}
 
               {this.state.goToPodcastPage ? (
-                <Redirect 
-                  to={{
-                    pathname: "/podcastSearch",
-                    resetState: this.resetState
-                  }}
-                />
+
+                window.location.href = "https://arcane-river-90893.herokuapp.com/podcastSearch" ? (
+                  alert("faggot!")
+                ) : (
+                  <Redirect 
+                    to={{
+                      pathname: "/podcastSearch",
+                      resetState: this.resetState
+                    }}
+                  />
+                )
               ) : (
                 <></>
               )}
