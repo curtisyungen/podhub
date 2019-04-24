@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 // import Container from "../components/Container/container";
+import Podcast from "../components/Podcast/podcast";
 import API from "../utils/API";
 
 class PodcastSearch extends Component {
@@ -36,7 +37,7 @@ class PodcastSearch extends Component {
     render() {
         return (
             this.state.podcasts.length > 0 ? (
-                podcasts.map((podcast) => {
+                this.state.podcasts.map((podcast) => {
                     <Podcast 
                         key={podcast.id}
                         podcastId={podcast.id}
