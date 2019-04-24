@@ -4,7 +4,7 @@
     color: black;
     font-size: 14px;
     padding: 5px;
-    position: absolute;
+    position: fixed;
     right: 19%;
     top: 7%;
     width: 300px;
