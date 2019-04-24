@@ -135,37 +135,24 @@ class Profile extends Component {
     });
   };
 
-
-  // OTHER
-  // ===============================================
-
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-  };
-
-  // Takes (True, Audio Link) and passes them to App.js
-  toHomeAndProfile = (value, link, podName, epName) => {
-    this.props.toApp(value, link, podName, epName);
-  }
-
+  // Handles scrolling left and right through Favorites section
   scrollTo = (direction) => {
     let element = document.getElementById("entire-favorites-column");
 
-    let duration = 1000;
+    let duration = 500;
     let that = this;
 
     var start = element.scrollLeft,
-      change = (618 - ((start % 618)) - 618),
+      change = (618 - ((start % 618)) - 618), // default to scrolling left
       currentTime = 0,
       increment = 20;
 
+    // For scrolling left
     if (change === 0) {
       change = -618;
     }
 
+    // For scrolling right
     if (direction === "right") {
       change = 618 - (start % 618);
     }
@@ -193,6 +180,7 @@ class Profile extends Component {
     animateScroll();
   }
 
+  // Handles animation timing for scrolling through Favorites
   easeInAndOut = (time, value, change, duration) => {
     time /= duration / 2;
 
@@ -205,8 +193,24 @@ class Profile extends Component {
     return -change / 2 * (time * (time - 2) - 1) + value;
   };
 
-render() {
 
+  // OTHER
+  // ===============================================
+
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
+
+  // Takes (True, Audio Link) and passes them to App.js
+  toHomeAndProfile = (value, link, podName, epName) => {
+    this.props.toApp(value, link, podName, epName);
+  }
+
+
+render() {
   return (
     <div className="container">
       <Row>
