@@ -25,6 +25,14 @@ class PodcastSearch extends Component {
         });
     }
 
+    componentWillUnmount = () => {
+        this.setState({
+            podcastSearch: "",
+            podcasts: [],
+            message: "" 
+        });
+    }
+
     getPodcasts = () => {
 
         // This asks API for the next set of 10 podcasts
@@ -34,7 +42,7 @@ class PodcastSearch extends Component {
           .then(res => {
 
             let allPodcasts = this.state.podcasts.concat(res.data.results);
-            console.log(allPodcasts);
+
             this.setState({
               podcasts: allPodcasts
             });
