@@ -37,7 +37,7 @@ class PodcastSearch extends Component {
     render() {
         return (
             this.state.podcasts.length > 0 ? (
-                this.state.podcasts.map((podcast) => {
+                this.state.podcasts.map((podcast) => 
                     <Podcast 
                         key={podcast.id}
                         podcastId={podcast.id}
@@ -45,7 +45,7 @@ class PodcastSearch extends Component {
                         podcastLogo={podcast.image}
                         thumbnail={podcast.thumbnail}
                     />
-                })
+                )
             ) : (
                 <h4>{this.state.message}</h4>
             )
