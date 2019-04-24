@@ -111,7 +111,7 @@ class App extends Component {
 
   // Search for podcasts by calling API
   getPodcasts = () => {
-    API.getPodcasts(this.state.podcastSearch)
+    API.getPodcasts(this.state.podcastSearch, 0)
       .then(res => {
         this.setState({
           podcasts: res.data.results

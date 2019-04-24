@@ -24,10 +24,17 @@ class PodcastSearch extends Component {
     }
 
     getPodcasts = () => {
-        API.getPodcasts(this.state.podcastSearch)
+
+        // This asks API for the next set of 10 podcasts
+        let offset = this.state.podcasts.length;
+
+        API.getPodcasts(this.state.podcastSearch, offset)
           .then(res => {
+
+            let allPodcasts = this.state.podcasts;
+
             this.setState({
-              podcasts: res.data.results
+              podcasts: allPodcasts + res.data.results
             });
           })
           .catch((error) => {
