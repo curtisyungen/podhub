@@ -17,7 +17,6 @@ class PodcastSearch extends Component {
     }
 
     componentDidMount = () => {
-        console.log(this.props);
         this.setState({
             podcastSearch: this.props.userQuery,
         }, () => this.getPodcasts());
@@ -31,10 +30,10 @@ class PodcastSearch extends Component {
         API.getPodcasts(this.state.podcastSearch, offset)
           .then(res => {
 
-            let allPodcasts = this.state.podcasts;
-
+            let allPodcasts = this.state.podcasts.concat(res.data.results);
+            console.log(allPodcasts);
             this.setState({
-              podcasts: allPodcasts + res.data.results
+              podcasts: allPodcasts
             });
           })
           .catch((error) => {
