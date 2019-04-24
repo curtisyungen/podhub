@@ -173,16 +173,18 @@ class Profile extends Component {
 
     var animateScroll = function () {
       currentTime += increment;
+      
       var val = that.easeInAndOut(currentTime, start, change, duration);
+
       element.scrollLeft = val;
+
       if (currentTime < duration) {
         setTimeout(animateScroll, increment);
       }
-      setTimeout(() => {
-        this.setState({
-          scrolling: false
-        });
-      }, increment);
+
+      this.setState({
+        scrolling: false
+      });
     }
 
     let maxScroll = this.state.favorites.length * 193;
