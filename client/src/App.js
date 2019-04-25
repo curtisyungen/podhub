@@ -237,10 +237,7 @@ class App extends Component {
   }
   
   checkScroll = () => {
-    console.log(this.scrollHeight);
-    console.log(this.scrollTop);
-    console.log(window.scrollHeight);
-    console.log(window.scrollTop);
+    console.log("scrolling");
   }
 
   render() {
