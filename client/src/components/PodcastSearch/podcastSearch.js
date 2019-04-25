@@ -16,7 +16,7 @@ function PodcastSearch ({ show, hide, podcasts, checkScroll }) {
     return (
         <Container>
             <div 
-                className={show}
+                className={show}   
             >
                 {podcasts.length > 0 ? (
                     <List
