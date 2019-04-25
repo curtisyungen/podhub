@@ -11,11 +11,14 @@ import "./podcastSearch.css";
 // It will appear on the right side of the screen as a floating drop-down menu. 
 // It will only be visible if the user has typed/changed text in the Podcast Search box. 
 
-function PodcastSearch ({ show, hide, podcasts }) {
+function PodcastSearch ({ show, hide, podcasts, checkScroll }) {
 
     return (
         <Container>
-            <div className={show}>
+            <div 
+                className={show}
+                onScroll={checkScroll}
+            >
                 {podcasts.length > 0 ? (
                     <List>
                         {podcasts.map((podcast) =>
