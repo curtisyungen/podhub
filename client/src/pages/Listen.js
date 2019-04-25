@@ -130,6 +130,7 @@ class Listen extends Component {
             userId
         )
             .then(response => {
+                console.log(response);
                 if (response.data[1] === true) {
                     this.showNotification("Favorited");
                 }
