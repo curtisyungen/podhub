@@ -27,7 +27,7 @@ class FavoriteController {
         }
       })
       .then(function(favorite, created) {
-        res.json(favorite)
+        res.json(favorite, created)
       })
       .catch(function(error) {
         console.error(error);
