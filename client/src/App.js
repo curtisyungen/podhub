@@ -237,9 +237,10 @@ class App extends Component {
   }
   
   checkScroll = () => {
-    let spanThing = document.getElementById("myMainSpan").children().scrollTop;
-    console.log("Window", window.scrollHeight);
-    console.log("Span", spanThing);
+    console.log(this.scrollHeight);
+    console.log(this.scrollTop);
+    console.log(window.scrollHeight);
+    console.log(window.scrollTop);
   }
 
   render() {
@@ -295,16 +296,12 @@ class App extends Component {
                   theme={this.state.theme}
                 />
 
-                <span
-                  id="myMainSpan"
-                  onScroll={this.checkScroll}
-                >
-                  <PodcastSearch
-                    show={this.state.showPodcasts}
-                    hide={this.hidePodcasts}
-                    podcasts={this.state.podcasts}
-                  />
-                </span>
+                <PodcastSearch
+                  show={this.state.showPodcasts}
+                  hide={this.hidePodcasts}
+                  podcasts={this.state.podcasts}
+                  checkScroll={this.checkScroll}
+                />
 
                 <Switch>
 
