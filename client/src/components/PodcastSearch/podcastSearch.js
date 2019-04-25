@@ -17,10 +17,11 @@ function PodcastSearch ({ show, hide, podcasts, checkScroll }) {
         <Container>
             <div 
                 className={show}
-                onScroll={checkScroll}
             >
                 {podcasts.length > 0 ? (
-                    <List>
+                    <List
+                        onScroll={checkScroll}
+                    >
                         {podcasts.map((podcast) =>
                             <Podcast 
                                 key={podcast.id}
