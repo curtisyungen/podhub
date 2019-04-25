@@ -237,7 +237,7 @@ class App extends Component {
   }
   
   checkScroll = () => {
-    let spanThing = document.getElementById("myMainSpan").scrollHeight;
+    let spanThing = document.getElementById("myMainSpan").scrollTop();
     console.log("Window", window.scrollHeight);
     console.log("Span", spanThing);
   }
