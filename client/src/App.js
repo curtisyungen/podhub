@@ -237,8 +237,9 @@ class App extends Component {
   }
   
   checkScroll = () => {
-    let scrollDist = this.scrollHeight;
-    console.log(scrollDist);
+    let spanThing = document.getElementById("myMainSpan").scrollHeight;
+    console.log("Window", window.scrollHeight);
+    console.log("Span", spanThing);
   }
 
   render() {
@@ -295,6 +296,7 @@ class App extends Component {
                 />
 
                 <span
+                  id="myMainSpan"
                   onScroll={this.checkScroll}
                 >
                   <PodcastSearch
