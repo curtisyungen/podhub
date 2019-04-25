@@ -79,8 +79,6 @@ class Navbar extends Component {
   resetState = () => {
     this.setState({
       goToPodcastPage: false
-    }, () => {
-      console.log("Navbar State", this.state);
     });
   }
 
@@ -247,17 +245,12 @@ class Navbar extends Component {
               {/* REDIRECT TO PODCAST SEARCH PAGE */}
 
               {this.state.goToPodcastPage ? (
-
-                window.location.href = "https://arcane-river-90893.herokuapp.com/podcastSearch" ? (
-                  alert("faggot!")
-                ) : (
-                  <Redirect 
-                    to={{
-                      pathname: "/podcastSearch",
-                      resetState: this.resetState
-                    }}
-                  />
-                )
+                <Redirect 
+                  to={{
+                    pathname: "/podcastSearch",
+                    resetState: this.resetState
+                  }}
+                />
               ) : (
                 <></>
               )}
