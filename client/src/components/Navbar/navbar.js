@@ -86,6 +86,11 @@ class Navbar extends Component {
     window.scrollTo(0, 0);
   }
 
+  checkScroll = () => {
+    let scrollDist = this.scrollHeight;
+    console.log(scrollDist);
+  }
+
   render() {
 
     const { podcastSearch, handleInputChange, hidePodcasts, logout, user, showAudio, hideAudio, theme } = this.props;
@@ -237,6 +242,7 @@ class Navbar extends Component {
                     onKeyPress={this.handleEnter}
                     onChange={handleInputChange}
                     onFocus={handleInputChange}
+                    onScroll={this.checkScroll}
                     required
                   />
                 </form>
