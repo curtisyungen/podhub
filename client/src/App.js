@@ -235,6 +235,11 @@ class App extends Component {
       socket
     });
   }
+  
+  checkScroll = () => {
+    let scrollDist = this.scrollHeight;
+    console.log(scrollDist);
+  }
 
   render() {
     return (
@@ -289,11 +294,15 @@ class App extends Component {
                   theme={this.state.theme}
                 />
 
-                <PodcastSearch
-                  show={this.state.showPodcasts}
-                  hide={this.hidePodcasts}
-                  podcasts={this.state.podcasts}
-                />
+                <span
+                  onScroll={this.checkScroll}
+                >
+                  <PodcastSearch
+                    show={this.state.showPodcasts}
+                    hide={this.hidePodcasts}
+                    podcasts={this.state.podcasts}
+                  />
+                </span>
 
                 <Switch>
 
