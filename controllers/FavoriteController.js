@@ -10,7 +10,7 @@ class FavoriteController {
    * @param {*} res
    */
   create(req, res) {
-    console.log(req.body)
+    console.log(req.body);
     db.favorite
       .findOrCreate({
         where: {episodeId: req.body.episodeId} && {userId: req.body.userId},
@@ -27,7 +27,9 @@ class FavoriteController {
         }
       })
       .then(function(favorite, created) {
-        res.json(favorite, created)
+        if(created) {
+          res.json(favorite);
+        }
       })
       .catch(function(error) {
         console.error(error);
