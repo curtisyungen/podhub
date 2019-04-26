@@ -15,13 +15,9 @@ function PodcastSearch ({ show, hide, podcasts, checkScroll }) {
 
     return (
         <Container>
-            <div 
-                className={show}   
-            >
+            <div className={show} onScroll={checkScroll} id="boundary">
                 {podcasts.length > 0 ? (
-                    <List
-                        onScroll={checkScroll}
-                    >
+                    <List>
                         {podcasts.map((podcast) =>
                             <Podcast 
                                 key={podcast.id}
@@ -36,7 +32,9 @@ function PodcastSearch ({ show, hide, podcasts, checkScroll }) {
                 ) : (
                     <p>No podcasts found.</p>
                 )}
+                <div id="last">Div</div>
             </div>
+            
         </Container>
         )
 };
