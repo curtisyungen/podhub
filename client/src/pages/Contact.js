@@ -25,38 +25,47 @@ class Contact extends Component {
                 <div
                     className={`bg-${this.props.theme} contacts-bg-${this.props.theme}`}
                 >
-                    <ul className="contactList">
-                        <li>
-                            <p>Carson Wack</p>
-                            <p>Email</p>
-                            <p>LinkedIn</p>
-                        </li>
-                        <li>
-                            <p>Curtis Yungen</p>
-                            <p>curtisyungen@gmail.com</p>
-                            <p>linkedin.com/in/curtisyungen</p>
-                        </li>
-                        <li>
-                            <p>Joseph Bizar</p>
-                            <p>Email</p>
-                            <p>LinkedIn</p>
-                        </li>
-                        <li>
-                            <p>Meri Arzumanyan</p>
-                            <p>Email</p>
-                            <p>LinkedIn</p>
-                        </li>
-                        <li>
-                            <p>Swapna Lia Anil</p>
-                            <p>Email</p>
-                            <p>LinkedIn</p>
-                        </li>
-                        <li>
-                            <p>Vahe Minasyan</p>
-                            <p>Email</p>
-                            <p>LinkedIn</p>
-                        </li>
-                    </ul>
+                    <div className="teamMember">
+                        <img src="" />
+                        <p>Carson Wack</p>
+                        <p></p>
+                        <a href=""></a>
+                    </div>
+
+                    <div className="teamMember">
+                        <img src="" />
+                        <p>Curtis Yungen</p>
+                        <p>curtisyungen@gmail.com</p>
+                        <a href="https://linkedin.com/in/curtisyungen">LinkedIn</a>
+                    </div>
+
+                    <div className="teamMember">
+                        <img src="" />
+                        <p>Joseph Bizar</p>
+                        <p></p>
+                        <a href=""></a>
+                    </div>
+
+                    <div className="teamMember">
+                        <img src="" />
+                        <p>Meri Arzumanyan</p>
+                        <p></p>
+                        <a href=""></a>
+                    </div>
+
+                    <div className="teamMember">
+                        <img src="" />
+                        <p>Swapna Lia Anil</p>
+                        <p></p>
+                        <a href=""></a>
+                    </div>
+
+                    <div className="teamMember">
+                        <img src="" />
+                        <p>Vahe Minasyan</p>
+                        <p></p>
+                        <a href=""></a>
+                    </div>
                 </div>
             </Container>
         );
