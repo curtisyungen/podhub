@@ -9,3 +9,7 @@
     color: black;
     padding: 15px;
 }
+
+.contactList {
+    list-style-type: none;
+}

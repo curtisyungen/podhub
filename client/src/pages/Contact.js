@@ -25,13 +25,37 @@ class Contact extends Component {
                 <div
                     className={`bg-${this.props.theme} contacts-bg-${this.props.theme}`}
                 >
-                    <ul>
-                        <li>Carson Wack</li>
-                        <li>Curtis Yungen</li>
-                        <li>Joseph Bizar</li>
-                        <li>Meri Arzumanyan</li>
-                        <li>Swapna Lia Anil</li>
-                        <li>Vahe Minasyan</li>
+                    <ul className="contactList">
+                        <li>
+                            Carson Wack
+                            Email
+                            LinkedIn
+                        </li>
+                        <li>
+                            Curtis Yungen
+                            curtisyungen@gmail.com
+                            linkedin.com/in/curtisyungen
+                        </li>
+                        <li>
+                            Joseph Bizar
+                            Email
+                            LinkedIn
+                        </li>
+                        <li>
+                            Meri Arzumanyan
+                            Email
+                            LinkedIn
+                        </li>
+                        <li>
+                            Swapna Lia Anil
+                            Email
+                            LinkedIn
+                        </li>
+                        <li>
+                            Vahe Minasyan
+                            Email
+                            LinkedIn
+                        </li>
                     </ul>
                 </div>
             </Container>
