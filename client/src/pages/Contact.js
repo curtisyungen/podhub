@@ -27,34 +27,34 @@ class Contact extends Component {
                 >
                     <ul className="contactList">
                         <li>
-                            Carson Wack
-                            Email
-                            LinkedIn
+                            <p>Carson Wack</p>
+                            <p>Email</p>
+                            <p>LinkedIn</p>
                         </li>
                         <li>
-                            Curtis Yungen
-                            curtisyungen@gmail.com
-                            linkedin.com/in/curtisyungen
+                            <p>Curtis Yungen</p>
+                            <p>curtisyungen@gmail.com</p>
+                            <p>linkedin.com/in/curtisyungen</p>
                         </li>
                         <li>
-                            Joseph Bizar
-                            Email
-                            LinkedIn
+                            <p>Joseph Bizar</p>
+                            <p>Email</p>
+                            <p>LinkedIn</p>
                         </li>
                         <li>
-                            Meri Arzumanyan
-                            Email
-                            LinkedIn
+                            <p>Meri Arzumanyan</p>
+                            <p>Email</p>
+                            <p>LinkedIn</p>
                         </li>
                         <li>
-                            Swapna Lia Anil
-                            Email
-                            LinkedIn
+                            <p>Swapna Lia Anil</p>
+                            <p>Email</p>
+                            <p>LinkedIn</p>
                         </li>
                         <li>
-                            Vahe Minasyan
-                            Email
-                            LinkedIn
+                            <p>Vahe Minasyan</p>
+                            <p>Email</p>
+                            <p>LinkedIn</p>
                         </li>
                     </ul>
                 </div>
