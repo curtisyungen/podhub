@@ -412,7 +412,7 @@ class App extends Component {
                   />
 
                   <Route exact path="/contact"
-                    render={() => 
+                    render={(props) => 
                       <Contact {...props}
                         user={this.state.user}
                         theme={this.state.theme}
