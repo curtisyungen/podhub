@@ -1,0 +1,11 @@
+.contact-bg-dark {
+    border-radius: 15px;
+    color: white;
+    padding: 15px;
+}
+
+.contact-bg-light {
+    border-radius: 15px;
+    color: black;
+    padding: 15px;
+}
