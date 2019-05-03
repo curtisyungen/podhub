@@ -36,7 +36,7 @@ class OptionsMenu extends Component {
 
     openContact = () => {
         this.setState({
-            openContacts: true
+            openContact: true
         });
     }
 
