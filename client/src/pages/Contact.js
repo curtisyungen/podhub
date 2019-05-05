@@ -16,55 +16,73 @@ class Contact extends Component {
     componentDidMount = () => {
         this.setState({
             user: this.props.location.state.user
-        }, () => {console.log(this.state)});
+        });
     }
 
     render() {
         return (
             <Container>
+                
                 <div
-                    className={`bg-${this.props.theme} contacts-bg-${this.props.theme}`}
+                    className={` contacts-bg-${this.props.theme} contactList`}
                 >
-                    <div className="teamMember">
-                        <img src="" />
-                        <p>Carson Wack</p>
-                        <p></p>
-                        <a href="" target="_blank"></a>
+                    <h3 className="" id="contactTitle">Contact Us</h3>
+                    <div className="contactRow">
+                        <div className="teamMember">
+                            <a href="https://www.linkedin.com/in/carson-wack/" target="_blank">
+                                <img src="https://avatars2.githubusercontent.com/u/42584679?s=400&v=4"/>
+                            </a>
+                            <h4>Carson Wack</h4>
+                            <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=" target="_blank">Email&nbsp;</a>
+                            <a href="https://www.linkedin.com/in/carson-wack/" target="_blank">&nbsp;LinkedIn</a>
+                        </div>
+
+                        <div className="teamMember">
+                            <a href="https://linkedin.com/in/curtisyungen" target="_blank">
+                                <img src="https://avatars0.githubusercontent.com/u/39065500?s=460&v=4" />
+                            </a>
+                            <h4>Curtis Yungen</h4>
+                            <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=curtisyungen@gmail.com" target="_blank">Email&nbsp;</a>
+                            <a href="https://linkedin.com/in/curtisyungen" target="_blank">&nbsp;LinkedIn</a>
+                        </div>
+
+                        <div className="teamMember">
+                            <a href="https://www.linkedin.com/in/joseph-bizar/" target="_blank">
+                                <img src="https://avatars2.githubusercontent.com/u/33111101?s=400&v=4" />
+                            </a>
+                            <h4>Joseph Bizar</h4>
+                            <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=" target="_blank">Email&nbsp;</a>
+                            <a href="https://www.linkedin.com/in/joseph-bizar/" target="_blank">&nbsp;LinkedIn</a>
+                        </div>
                     </div>
 
-                    <div className="teamMember">
-                        <img src="" />
-                        <p>Curtis Yungen</p>
-                        <p>curtisyungen@gmail.com</p>
-                        <a href="https://linkedin.com/in/curtisyungen" target="_blank">LinkedIn</a>
-                    </div>
+                    <div className="contactRow">
+                        <div className="teamMember">
+                            <a href="https://www.linkedin.com" target="_blank">
+                                <img src="https://avatars1.githubusercontent.com/u/37827950?s=400&v=4" />
+                            </a>
+                            <h4>Meri Arzumanyan</h4>
+                            <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=" target="_blank">Email&nbsp;</a>
+                            <a href="https://www.linkedin.com" target="_blank">&nbsp;LinkedIn</a>
+                        </div>
 
-                    <div className="teamMember">
-                        <img src="" />
-                        <p>Joseph Bizar</p>
-                        <p></p>
-                        <a href="" target="_blank"></a>
-                    </div>
+                        <div className="teamMember">
+                            <a href="https://www.linkedin.com/in/swapna-lia-anil/" target="_blank">
+                                <img src="https://avatars2.githubusercontent.com/u/38369428?s=400&v=4" />
+                            </a>
+                            <h4>Swapna Lia Anil</h4>
+                            <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=" target="_blank">Email&nbsp;</a>
+                            <a href="https://www.linkedin.com/in/swapna-lia-anil/" target="_blank">&nbsp;LinkedIn</a>
+                        </div>
 
-                    <div className="teamMember">
-                        <img src="" />
-                        <p>Meri Arzumanyan</p>
-                        <p></p>
-                        <a href="" target="_blank"></a>
-                    </div>
-
-                    <div className="teamMember">
-                        <img src="" />
-                        <p>Swapna Lia Anil</p>
-                        <p></p>
-                        <a href="" target="_blank"></a>
-                    </div>
-
-                    <div className="teamMember">
-                        <img src="" />
-                        <p>Vahe Minasyan</p>
-                        <p></p>
-                        <a href="" target="_blank"></a>
+                        <div className="teamMember">
+                            <a href="https://www.linkedin.com/in/vaheminasyan2/" target="_blank">
+                                <img src="https://avatars0.githubusercontent.com/u/32709965?s=400&v=4" />
+                            </a>
+                            <h4>Vahe Minasyan</h4>
+                            <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=" target="_blank">Email&nbsp;</a>
+                            <a href="https://www.linkedin.com/in/vaheminasyan2/" target="_blank">&nbsp;LinkedIn</a>
+                        </div>
                     </div>
                 </div>
             </Container>
