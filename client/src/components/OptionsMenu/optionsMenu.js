@@ -52,11 +52,11 @@ class OptionsMenu extends Component {
 
                 <ul className="optionsList">
 
-                    {/* CONTACT US */}
+                    {/* ABOUT US */}
                     <li
                         onClick={this.openAboutUs}
                     >
-                        Contact
+                        About
                     </li>
 
                     {/* PROFILE SETTINGS */}
