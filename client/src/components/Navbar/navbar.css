@@ -117,12 +117,15 @@ button > div {
 .mobilePosition{
     position: relative;
     left: 25.5em;
-    
-    
 }
 
 .navbar-toggler{
     cursor: pointer;
+}
+
+#navContentContainer {
+    margin: 0px;
+    max-width: 100%;
 }
 
 @media only screen and (max-width: 600px) {
