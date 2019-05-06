@@ -27,13 +27,17 @@ class AboutUs extends Component {
                     className={` contacts-bg-${this.props.theme} contactList`}
                 >
                                         
-                    <h3 className="" id="contactTitle">About Us</h3>
+                    <h3 className="" id="aboutTitle">About Us</h3>
 
                     <div className="aboutRow">
                         <p>
-                            In April 2019, a team of six web developers launched Podhub as a final project for the University of Washington Coding Boot Camp.
+                            In April 2019, a team of six intrepid web developers launched Podhub as a final project for the University of Washington Coding Boot Camp.
                             The goal of the project was to provide an online platform on which one can easily share, discover, and discuss podcasts with 
                             friends and followers. 
+                        </p>
+
+                        <p>
+                            Podhub uses the Listen Notes API to access podcast data. 
                         </p>
                     </div>
 
