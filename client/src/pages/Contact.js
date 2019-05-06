@@ -26,7 +26,17 @@ class Contact extends Component {
                 <div
                     className={` contacts-bg-${this.props.theme} contactList`}
                 >
-                    <h3 className="" id="contactTitle">Contact Us</h3>
+                                        
+                    <h3 className="" id="contactTitle">About Us</h3>
+
+                    <div className="aboutRow">
+                        <p>
+                            Podhub was launched in April 2019 as a final project for the University of Washington Coding Boot Camp.
+                            It was born with the mission of providing a platform on which to easily share, discover, and discuss podcasts.
+                            The Podhub team is comprised of six members. 
+                        </p>
+                    </div>
+
                     <div className="contactRow">
                         <div className="teamMember">
                             <a href="https://www.linkedin.com/in/carson-wack/" target="_blank">
