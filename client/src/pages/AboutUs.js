@@ -14,6 +14,7 @@ class AboutUs extends Component {
     }
 
     componentDidMount = () => {
+        console.log(this.props);
         this.setState({
             user: this.props.location.state.user
         }, () => {
