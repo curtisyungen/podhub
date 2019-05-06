@@ -113,9 +113,12 @@ button > div {
     width: 100%;
     z-index: 0;
 }
+
 .mobilePosition{
-    position: relative;
-    left: 25.5em;
+    left: 50%;
+    position: fixed;
+    top: 0.7em;
+    transform: translate(-150px);
 }
 
 .navbar-toggler{
