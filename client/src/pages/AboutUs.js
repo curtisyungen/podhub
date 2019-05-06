@@ -14,11 +14,10 @@ class AboutUs extends Component {
     }
 
     componentDidMount = () => {
-        console.log(this.props);
         this.setState({
             user: this.props.location.state.user
         }, () => {
-            this.props.hideOptionsMenu();
+            this.props.location.hideOptionsMenu();
         });
     }
 
