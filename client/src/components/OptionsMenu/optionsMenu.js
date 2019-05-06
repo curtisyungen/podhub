@@ -80,7 +80,8 @@ class OptionsMenu extends Component {
                             pathname: "/settings",
                             state: {
                                 user: this.state.user
-                            }
+                            },
+                            hideOptionsMenu: this.props.hideOptionsMenu
                         }}
 
                     />
