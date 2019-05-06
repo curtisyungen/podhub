@@ -94,7 +94,8 @@ class OptionsMenu extends Component {
                             pathname: "/aboutUs",
                             state: {
                                 user: this.state.user
-                            }
+                            },
+                            hideOptionsMenu: this.props.hideOptionsMenu
                         }}
                     />
                 ) : (
