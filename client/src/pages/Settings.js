@@ -36,7 +36,9 @@ class Settings extends Component {
     saveName = (event) => {
         event.preventDefault();
 
-        API.updateUser(this.state.user.id, this.state.user)
+        console.log(this.state.user);
+
+        API.updateUser(this.state.user.userId, this.state.user)
             .then(res => {
                 console.log("Result", res);
             })
