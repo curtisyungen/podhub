@@ -11,7 +11,7 @@ class Settings extends Component {
         super(props);
 
         this.state = {
-            user: "",
+            user: null,
             newName: null,
         }
     }
@@ -56,7 +56,12 @@ class Settings extends Component {
                 >
 
                     {/* USER NAME */}
-                    <h4>{this.state.user.name} || {this.props.location.state.user}</h4>
+                    {this.state.user ? (
+                        <h4>{this.state.user.name}</h4>
+                    ) : (
+                        <h4>{this.props.location.state.user.name}</h4>
+                    )}
+                    
                     <br/>
 
                     {/* NAME */}
