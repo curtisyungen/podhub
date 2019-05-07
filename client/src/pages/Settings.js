@@ -96,7 +96,7 @@ class Settings extends Component {
                     <div>
                         <label>Theme </label>
                         <button
-                            className="btn btn-dark btn-sm theme dark"
+                            className="btn btn-dark btn-sm theme dark darkBtn"
                             name="dark"
                             onClick={this.props.darkTheme}
                         >

@@ -34,5 +34,12 @@ label {
 
 #changeNameForm {
     display: inline;
-    margin-right: 5px;
+}
+
+#changeNameForm input {
+    margin-right: 10px;
+}
+
+.darkBtn {
+    margin-left: 52px;
 }
