@@ -30,7 +30,8 @@ class Settings extends Component {
         });
     }
 
-    saveName = () => {
+    saveName = (event) => {
+        event.preventDefault();
         console.log(this.state.newName);
     }
 
@@ -61,7 +62,7 @@ class Settings extends Component {
                     {/* NAME */}
                     <div>
                         <label>Change Name </label>
-                        <form>
+                        <form id="changeNameForm">
                             <input 
                                 type="text" 
                                 className="rounded"
