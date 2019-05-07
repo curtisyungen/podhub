@@ -30,8 +30,7 @@ class Settings extends Component {
     changeName = (event) => {
         this.setState({
             user: {
-                id: this.props.location.state.user.userId,
-                name: event.target.value
+                name: event.target.value,
             },
             newName: event.target.value
         });
@@ -40,7 +39,7 @@ class Settings extends Component {
     saveName = (event) => {
         event.preventDefault();
 
-        console.log(this.state.user);
+        console.log("State", this.state.user);
 
         API.updateUser(this.state.user.userId, this.state.user)
             .then(res => {
