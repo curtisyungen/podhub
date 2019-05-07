@@ -61,11 +61,11 @@ class Settings extends Component {
                     ) : (
                         <h4>{this.props.location.state.user.name}</h4>
                     )}
-                    
+
                     <br/>
 
                     {/* NAME */}
-                    <div>
+                    <div id="changeNameDiv">
                         <label>Change Name </label>
                         <form id="changeNameForm">
                             <input 
