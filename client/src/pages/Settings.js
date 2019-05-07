@@ -26,6 +26,9 @@ class Settings extends Component {
 
     changeName = (event) => {
         this.setState({
+            user: {
+                name: event.target.value
+            },
             newName: event.target.value
         });
     }
@@ -35,7 +38,7 @@ class Settings extends Component {
 
         API.updateUser(this.state.user.id, this.state.user)
             .then(res => {
-                console.log(res);
+                console.log("Result", res);
             })
             .catch((err) => {
                 console.log("Error updating user: ", err);
