@@ -17,6 +17,9 @@ class Settings extends Component {
     }
 
     componentDidMount = () => {
+
+        console.log("User", this.props.location.state.user);
+
         this.setState({
             user: this.props.location.state.user
         }, () => {
@@ -27,6 +30,7 @@ class Settings extends Component {
     changeName = (event) => {
         this.setState({
             user: {
+                id: this.props.location.state.user.userId,
                 name: event.target.value
             },
             newName: event.target.value
