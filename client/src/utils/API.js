@@ -141,7 +141,7 @@ export default {
     },
 
     deleteUser: function(user) {
-        return axios.get("api/getUsers", user); // temporary. will be more like axios.delete("api/deleteUser", user);
+        return axios.get("api/remove", user);
     },
 
     updateUser: function(userId, body){
