@@ -11,7 +11,7 @@ class Settings extends Component {
         super(props);
 
         this.state = {
-            user: null,
+            user: "",
             newName: null,
         }
     }
