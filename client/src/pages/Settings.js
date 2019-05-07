@@ -32,7 +32,14 @@ class Settings extends Component {
 
     saveName = (event) => {
         event.preventDefault();
-        console.log(this.state.newName);
+
+        API.updateUser(this.state.user.id, this.state.user)
+            .then(res => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log("Error updating user: ", err);
+            });
     }
 
     deleteAccount = () => {
