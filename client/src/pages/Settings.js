@@ -76,7 +76,7 @@ class Settings extends Component {
                                 value={this.state.newName}
                             />
                             <button
-                                className="btn btn-success btn-sm"
+                                className="btn btn-dark btn-sm"
                                 onClick={this.saveName}
                             >
                                 Save
