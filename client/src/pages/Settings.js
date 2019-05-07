@@ -18,8 +18,6 @@ class Settings extends Component {
 
     componentDidMount = () => {
 
-        console.log("User", this.props.location.state.user);
-
         this.setState({
             user: this.props.location.state.user
         }, () => {
@@ -38,8 +36,6 @@ class Settings extends Component {
 
     saveName = (event) => {
         event.preventDefault();
-
-        console.log("State", this.state.user);
 
         API.updateUser(this.state.user.userId, this.state.user)
             .then(res => {
