@@ -12,6 +12,7 @@ class Settings extends Component {
 
         this.state = {
             user: null,
+            newName: null,
         }
     }
 
@@ -21,6 +22,16 @@ class Settings extends Component {
         }, () => {
             this.props.location.hideOptionsMenu();
         });
+    }
+
+    changeName = (event) => {
+        this.setState({
+            newName: event.target.value
+        });
+    }
+
+    saveName = () => {
+        console.log(this.state.newName);
     }
 
     deleteAccount = () => {
@@ -48,10 +59,24 @@ class Settings extends Component {
                     <br/>
 
                     {/* NAME */}
-                    {/* <div>
+                    <div>
                         <label>Change Name </label>
-                        {this.props.location.state.user.name}
-                    </div> */}
+                        <form>
+                            <input 
+                                type="text" 
+                                className="rounded"
+                                placeholder={this.props.location.state.user.name}
+                                onChange={this.changeName}
+                                value={this.state.newName}
+                            />
+                            <button
+                                className="btn btn-success btn-sm"
+                                onClick={this.saveName}
+                            >
+                                Save
+                            </button>
+                        </form>
+                    </div>
                     
                     {/* PHOTO */}
                     {/* <div>
