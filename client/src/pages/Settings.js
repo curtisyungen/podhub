@@ -29,6 +29,9 @@ class Settings extends Component {
             API.deleteUser(this.state.user)
                 .then(res => {
                     this.logout();
+                })
+                .catch((err) => {
+                    console.log("Error deleting user: ", err);
                 });
         }
     }
@@ -78,11 +81,12 @@ class Settings extends Component {
                     </div>
 
                     {/* DELETE ACCOUNT */}
-                    {/* <p
+                    <p
+                        className="deleteAcct"
                         onClick={this.deleteAccount}
                     >
                     Delete Account
-                    </p> */}
+                    </p>
 
                 </div>
             </Container>

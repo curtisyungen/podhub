@@ -10,6 +10,10 @@
     padding: 15px;
 }
 
+.deleteAcct {
+    color: red;
+}
+
 .theme {
     cursor: pointer;
     font-size: 12px;
