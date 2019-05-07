@@ -372,7 +372,7 @@ class ProfileHeader extends Component {
                                     </div>
 
                                     {/* EDIT LOCATION */}
-                                    <textarea
+                                    {/* <textarea
                                         className="rounded"
                                         id="userLocationTextarea"
                                         maxLength="100"
@@ -381,7 +381,7 @@ class ProfileHeader extends Component {
                                         value={this.state.newLocation}
                                     >
                                         {this.state.userLocation}
-                                    </textarea>
+                                    </textarea> */}
 
                                     {/* EDIT BIO */}
                                     <textarea
