@@ -127,7 +127,7 @@ export default {
 
     // Get all users
     getUsers: function (user) {
-        return axios.get("api/getUsers", user);
+        return axios.get("/api/getUsers", user);
     },
 
     // Gets About Me section for user
@@ -141,7 +141,7 @@ export default {
     },
 
     deleteUser: function(user) {
-        return axios.delete("api/users/remove", user.id);
+        return axios.delete("/api/users/remove/" + user.id);
     },
 
     updateUser: function(userId, body){
