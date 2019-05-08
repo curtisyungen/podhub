@@ -18,8 +18,8 @@ router.use("/favorites", favoriteRoutes);
 router.use("/comments", commentRoute);
 
 // For anything else, render the html page
-router.get("/*", function(req, res) {
-  res.sendFile(path.join(__dirname, "../../client/build/index.html"));
+router.use("/*", function(req, res) {
+  res.sendFile(path.join(__dirname, "../../client/public/index.html"));
 });
 
 module.exports = router;
