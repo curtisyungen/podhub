@@ -210,7 +210,7 @@ class UserController {
    */
   remove(req, res) {
     db.user
-      .destroy({ where: { id: req.params.id } })
+      .destroy({ where: { id: req.params.id }, force: true})
         .then(user => res.json(user));
   }
 
