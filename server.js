@@ -26,6 +26,10 @@ if (process.env.NODE_ENV === "test") {
 
 app.use(routes);
 
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "/client/build/index.html"));
+});
+
 const notification = new Notification(http);
 
 // Starting the server, syncing our models ------------------------------------/
