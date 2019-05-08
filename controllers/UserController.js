@@ -209,7 +209,9 @@ class UserController {
    * @param {*} res
    */
   remove(req, res) {
-    db.user.destroy({ where: req.params }).then(user => res.json(user));
+    db.user
+      .destroy({ where: { id: req.params.id } })
+        .then(user => res.json(user));
   }
 
  /**
