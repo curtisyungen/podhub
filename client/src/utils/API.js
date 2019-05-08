@@ -141,7 +141,7 @@ export default {
     },
 
     deleteUser: function(user) {
-        return axios.get("api/remove", user);
+        return axios.delete("api/users/remove", user.id);
     },
 
     updateUser: function(userId, body){
