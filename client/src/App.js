@@ -426,6 +426,7 @@ class App extends Component {
                         darkTheme={this.darkTheme}
                         lightTheme={this.lightTheme}
                         theme={this.state.theme}
+                        logout={this.logout}
                       />
                     }
                   />
