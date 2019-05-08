@@ -77,7 +77,7 @@ router.put("/update/:id", (req, res) => controller.update(req, res));
  * @param {*} req
  * @param {*} res
  */
-router.delete("/remove/:id", (req, res) => controller.remove(req, res));
+router.delete("/remove/:id", (req, res) => {console.log("userRoute.js", req); controller.remove(req, res)});
 
 /**
  * Get all posts for the user <<--------------User Profile page------------->>
