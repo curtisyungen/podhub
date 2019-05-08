@@ -141,6 +141,7 @@ export default {
     },
 
     deleteUser: function(user) {
+        console.log("API.js", user.id);
         return axios.delete("/api/users/remove/" + user.id);
     },
 
