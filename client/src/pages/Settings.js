@@ -51,7 +51,7 @@ class Settings extends Component {
 
             API.deleteUser(this.state.user)
                 .then(res => {
-                    this.props.logout;
+                    this.props.logout();
                 })
                 .catch((err) => {
                     console.log("Error deleting user: ", err);
