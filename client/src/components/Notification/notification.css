@@ -1,3 +1,17 @@
-p {
-    opacity: 1
+.notification:hover {
+    opacity: 0.8; 
+}
+
+.notif-light, 
+.notif-dark {
+    font-size: 16px;
+    margin: 5px 0px 15px 5px;
+}
+
+.notif-light {
+    color: black;
+}
+
+.notif-dark {
+    color: white;
 }

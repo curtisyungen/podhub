@@ -2,14 +2,16 @@ import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch, faUser, faHome, faBell } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faUser, faHome, faBell, faCircle } from '@fortawesome/free-solid-svg-icons'
 import Logo from "./purple_back.png";
 import NavbarAudio from "../NavbarAudio/navbarAudio";
 import Popup from "reactjs-popup";
 import OptionsMenu from "../OptionsMenu/optionsMenu";
 import "./navbar.css";
+//import moment from "moment";
+//import API from "../../utils/API";
 
-library.add(faSearch, faUser, faHome, faBell);
+library.add(faSearch, faUser, faHome, faBell, faCircle);
 
 // NAVBAR COMPONENT
 // Rendered by App.js on every page
@@ -22,7 +24,7 @@ class Navbar extends Component {
     remove: false,
     speed: 1.0,
     showOptionsMenu: false,
-    goToPodcastPage: false
+    goToPodcastPage: false,
   };
 
 
@@ -88,7 +90,7 @@ class Navbar extends Component {
 
   render() {
 
-    const { podcastSearch, handleInputChange, hidePodcasts, logout, user, showAudio, hideAudio, theme } = this.props;
+    const { podcastSearch, handleInputChange, hidePodcasts, logout, user, showAudio, hideAudio, theme, notificationAlert, setNotificationAlertOff } = this.props;
 
     return (
 
@@ -98,12 +100,14 @@ class Navbar extends Component {
           {/* Podhub Logo */}
 
           <div className="navbar-header">
-            <Link className="navbarText navbar-brand" to="/home" onClick={this.scrollToTop}>
+            <Link className="navbarText navbar-brand" to={{
+              pathname: "/home",
+            }} onClick={this.scrollToTop}>
               <img src={Logo} alt="logo" id="size" />
             </Link>
           </div>
           <div className="fulllength">
-          {showAudio ? (
+            {showAudio ? (
               <div className="mobilePosition">
                 <Popup
                   trigger={
@@ -145,7 +149,7 @@ class Navbar extends Component {
                 <></>
               )
             }
-            </div>
+          </div>
 
           {/* Hamburger Menu */}
 
@@ -162,12 +166,14 @@ class Navbar extends Component {
 
               <li className="nav-item">
                 <Link
-                  to="/home"
+                  to={{
+                    pathname: "/home"
+                  }}
                   className={
                     window.location.pathname === "/home"
                       ? `nav-link ${this.props.theme} active`
                       : `nav-link ${this.props.theme}`
-                  } 
+                  }
                   onClick={this.scrollToTop}
                 >
                   <FontAwesomeIcon icon="home" />
@@ -225,16 +231,22 @@ class Navbar extends Component {
                       ? `nav-link ${this.props.theme} active`
                       : `nav-link ${this.props.theme}`
                   }
+                  onClick={setNotificationAlertOff}
                 >
                   <FontAwesomeIcon icon="bell" />
                   <span className={`navbar-theme-{this.props.theme}`}>&nbsp; Notifications </span>
+                  {notificationAlert === "on" && window.location.pathname !== "/notifications"
+                    ? <FontAwesomeIcon icon="circle" size="xs" className="mb-1" id="notification-alert" />
+                    : null
+                  }
                 </Link>
+
               </li>
             </ul>
 
             {/* Show Audio Player in Nav Bar */}
 
-            
+
 
             {/* Podcast Search form */}
 
@@ -261,39 +273,39 @@ class Navbar extends Component {
               {/* REDIRECT TO PODCAST SEARCH PAGE */}
 
               {this.state.goToPodcastPage ? (
-                <Redirect 
+                <Redirect
                   to={{
                     pathname: "/podcastSearch",
                     resetState: this.resetState
                   }}
                 />
               ) : (
-                <></>
-              )}
+                  <></>
+                )}
 
               {/* Settings/Logout Dropdown Menu */}
 
               <li>
-              
+
                 <div
                   onClick={this.showOptionsMenu}
                   className="holder"
                 >
-                {this.state.showOptionsMenu ? (
-                  <OptionsMenu
-                    user={this.props.user}
-                    hideOptionsMenu={this.hideOptionsMenu}
-                    logout={logout}
-                  />
-                ) : (
-                    <></>
-                  )}
-                  <img 
+                  {this.state.showOptionsMenu ? (
+                    <OptionsMenu
+                      user={this.props.user}
+                      hideOptionsMenu={this.hideOptionsMenu}
+                      logout={logout}
+                    />
+                  ) : (
+                      <></>
+                    )}
+                  <img
                     className="navbarUserImg"
                     src={this.props.user.profileImage} />
                 </div>
 
-          
+
               </li>
 
             </ul>

@@ -10,13 +10,6 @@
     padding: 15px;
 }
 
-.deleteAcct {
-    color: rgb(194, 0, 0);
-    cursor: pointer;
-    font-size: 14px;
-    padding-left: 5px;
-}
-
 .theme {
     cursor: pointer;
     font-size: 12px;
@@ -26,20 +19,4 @@
 label {
     margin-right: 10px;
     padding-left: 5px;
-}
-
-#changeNameDiv {
-    margin-bottom: 10px;
-}
-
-#changeNameForm {
-    display: inline;
-}
-
-#changeNameForm input {
-    margin-right: 10px;
-}
-
-.darkBtn {
-    margin-left: 52px;
 }

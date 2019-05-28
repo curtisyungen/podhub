@@ -3,27 +3,64 @@ import Container from "../components/Container/container";
 import Row from "../components/Row/row";
 import Post from "../components/Post/post";
 import API from "../utils/API";
-import { faComment, faHeart } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faComment, faHeart, faArrowUp } from '@fortawesome/free-solid-svg-icons'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import "./Home.css";
 
-library.add(faComment);
-library.add(faHeart);
+library.add(faComment, faHeart, faArrowUp);
+
 
 let moment = require("moment");
 
 class Home extends Component {
 
-    state = {
-        posts: [],
-        message: "",
-        user: null
-    };
+    constructor(props) {
+        super(props)
+        this.state = {
+            posts: [],
+            message: "",
+            user: null,
+            scrollToPost: false,
+            scrollToPostId: "",
+            uploadNewPost: false
+        }
+    }
 
     componentDidMount() {
         this.getPosts();
+        this.setState({
+            uploadNewPost: false
+        })
+        if (this.props.location.state !== undefined) {
+            this.setState({
+                user: this.props.location.state.user,
+                scrollToPost: this.props.location.state.scrollToPost,
+                scrollToPostId: this.props.location.state.scrollToPostId
+            });
+            if (this.props.location.state.scrollToPost !== undefined && this.props.location.state.scrollToPostId !== undefined) {
+                this.scrollToElement();
+            }
+        }
     }
 
+    componentWillReceiveProps(nextProps) {
+        // You don't have to do this check first, but it can help prevent an unneeded render
+        if (nextProps.newPost === true) {
+            this.setState({
+                uploadNewPost: true
+            })
+        }
+    }
+
+    updatePage = () => {
+        this.setState({
+            uploadNewPost: false
+        })
+        this.getPosts();
+        this.scrollToTop();
+        this.props.setNewPostAlertOff();
+    }
 
     // POSTS
     // ===============================================
@@ -56,7 +93,7 @@ class Home extends Component {
             });
     };
 
-    
+
     // OTHER
     // ===============================================
 
@@ -72,9 +109,43 @@ class Home extends Component {
         this.props.toApp(value, link, podName, epName);
     }
 
+    // Handle SCROLLING to specific post
+    scrollToElement = () => {
+        {
+            setTimeout(() => {
+                var id = this.state.scrollToPostId;
+                var element = document.getElementById(id);
+                element.scrollIntoView(true);
+                window.scrollBy(0, -100)
+                this.setScrollToPostFalse();
+            }, 1000)
+        }
+    }
+
+    setScrollToPostFalse = () => {
+        this.setState({
+            scrollToPost: false,
+            scrollToPostId: ""
+        })
+    }
+
+    scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+
     render() {
+        
         return (
             <div className={`container bg-${this.props.theme} rounded`} id="post-container">
+                {this.state.uploadNewPost === true
+                    ?
+                    <div className="col sticky"
+                        onClick={() => (this.updatePage())}
+                    >
+                        New post <FontAwesomeIcon icon="arrow-up" /></div>
+
+                    : null
+                }
                 <Row>
                     {this.state.posts.length > 0
                         ? (
@@ -100,7 +171,7 @@ class Home extends Component {
                                         updateParentState={this.getPosts}
                                         toHomeAndProfile={this.toHomeAndProfile}
                                         theme={this.props.theme}
-                                  />
+                                    />
                                 ))}
                             </Container>
                         )

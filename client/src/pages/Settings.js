@@ -12,12 +12,10 @@ class Settings extends Component {
 
         this.state = {
             user: null,
-            newName: null,
         }
     }
 
     componentDidMount = () => {
-
         this.setState({
             user: this.props.location.state.user
         }, () => {
@@ -25,36 +23,12 @@ class Settings extends Component {
         });
     }
 
-    changeName = (event) => {
-        this.setState({
-            user: {
-                name: event.target.value,
-            },
-            newName: event.target.value
-        });
-    }
-
-    saveName = (event) => {
-        event.preventDefault();
-
-        API.updateUser(this.state.user.userId, this.state.user)
-            .then(res => {
-                console.log("Result", res);
-            })
-            .catch((err) => {
-                console.log("Error updating user: ", err);
-            });
-    }
-
     deleteAccount = () => {
         if (window.confirm("Are you sure?")) {
 
             API.deleteUser(this.state.user)
                 .then(res => {
-                    this.props.logout();
-                })
-                .catch((err) => {
-                    console.log("Error deleting user: ", err);
+                    this.logout();
                 });
         }
     }
@@ -67,33 +41,14 @@ class Settings extends Component {
                 >
 
                     {/* USER NAME */}
-                    {this.state.user ? (
-                        <h4>{this.state.user.name}</h4>
-                    ) : (
-                        <h4>{this.props.location.state.user.name}</h4>
-                    )}
-
+                    <h4>{this.props.location.state.user.name}</h4>
                     <br/>
 
                     {/* NAME */}
-                    <div id="changeNameDiv">
+                    {/* <div>
                         <label>Change Name </label>
-                        <form id="changeNameForm">
-                            <input 
-                                type="text" 
-                                className="rounded"
-                                placeholder={this.props.location.state.user.name}
-                                onChange={this.changeName}
-                                value={this.state.newName}
-                            />
-                            <button
-                                className="btn btn-dark btn-sm"
-                                onClick={this.saveName}
-                            >
-                                Save
-                            </button>
-                        </form>
-                    </div>
+                        {this.props.location.state.user.name}
+                    </div> */}
                     
                     {/* PHOTO */}
                     {/* <div>
@@ -107,7 +62,7 @@ class Settings extends Component {
                     <div>
                         <label>Theme </label>
                         <button
-                            className="btn btn-dark btn-sm theme dark darkBtn"
+                            className="btn btn-dark btn-sm theme dark"
                             name="dark"
                             onClick={this.props.darkTheme}
                         >
@@ -123,12 +78,11 @@ class Settings extends Component {
                     </div>
 
                     {/* DELETE ACCOUNT */}
-                    <p
-                        className="deleteAcct"
+                    {/* <p
                         onClick={this.deleteAccount}
                     >
                     Delete Account
-                    </p>
+                    </p> */}
 
                 </div>
             </Container>

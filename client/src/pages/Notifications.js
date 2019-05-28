@@ -2,66 +2,61 @@ import React, { Component } from "react";
 import Container from "../components/Container/container";
 import Row from "../components/Row/row";
 import API from "../utils/API";
-import NotificationLikesOrComments  from "../components/Notification/NotificationLikesOrComments";
-import NotificationFollowers  from "../components/Notification/NotificationFollowers";
 import "./Notifications.css"
+import NotificationComponent from "../components/Notification/NotificationComponent";
 
 // NOTIFICATION PAGE
 
 class Notification extends Component {
 
     state = {
-        newLikes: [],
-        newComments: [],
-        newFollowers: [],
-        message: "",
-        user: null
+        notifications: [],
+        message: "There are no notifications"
     };
 
     componentDidMount() {
         //console.log(this.props.user.id)
-        //this.checkNewLikes();
-        //this.checkNewComments();
-        //this.checkNewFollowers();
+        this.getNotifications(this.props.user.id);
     };
 
-    checkNewLikes = () => {
-
+    componentWillReceiveProps(nextProps) {
+        // You don't have to do this check first, but it can help prevent an unneeded render
+        if (nextProps.newNotification === true) {
+            this.getNotifications(this.props.user.id);
+        }
     }
 
-    checkNewComments = () => {
-
+    // Get all notification history for given user
+    getNotifications = userId => {
+        API.getNotifications(userId)
+            .then(res => {
+                this.setState({
+                    notifications: res.data
+                });
+                //console.log(this.state.notifications)
+            })
     }
-
-    checkNewFollowers = () => {
-
-    }
-
 
     render() {
         return (
             <div className={`container bg-${this.props.theme} rounded`} id="post-container">
                 <Row>
                     {
-                        this.state.newLikes > 0 ||
-                            this.state.newComments > 0 ||
-                            this.state.newFollowers > 0
+                        this.state.notifications.length > 0
                             ?
                             (
                                 <Container>
-                                    {this.state.newLikes.map(newLikes => (
-                                        <NotificationLikesOrComments 
-                                        
-                                        />
-                                    ))}
-                                    {this.state.newComments.map(newComments => (
-                                        <NotificationLikesOrComments 
-                                        
-                                        />
-                                    ))}
-                                    {this.state.newFollowers.map(newFollowers => (
-                                        <NotificationFollowers 
-                                        
+                                    {this.state.notifications.map(notification => (
+                                        <NotificationComponent
+                                            key={notification.id}
+                                            userId={notification.actorId}
+                                            userName={notification.name}
+                                            userImage={notification.actorImage}
+                                            postId={notification.postId}
+                                            date={notification.updatedAt}
+                                            type={notification.action}
+                                            theme={this.props.theme}
+                                            loginUser={this.props.user}
                                         />
                                     ))}
 
@@ -69,9 +64,8 @@ class Notification extends Component {
                             )
                             :
                             (
-                                <h4 className="text-center">{this.state.message}</h4> 
-                            )
-                    }
+                                <h4 className="text-center">{this.state.message}</h4>
+                            )}
                 </Row>
             </div>
         )

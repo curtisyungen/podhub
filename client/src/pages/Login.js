@@ -5,10 +5,9 @@ import GoogleLogin from 'react-google-login';
 import "./Login.css";
 import Logo from "../components/Navbar/purple_back.png";
 import dotenv from "dotenv";
-import io from "socket.io-client";
+//import io from "socket.io-client";
 
 dotenv.config();
-
 
 var CLIENT_ID = process.env.REACT_APP_G_CLIENT_ID;
 
@@ -19,22 +18,20 @@ class Login extends Component {
         redirect: false
     };
 
+
     getOrCreateUser = () => {
         API.getOrCreateUser(this.state.id_token)
             .then(res => {
-                console.warn("User ID", res.data.id);
+                // console.warn("User ID", res.data.id);
 
                 //////////////////    Notification   ///////////////////
-                const socket = io(`${window.location}?userId=${res.data.id}`); // We need to initialize a connection to server.
-                socket.on("connect", (s) => {
-                    console.log("Login Connected!");
-                });
-
-                this.props.handleUser(res.data, socket);
-
+                //const socket = io(`${window.location}?userId=${res.data.id}`); // We need to initialize a connection to server.   
+                this.props.handleUser(res.data);
                 localStorage.setItem("user", JSON.stringify(res.data));
             })
     };
+
+
 
     render() {
         const responseGoogle = (response) => {
@@ -44,7 +41,7 @@ class Login extends Component {
 
             this.getOrCreateUser();
 
-            console.log("Login Constructed!");
+            //console.log("Login Constructed!");
         }
 
         return (
