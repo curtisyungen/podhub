@@ -36,8 +36,28 @@ class PostController {
    * @param {*} res
    */
   createLikes(req, res) {
-    console.log(req.body)
-    db.postLike.findOrCreate({where: req.body}).then(dbPostLike => res.json(dbPostLike));
+    db.postLike.findOrCreate({where: req.body}).then(function(dbPostLike){
+      db.post.findByPk(req.body.postId).then(function(post){
+        db.user.findByPk(req.body.userId).then(function(likedBy){
+          res.json(dbPostLike);
+          
+          if(post.postedBy != req.body.userId && dbPostLike[1] === true) {
+            server.notification.notifyPostLike(post.postedBy, likedBy.name, post.episodeName);
+            db.notification.create(
+              {
+                action: "pl",
+                name: likedBy.name,
+                actorImage: likedBy.profileImage,
+                actorId: likedBy.id,
+                postId: req.body.postId,
+                userId: post.postedBy
+              }
+            )
+          } 
+          
+        })
+      });
+    });
   }
 
   /**

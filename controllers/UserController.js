@@ -1,3 +1,4 @@
+const server = require(`../server.js`);
 const db = require(`../models/index.js`);
 const axios = require('axios');
 const Op = db.Sequelize.Op;
@@ -32,7 +33,22 @@ class UserController {
    * @param {*} res
    */
   postFollowUser(req, res){
-    db.follow.create(req.body).then(follow => res.json(follow));
+    db.follow.create(req.body).then(function(follow){
+      db.user.findByPk(req.body.followedBy).then(function(by){
+        db.notification.create(
+          {
+            action: "f",
+            name: by.name,
+            actorImage: by.profileImage,
+            actorId: by.id,
+            userId: req.body.isFollowing
+          }
+        ).then(function(notification){
+          server.notification.notifyfavorite(req.body.isFollowing, by.name);
+          res.json(follow);
+        })
+      })
+    });
   }
 
   /**
@@ -166,6 +182,7 @@ class UserController {
     axios
       .get("https://oauth2.googleapis.com/tokeninfo?id_token=" + req.query.id_token)
       .then(function(response) {
+
         newUser = {
           name: response.data.name,
           email: response.data.email,
@@ -192,6 +209,17 @@ class UserController {
       })
   }
 
+  getProfileHeader(req, res) {
+    db.user.findAll({ 
+      where: { 
+        id: req.params.googleId 
+      }
+    })
+    .spread(function(profileHeader, created) {
+      res.json(profileHeader);
+    });
+  }
+
   /**
    * Update the user
    * @param {*} req
@@ -199,8 +227,9 @@ class UserController {
    */
   update(req, res) {
     db.user
-      .update(req.body, { where: { id: req.params.id } })  
-        .then(user => res.json(user));
+      .update(req.body, { where: { id: req.params.id }   
+      })
+      .then(user => res.json(user));
   }
 
   /**
@@ -209,9 +238,7 @@ class UserController {
    * @param {*} res
    */
   remove(req, res) {
-    db.user
-      .destroy({ where: { id: req.params.id }, force: true})
-        .then(user => res.json(user));
+    db.user.destroy({ where: req.params }).then(user => res.json(user));
   }
 
  /**
@@ -303,6 +330,37 @@ class UserController {
     return 0;
   }
  */ 
+
+ getNotifications(req, res)
+ {
+   db.notification.findAll({
+    offset: 0, limit: 30,
+     where: {
+      userId: req.params.id
+     },
+     order: [
+      ['createdAt', 'DESC']
+    ]
+   }).then(function(nots){
+     res.json(nots)
+   })
+
+ }
+
+  isNewNotification(req, res)
+  {
+    db.user.findByPk(req.params.id).then(function(user){
+      db.notification.findAndCountAll({
+        where: {
+          createdAt: {
+            [Op.gte]: user.notificationsSeen}
+        }
+      }).then(function(latest){
+        res.json(latest.count);
+      })
+    })
+  }
 }
+
 
 module.exports = UserController;

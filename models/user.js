@@ -22,7 +22,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     location: {
       type: DataTypes.STRING
+    },
+    notificationsSeen: {
+      type: DataTypes.DATE
     }
+    
   });
 
   // Creates associates
@@ -39,6 +43,10 @@ module.exports = function(sequelize, DataTypes) {
     user.hasMany(models.favorite, {
       onDelete: "cascade"
     });
+
+    user.hasMany(models.notification, {
+      onDelete: "cascade"
+    })
   };
 
   return user;
