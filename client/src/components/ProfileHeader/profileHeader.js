@@ -301,13 +301,6 @@ class ProfileHeader extends Component {
         window.scrollTo(0, to);
     }
 
-    // AWS S3 Image upload
-    handleFileUpload = event => {
-        this.setState({ 
-            file: event.target.files 
-        });
-    };
-
     showEditImgBtn = () => {
         this.setState({
             showEditImgBtn: true,
@@ -371,7 +364,7 @@ class ProfileHeader extends Component {
                             <input
                                 label="upload file"
                                 type="file"
-                                onChange={this.handleFileUpload}
+                                onChange={this.props.handleFileUpload()}
                             />
                             <button 
                                 className="btn btn-primary btn-sm"
