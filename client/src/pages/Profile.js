@@ -92,7 +92,7 @@ class Profile extends Component {
         }
       };
 
-      API.uploadImageAWS(this.props.user.id, formData, header)
+      API.uploadImageAWS(this.state.user.id, formData, header)
         .then((res) => {
           this.setState({
             awsImageUrl: res.data.Location,
