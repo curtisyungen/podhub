@@ -9,9 +9,13 @@
   border-radius: 20px;
   color: darkgray;
   cursor: pointer;
+  font-size: 14px;
   height: 100px;
-  opacity: 0.75;
+  margin-top: -100px;
+  opacity: 0.8;
+  padding-top: 25px;
   position: absolute;
+  text-align: center;
   width: 100px;
 }
 
