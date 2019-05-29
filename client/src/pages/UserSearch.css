@@ -1,3 +1,7 @@
+.bg-light {
+    color: black;
+}
+
 .searchUserInput {
     width: 25% !important;
     margin: 0 auto;
@@ -32,9 +36,8 @@
     border-radius: 50px;
 }
 
-.searchName{
+.searchName {
     font-size: 12pt;
-    color: white;
     width: 200px;
     display: inline-block;
 }
