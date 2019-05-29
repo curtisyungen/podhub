@@ -69,6 +69,13 @@ class Profile extends Component {
       });
   }
 
+  // AWS S3 Image upload
+  handleFileUpload = event => {
+    this.setState({ 
+        file: event.target.files,
+    });
+  };
+
   submitFile = () => {
 
     const formData = new FormData();
@@ -268,6 +275,7 @@ class Profile extends Component {
                 numPosts={this.state.posts.length}
                 numFavs={this.state.favorites.length}
                 theme={this.props.theme}
+                handleFileUpload={this.handleFileUpload}
                 submitFile={this.submitFile}
               />
 
