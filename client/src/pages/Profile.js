@@ -80,6 +80,8 @@ class Profile extends Component {
 
     const formData = new FormData();
 
+    console.log(this.state.file);
+
     if (this.state.file) {
 
       formData.append("file", this.state.file[0]);
@@ -94,9 +96,6 @@ class Profile extends Component {
         .then((res) => {
           this.setState({
             awsImageUrl: res.data.Location,
-          }, () => {
-            this.hideEditImgModal();
-            // window.location.reload();
           });
         })
         .catch(err => {

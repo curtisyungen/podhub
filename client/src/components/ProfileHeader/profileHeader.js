@@ -368,7 +368,7 @@ class ProfileHeader extends Component {
                             />
                             <button 
                                 className="btn btn-primary btn-sm"
-                                onClick={(event) => {event.preventDefault(); this.props.submitFile()}}
+                                onClick={(event) => {event.preventDefault(); this.props.submitFile(); this.hideEditImgModal();}}
                                 type="submit"
                             >
                                 Confirm
