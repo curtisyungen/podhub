@@ -360,6 +360,8 @@ class ProfileHeader extends Component {
                             <div
                                 className="editImgBtn"
                                 onClick={this.showEditImgModal}
+                                onMouseEnter={this.showEditImgBtn}
+                                onMouseLeave={this.hideEditImgBtn}
                             >
                                 Change Image
                             </div>
