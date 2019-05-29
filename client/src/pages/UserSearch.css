@@ -37,6 +37,7 @@
 }
 
 .searchName {
+    color: white;
     font-size: 12pt;
     width: 200px;
     display: inline-block;

@@ -169,6 +169,7 @@ class UserSearch extends Component {
                                     userId={user.id}
                                     userName={user.name}
                                     userImage={user.profileImage}
+                                    theme={this.props.theme}
                                     handler={null}
                                 />
                                 {user.follow ? (
@@ -177,8 +178,7 @@ class UserSearch extends Component {
                                         onClick={(event) => {
                                             event.preventDefault();
                                             this.unFollowUser(user.id)
-                                        }
-                                        }
+                                        }}
                                     >
                                         Unfollow
                                     </button>
