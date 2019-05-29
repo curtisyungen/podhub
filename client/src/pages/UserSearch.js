@@ -164,7 +164,7 @@ class UserSearch extends Component {
                 {this.state.users.length ? (
                     <ul className="row userContainer">
                         {this.state.users.map(user => (
-                            <div className="container bg-dark tile m-2" key={user.id}>
+                            <div className={`container bg-${this.props.theme} tile m-2`} key={user.id}>
                                 <User
                                     userId={user.id}
                                     userName={user.name}
