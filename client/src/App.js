@@ -269,6 +269,7 @@ class App extends Component {
 
   // Log the user into the site
   handleUser = (userData) => {
+    console.log("App", userData);
     this.initializeSocket(userData.id);
 
     this.setState({
