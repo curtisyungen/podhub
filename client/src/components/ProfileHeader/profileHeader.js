@@ -364,7 +364,7 @@ class ProfileHeader extends Component {
                             <input
                                 label="upload file"
                                 type="file"
-                                onChange={(event) => {event.preventDefault(); this.props.handleFileUpload();}}
+                                onChange={(event) => {event.preventDefault(); this.props.handleFileUpload(event.target.files);}}
                             />
                             <button 
                                 className="btn btn-primary btn-sm"

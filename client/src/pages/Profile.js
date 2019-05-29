@@ -70,9 +70,9 @@ class Profile extends Component {
   }
 
   // AWS S3 Image upload
-  handleFileUpload = () => {
+  handleFileUpload = (file) => {
     this.setState({
-      file: event.target.files,
+      file: file,
     });
   };
 
