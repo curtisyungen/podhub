@@ -63,11 +63,9 @@ class Profile extends Component {
   getAwsImageUrl = () => {
     API.getAwsImageUrl(this.props.location.state.user.id)
       .then(res => {
-        console.log(res.data.url);
         this.setState({
           awsImageUrl: res.data.url,
         });
-        console.log(this.state.awsImageUrl);
       });
   }
 
