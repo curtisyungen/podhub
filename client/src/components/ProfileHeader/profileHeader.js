@@ -31,6 +31,7 @@ class ProfileHeader extends Component {
             showFollowingModal: false,
             numFavs: 0,
             awsImageurl: "",
+            showEditImgBtn: false,
         }
     }
 
@@ -328,6 +329,18 @@ class ProfileHeader extends Component {
             });
     };
 
+    showEditImgBtn = () => {
+        this.setState({
+            showEditImgBtn: true,
+        });
+    }
+
+    hideEditImgBtn = () => {
+        this.setState({
+            showEditImgBtn: false,
+        });
+    }
+
     render() {
 
         return (
@@ -338,8 +351,21 @@ class ProfileHeader extends Component {
                             src={this.props.user.profileImage}
                             alt="User"
                             id="userMainProfileImage"
+                            onMouseEnter={this.showEditImgBtn}
+                            onMouseLeave={this.hideEditImgBtn}
                             className={`rounded image-${this.props.theme}`}
                         />
+
+                        {this.state.showEditImgBtn ? (
+                            <div
+                                className="editImgBtn"
+                                onClick={this.showEditImgModal}
+                            >
+                                Change Image
+                            </div>
+                        ) : (
+                            <></>
+                        )}
                     </div>
 
                     <div className="col">

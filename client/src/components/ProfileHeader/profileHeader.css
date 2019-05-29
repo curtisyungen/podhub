@@ -4,6 +4,15 @@
   margin-top: -45px;
 }
 
+.editImgBtn {
+  background: lightgray;
+  border-radius: 20px;
+  color: darkgray;
+  height: 100px;
+  opacity: 0.5;
+  width: 100px;
+}
+
 .postsBtn {
   cursor: pointer;
 }
