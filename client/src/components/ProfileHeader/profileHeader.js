@@ -56,19 +56,6 @@ class ProfileHeader extends Component {
         }); 
     }
 
-    getProfileHeader = () => { 
-        API.getProfileHeader(this.state.user.id)
-            .then(res => {
-                this.setState({
-                    userName: res.data.name,
-                    userBio: res.data.aboutMe,
-                });
-            })
-            .catch((err) => {
-                console.log("Error getting Profile Header", err);
-            });
-    }
-
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.user.id !== this.props.user.id) {
             this.getNumFollowers();
@@ -89,11 +76,28 @@ class ProfileHeader extends Component {
                 awsImageUrl: this.props.awsImageUrl,
             });
         }
+
+        if (prevState.awsImageUrl !== this.state.awsImgUrl) {
+            window.location.reload();
+        }
     }  
 
 
     // SET UP HEADER
     // =============================================== 
+
+    getProfileHeader = () => { 
+        API.getProfileHeader(this.state.user.id)
+            .then(res => {
+                this.setState({
+                    userName: res.data.name,
+                    userBio: res.data.aboutMe,
+                });
+            })
+            .catch((err) => {
+                console.log("Error getting Profile Header", err);
+            });
+    }
 
     // Get number of FOLLOWERS for user
     getNumFollowers = () => {
