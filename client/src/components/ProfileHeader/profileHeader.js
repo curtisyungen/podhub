@@ -360,7 +360,7 @@ class ProfileHeader extends Component {
                         onClose={this.hideEditImgModal}
                         classNames="editImgModal"
                     >
-                        <form onSubmit={this.props.submitFile()}>
+                        <form>
                             <input
                                 label="upload file"
                                 type="file"
