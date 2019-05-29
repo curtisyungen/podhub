@@ -79,9 +79,7 @@ class Profile extends Component {
   submitFile = () => {
 
     const formData = new FormData();
-
-    console.log(this.state.file);
-
+    
     if (this.state.file) {
 
       formData.append("file", this.state.file[0]);
@@ -96,7 +94,7 @@ class Profile extends Component {
         .then((res) => {
           this.setState({
             awsImageUrl: res.data.Location,
-          });
+          }, () => {window.location.refresh();});
         })
         .catch(err => {
           console.log(err);
