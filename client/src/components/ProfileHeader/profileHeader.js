@@ -414,7 +414,7 @@ class ProfileHeader extends Component {
 
                         <Row>
                             {!this.state.editProfile ? (
-                              <div>
+                              <div className="userInfo">
                                 <h2 className={`paddingTop userName profile-${this.props.theme}`}>
                                     {JSON.parse(localStorage.getItem("user")).id === this.state.user.id ? (
                                         this.state.newUsername || this.state.userName || JSON.parse(localStorage.getItem("user")).name

@@ -1,7 +1,7 @@
 .followBtn,
 .editProfileBtn {
   float: right;
-  margin-top: -45px;
+  margin-top: -32px;
 }
 
 .editImgBtn {
@@ -74,6 +74,10 @@
 
 .userImage {
   margin-top: 0px !important;
+}
+
+.userInfo {
+  margin-top: 20px;
 }
 
 .userStats {
