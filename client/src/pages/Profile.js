@@ -71,6 +71,7 @@ class Profile extends Component {
 
   // AWS S3 Image upload
   handleFileUpload = event => {
+    event.preventDefault();
     this.setState({ 
         file: event.target.files,
     });
