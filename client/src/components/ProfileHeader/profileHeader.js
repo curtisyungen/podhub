@@ -30,7 +30,7 @@ class ProfileHeader extends Component {
             showFollowersModal: false,
             showFollowingModal: false,
             numFavs: 0,
-            awsImageUrl: "",
+            awsImageUrl: null,
             showEditImgBtn: false,
             showEditImgModal: false,
         }
@@ -51,9 +51,8 @@ class ProfileHeader extends Component {
             user: this.props.user,
             buttonTheme: buttonTheme,
             numFavs: this.props.numFavs,
-            awsImageUrl: this.props.awsImageUrl,
         }, () => {
-            this.getProfileHeader()
+            this.getProfileHeader();
         }); 
     }
 
