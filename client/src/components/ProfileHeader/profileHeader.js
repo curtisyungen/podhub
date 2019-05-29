@@ -302,7 +302,9 @@ class ProfileHeader extends Component {
 
     // AWS S3 Image upload
     handleFileUpload = event => {
-        this.setState({ file: event.target.files });
+        this.setState({ 
+            file: event.target.files 
+        });
     };
 
     submitFile = event => {
@@ -396,7 +398,12 @@ class ProfileHeader extends Component {
                                 type="file"
                                 onChange={this.handleFileUpload}
                             />
-                            <button type="submit">Confirm</button>
+                            <button 
+                                onClick={this.submitFile}
+                                type="submit"
+                            >
+                                Confirm
+                            </button>
                         </form>
                     </Modal>
 
