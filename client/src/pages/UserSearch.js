@@ -173,7 +173,7 @@ class UserSearch extends Component {
                                 />
                                 {user.follow ? (
                                     <button
-                                        className={`btn btn-outline-${this.props.theme} buttonPosition`}
+                                        className={`btn btn-outline-${this.props.theme === "light" ? ("dark"):("light")} buttonPosition`}
                                         onClick={(event) => {
                                             event.preventDefault();
                                             this.unFollowUser(user.id)
@@ -184,7 +184,7 @@ class UserSearch extends Component {
                                     </button>
                                 ) : (
                                         <button
-                                            className={`btn btn-outline-${this.props.theme} buttonPosition`}
+                                            className={`btn btn-outline-${this.props.theme === "light" ? ("dark"):("light")} buttonPosition`}
                                             onClick={(event) => {
                                                 event.preventDefault();
                                                 this.followUser(user.id)
