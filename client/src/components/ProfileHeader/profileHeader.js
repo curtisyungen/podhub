@@ -333,7 +333,7 @@ class ProfileHeader extends Component {
                 <div className={`row userProfile rounded bg-${this.props.theme}`}>
                     <div className="col-3">
                         <img
-                            src={this.state.awsImageUrl || this.props.user.profileImage}
+                            src={this.props.awsImageUrl || this.props.user.profileImage}
                             alt="User"
                             id="userMainProfileImage"
                             onMouseEnter={this.showEditImgBtn}
