@@ -94,7 +94,7 @@ class Profile extends Component {
         .then((res) => {
           this.setState({
             awsImageUrl: res.data.Location,
-          }, () => {window.location.refresh();});
+          }, () => {window.location.reload();});
         })
         .catch(err => {
           console.log(err);
