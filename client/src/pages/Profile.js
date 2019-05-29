@@ -69,6 +69,32 @@ class Profile extends Component {
       });
   }
 
+  submitFile = () => {
+
+    const formData = new FormData();
+
+    formData.append("file", this.state.file[0]);
+
+    let header = {
+        headers: {
+            "Content-Type": "multipart/form-data"
+        }
+    };
+
+    API.uploadImageAWS(this.props.user.id, formData, header)
+        .then((res) => {
+            this.setState({
+                awsImageUrl: res.data.Location,
+            }, () => {
+                this.hideEditImgModal();
+                // window.location.reload();
+            });
+        })
+        .catch(err => {
+            console.log(err);
+        });
+  };
+
   // POPULATE POST & FAVORITE INFORMATION
   // ===============================================
 
@@ -242,6 +268,7 @@ class Profile extends Component {
                 numPosts={this.state.posts.length}
                 numFavs={this.state.favorites.length}
                 theme={this.props.theme}
+                submitFile={this.submitFile}
               />
 
               {/* FAVORITES SECTION */}
