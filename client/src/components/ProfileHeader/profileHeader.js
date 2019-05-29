@@ -368,7 +368,7 @@ class ProfileHeader extends Component {
                             />
                             <button 
                                 className="btn btn-primary btn-sm"
-                                onClick={(event) => {event.preventDefault(); this.submitFile()}}
+                                onClick={(event) => {event.preventDefault(); this.props.submitFile()}}
                                 type="submit"
                             >
                                 Confirm
