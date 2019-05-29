@@ -8,8 +8,10 @@
   background: lightgray;
   border-radius: 20px;
   color: darkgray;
+  cursor: pointer;
   height: 100px;
-  opacity: 0.5;
+  opacity: 0.75;
+  position: absolute;
   width: 100px;
 }
 

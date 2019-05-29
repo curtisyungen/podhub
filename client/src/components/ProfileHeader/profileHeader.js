@@ -368,6 +368,23 @@ class ProfileHeader extends Component {
                         )}
                     </div>
 
+                    {/* CHANGE PROFILE IMAGE MODAL */}
+
+                    <Modal
+                        open={this.state.showEditImgModal}
+                        onClose={this.hideEditImgModal}
+                        classNames="editImgModal"
+                    >
+                        <form onSubmit={this.submitFile}>
+                            <input
+                                label="upload file"
+                                type="file"
+                                onChange={this.handleFileUpload}
+                            />
+                            <button type="submit">Confirm</button>
+                        </form>
+                    </Modal>
+
                     <div className="col">
 
                         {/* User Name */}
@@ -382,14 +399,6 @@ class ProfileHeader extends Component {
                                         this.props.user.name
                                     )}
                                 </h2>
-                                <form onSubmit={this.submitFile}>
-                                    <input
-                                        label="upload file"
-                                        type="file"
-                                        onChange={this.handleFileUpload}
-                                    />
-                                    <button type="submit">Confirm</button>
-                                </form>
                               </div>
                             ) : (
                                     <form>
