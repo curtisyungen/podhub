@@ -308,32 +308,6 @@ class ProfileHeader extends Component {
         });
     };
 
-    submitFile = () => {
-
-        const formData = new FormData();
-
-        formData.append("file", this.state.file[0]);
-
-        let header = {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        };
-
-        API.uploadImageAWS(this.props.user.id, formData, header)
-            .then((res) => {
-                this.setState({
-                    awsImageUrl: res.data.Location,
-                }, () => {
-                    this.hideEditImgModal();
-                    window.location.reload();
-                });
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    };
-
     showEditImgBtn = () => {
         this.setState({
             showEditImgBtn: true,
@@ -393,7 +367,7 @@ class ProfileHeader extends Component {
                         onClose={this.hideEditImgModal}
                         classNames="editImgModal"
                     >
-                        <form onSubmit={this.submitFile}>
+                        <form onSubmit={this.props.submitFile()}>
                             <input
                                 label="upload file"
                                 type="file"
