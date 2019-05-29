@@ -32,6 +32,7 @@ class ProfileHeader extends Component {
             numFavs: 0,
             awsImageurl: "",
             showEditImgBtn: false,
+            showEditImgModal: false,
         }
     }
 
@@ -338,6 +339,18 @@ class ProfileHeader extends Component {
     hideEditImgBtn = () => {
         this.setState({
             showEditImgBtn: false,
+        });
+    }
+
+    showEditImgModal = () => {
+        this.setState({
+            showEditImgModal: true,
+        });
+    }
+
+    hideEditImgModal = () => {
+        this.setState({
+            showEditImgModal: false,
         });
     }
 
