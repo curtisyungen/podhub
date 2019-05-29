@@ -33,6 +33,31 @@ class Settings extends Component {
         }
     }
 
+    submitFile = event => {
+        event.preventDefault();
+
+        const formData = new FormData();
+
+        formData.append("file", this.state.file[0]);
+
+        let header = {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        };
+
+        API.uploadImageAWS(this.props.user.id, formData, header)
+            .then((res) => {
+                console.log(res);
+                this.setState({
+                    awsImageurl: res.data.Location
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    };
+
     render() {
         return (
             <Container>
@@ -49,14 +74,18 @@ class Settings extends Component {
                         <label>Change Name </label>
                         {this.props.location.state.user.name}
                     </div> */}
-                    
-                    {/* PHOTO */}
-                    {/* <div>
-                        <label>Change Photo</label>
-                        <form>
-                            <input type="file"/>
+
+                    {/* USER IMAGE */}
+                    <div>
+                        <form onSubmit={this.submitFile}>
+                            <input
+                                label="upload file"
+                                type="file"
+                                onChange={this.handleFileUpload}
+                            />
+                            <button type="submit">Confirm</button>
                         </form>
-                    </div> */}
+                    </div>
                     
                     {/* THEME */}
                     <div>
