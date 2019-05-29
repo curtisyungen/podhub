@@ -323,9 +323,8 @@ class ProfileHeader extends Component {
 
         API.uploadImageAWS(this.props.user.id, formData, header)
             .then((res) => {
-                console.log(res.data.Location);
                 this.setState({
-                    awsImageUrl: res,
+                    awsImageUrl: res.data.Location,
                 }, () => {
                     this.hideEditImgModal();
                 });
@@ -366,7 +365,7 @@ class ProfileHeader extends Component {
                 <div className={`row userProfile rounded bg-${this.props.theme}`}>
                     <div className="col-3">
                         <img
-                            src={this.props.user.profileImage}
+                            src={this.state.awsImageUrl || this.props.user.profileImage}
                             alt="User"
                             id="userMainProfileImage"
                             onMouseEnter={this.showEditImgBtn}
