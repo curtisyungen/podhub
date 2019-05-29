@@ -10,7 +10,7 @@ class NotificationComponent extends Component {
     }
 
     componentDidMount = () => {
-        console.log(this.props);
+        //console.log(this.props);
     }
 
     render() {
@@ -42,12 +42,14 @@ class NotificationComponent extends Component {
                             (
                                 <Link
                                     to={{
-                                        pathname: "/userSearch",
+                                        pathname: "/profile",
                                         state: {
                                             user: {
-                                                id: this.props.loginUser.id
+                                                id: this.props.userId,
+                                                name: this.props.userName,
+                                                profileImage: this.props.userImage
                                             }
-                                        }
+                                        },
                                     }}
                                 >
 
