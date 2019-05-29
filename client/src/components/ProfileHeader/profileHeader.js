@@ -76,10 +76,6 @@ class ProfileHeader extends Component {
                 awsImageUrl: this.props.awsImageUrl,
             });
         }
-
-        if (prevState.awsImageUrl !== this.state.awsImgUrl) {
-            window.location.reload();
-        }
     }  
 
 
@@ -330,6 +326,7 @@ class ProfileHeader extends Component {
                     awsImageUrl: res.data.Location,
                 }, () => {
                     this.hideEditImgModal();
+                    window.location.reload();
                 });
             })
             .catch(err => {
