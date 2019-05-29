@@ -51,6 +51,7 @@ class ProfileHeader extends Component {
             user: this.props.user,
             buttonTheme: buttonTheme,
             numFavs: this.props.numFavs,
+            awsImageUrl: this.props.awsImageUrl,
         }, () => {
             this.getProfileHeader();
         }); 
@@ -74,7 +75,7 @@ class ProfileHeader extends Component {
         if (prevProps.awsImageUrl !== this.props.awsImageUrl) {
             this.setState({
                 awsImageUrl: this.props.awsImageUrl,
-            });
+            }, () => {console.log(this.state.awsImageUrl)});
         }
     }  
 
