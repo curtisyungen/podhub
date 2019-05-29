@@ -400,6 +400,7 @@ class ProfileHeader extends Component {
                                 onChange={this.handleFileUpload}
                             />
                             <button 
+                                className="btn btn-primary btn-sm"
                                 onClick={(event) => {event.preventDefault(); this.submitFile()}}
                                 type="submit"
                             >
