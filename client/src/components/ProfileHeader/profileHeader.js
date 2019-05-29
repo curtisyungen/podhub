@@ -30,7 +30,7 @@ class ProfileHeader extends Component {
             showFollowersModal: false,
             showFollowingModal: false,
             numFavs: 0,
-            awsImageurl: "",
+            awsImageUrl: "",
             showEditImgBtn: false,
             showEditImgModal: false,
         }
@@ -51,8 +51,10 @@ class ProfileHeader extends Component {
             user: this.props.user,
             buttonTheme: buttonTheme,
             numFavs: this.props.numFavs,
-            awsImageurl: this.props.awsImageUrl,
-        }, () => {this.getProfileHeader()}); 
+            awsImageUrl: this.props.awsImageUrl,
+        }, () => {
+            this.getProfileHeader()
+        }); 
     }
 
     getProfileHeader = () => { 
@@ -60,7 +62,7 @@ class ProfileHeader extends Component {
             .then(res => {
                 this.setState({
                     userName: res.data.name,
-                    userBio: res.data.aboutMe
+                    userBio: res.data.aboutMe,
                 });
             })
             .catch((err) => {
@@ -83,9 +85,9 @@ class ProfileHeader extends Component {
             this.getNumFollowing();
         }
 
-        if (prevProps.awsImageUrl != this.props.awsImageUrl) {
+        if (prevProps.awsImageUrl !== this.props.awsImageUrl) {
             this.setState({
-                awsImageurl: this.props.awsImageUrl
+                awsImageUrl: this.props.awsImageUrl,
             });
         }
     }  
@@ -307,8 +309,7 @@ class ProfileHeader extends Component {
         });
     };
 
-    submitFile = event => {
-        event.preventDefault();
+    submitFile = () => {
 
         const formData = new FormData();
 
@@ -322,9 +323,11 @@ class ProfileHeader extends Component {
 
         API.uploadImageAWS(this.props.user.id, formData, header)
             .then((res) => {
-                console.log(res);
+                console.log(res.data.Location);
                 this.setState({
-                    awsImageurl: res.data.Location
+                    awsImageUrl: res,
+                }, () => {
+                    this.hideEditImgModal();
                 });
             })
             .catch(err => {
@@ -367,7 +370,6 @@ class ProfileHeader extends Component {
                             alt="User"
                             id="userMainProfileImage"
                             onMouseEnter={this.showEditImgBtn}
-                            onMouseLeave={this.hideEditImgBtn}
                             className={`rounded image-${this.props.theme}`}
                         />
 
@@ -399,7 +401,7 @@ class ProfileHeader extends Component {
                                 onChange={this.handleFileUpload}
                             />
                             <button 
-                                onClick={this.submitFile}
+                                onClick={(event) => {event.preventDefault(); this.submitFile()}}
                                 type="submit"
                             >
                                 Confirm
