@@ -70,10 +70,9 @@ class Profile extends Component {
   }
 
   // AWS S3 Image upload
-  handleFileUpload = event => {
-    event.preventDefault();
-    this.setState({ 
-        file: event.target.files,
+  handleFileUpload = () => {
+    this.setState({
+      file: event.target.files,
     });
   };
 
@@ -81,26 +80,29 @@ class Profile extends Component {
 
     const formData = new FormData();
 
-    formData.append("file", this.state.file[0]);
+    if (this.state.file) {
 
-    let header = {
+      formData.append("file", this.state.file[0]);
+
+      let header = {
         headers: {
-            "Content-Type": "multipart/form-data"
+          "Content-Type": "multipart/form-data"
         }
-    };
+      };
 
-    API.uploadImageAWS(this.props.user.id, formData, header)
+      API.uploadImageAWS(this.props.user.id, formData, header)
         .then((res) => {
-            this.setState({
-                awsImageUrl: res.data.Location,
-            }, () => {
-                this.hideEditImgModal();
-                // window.location.reload();
-            });
+          this.setState({
+            awsImageUrl: res.data.Location,
+          }, () => {
+            this.hideEditImgModal();
+            // window.location.reload();
+          });
         })
         .catch(err => {
-            console.log(err);
+          console.log(err);
         });
+    }
   };
 
   // POPULATE POST & FAVORITE INFORMATION
@@ -259,7 +261,7 @@ class Profile extends Component {
   }
 
   render() {
-    
+
 
     return (
       <div className="container">
