@@ -30,9 +30,7 @@ class ProfileHeader extends Component {
             showFollowersModal: false,
             showFollowingModal: false,
             numFavs: 0,
-            awsImageUrl: null,
-            showEditImgBtn: false,
-            showEditImgModal: false,
+            // awsImageurl: ""
         }
     }
 
@@ -51,10 +49,21 @@ class ProfileHeader extends Component {
             user: this.props.user,
             buttonTheme: buttonTheme,
             numFavs: this.props.numFavs,
-            awsImageUrl: this.props.awsImageUrl,
-        }, () => {
-            this.getProfileHeader();
-        }); 
+            //awsImageurl: this.props.awsImageUrl
+        }, () => { this.getProfileHeader() });
+    }
+
+    getProfileHeader = () => {
+        API.getProfileHeader(this.state.user.id)
+            .then(res => {
+                this.setState({
+                    userName: res.data.name,
+                    userBio: res.data.aboutMe
+                });
+            })
+            .catch((err) => {
+                console.log("Error getting Profile Header", err);
+            });
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -72,29 +81,16 @@ class ProfileHeader extends Component {
             this.getNumFollowing();
         }
 
-        if (prevProps.awsImageUrl !== this.props.awsImageUrl) {
-            this.setState({
-                awsImageUrl: this.props.awsImageUrl,
-            }, () => {console.log(this.state.awsImageUrl)});
-        }
-    }  
+        // if (prevProps.awsImageUrl != this.props.awsImageUrl) {
+        //     this.setState({
+        //         awsImageurl: this.props.awsImageUrl
+        //     });
+        // }
+    }
 
 
     // SET UP HEADER
     // =============================================== 
-
-    getProfileHeader = () => { 
-        API.getProfileHeader(this.state.user.id)
-            .then(res => {
-                this.setState({
-                    userName: res.data.name,
-                    userBio: res.data.aboutMe,
-                });
-            })
-            .catch((err) => {
-                console.log("Error getting Profile Header", err);
-            });
-    }
 
     // Get number of FOLLOWERS for user
     getNumFollowers = () => {
@@ -302,29 +298,37 @@ class ProfileHeader extends Component {
         window.scrollTo(0, to);
     }
 
-    showEditImgBtn = () => {
-        this.setState({
-            showEditImgBtn: true,
-        });
-    }
+    // AWS S3 Image upload
+    //     handleFileUpload = event => {
+    //         this.setState({ file: event.target.files });
+    //     };
 
-    hideEditImgBtn = () => {
-        this.setState({
-            showEditImgBtn: false,
-        });
-    }
+    //     submitFile = event => {
+    //     event.preventDefault();
 
-    showEditImgModal = () => {
-        this.setState({
-            showEditImgModal: true,
-        });
-    }
+    //     const formData = new FormData();
+    //     formData.append("file", this.state.file[0]);
+    //     let header = {
+    //       headers: {
+    //         "Content-Type": "multipart/form-data"
+    //       }
+    //     };
+    //     // let that = this;
+    //     // console.log(that);
+    //     API.uploadImageAWS(this.props.user.id, formData, header)
+    //       .then((response) => {
+    //         console.log(response);
+    //         console.log(this);
+    //         this.setState({
+    //           awsImageurl: response.data.Location
+    //         });
+    //         console.log("image",this.state.awsImageurl);
+    //       })
+    //       .catch(err => {
+    //         console.log(err);
+    //       });
+    //   };
 
-    hideEditImgModal = () => {
-        this.setState({
-            showEditImgModal: false,
-        });
-    }
 
     render() {
 
@@ -333,49 +337,12 @@ class ProfileHeader extends Component {
                 <div className={`row userProfile rounded bg-${this.props.theme}`}>
                     <div className="col-3">
                         <img
-                            src={this.props.awsImageUrl}
+                            src={this.props.user.profileImage}
                             alt="User"
                             id="userMainProfileImage"
-                            onMouseEnter={this.showEditImgBtn}
                             className={`rounded image-${this.props.theme}`}
                         />
-
-                        {this.state.showEditImgBtn ? (
-                            <div
-                                className="editImgBtn"
-                                onClick={this.showEditImgModal}
-                                onMouseEnter={this.showEditImgBtn}
-                                onMouseLeave={this.hideEditImgBtn}
-                            >
-                                Change Image
-                            </div>
-                        ) : (
-                            <></>
-                        )}
                     </div>
-
-                    {/* CHANGE PROFILE IMAGE MODAL */}
-
-                    <Modal
-                        open={this.state.showEditImgModal}
-                        onClose={this.hideEditImgModal}
-                        classNames="editImgModal"
-                    >
-                        <form>
-                            <input
-                                label="upload file"
-                                type="file"
-                                onChange={(event) => {event.preventDefault(); this.props.handleFileUpload(event.target.files);}}
-                            />
-                            <button 
-                                className="btn btn-primary btn-sm"
-                                onClick={(event) => {event.preventDefault(); this.props.submitFile(); this.hideEditImgModal();}}
-                                type="submit"
-                            >
-                                Confirm
-                            </button>
-                        </form>
-                    </Modal>
 
                     <div className="col">
 
@@ -383,15 +350,23 @@ class ProfileHeader extends Component {
 
                         <Row>
                             {!this.state.editProfile ? (
-                              <div className="userInfo">
+                                //   <div>
                                 <h2 className={`paddingTop userName profile-${this.props.theme}`}>
                                     {JSON.parse(localStorage.getItem("user")).id === this.state.user.id ? (
                                         this.state.newUsername || this.state.userName || JSON.parse(localStorage.getItem("user")).name
                                     ) : (
-                                        this.props.user.name
-                                    )}
+                                            this.props.user.name
+                                        )}
                                 </h2>
-                              </div>
+                                //     <form onSubmit={this.submitFile}>
+                                //     <input
+                                //       label="upload file"
+                                //       type="file"
+                                //       onChange={this.handleFileUpload}
+                                //     />
+                                //     <button type="submit">Confirm</button>
+                                //   </form>
+                                //   </div>
                             ) : (
                                     <form>
                                         <textarea
@@ -484,8 +459,8 @@ class ProfileHeader extends Component {
                                             {this.state.user.id === JSON.parse(localStorage.getItem("user")).id ? (
                                                 this.state.newBio || this.state.userBio || JSON.parse(localStorage.getItem("user")).aboutMe
                                             ) : (
-                                                this.state.userBio || this.props.user.userBio
-                                            )}
+                                                    this.state.userBio || this.props.user.userBio
+                                                )}
                                         </div>
 
                                     </span>

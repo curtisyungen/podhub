@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment, faHeart, faArrowUp } from '@fortawesome/free-solid-svg-icons'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import "./Home.css";
+import { func } from "prop-types";
 
 library.add(faComment, faHeart, faArrowUp);
 
@@ -46,6 +47,7 @@ class Home extends Component {
 
     componentWillReceiveProps(nextProps) {
         // You don't have to do this check first, but it can help prevent an unneeded render
+
         if (nextProps.newPost === true) {
             this.setState({
                 uploadNewPost: true
@@ -59,7 +61,7 @@ class Home extends Component {
         })
         this.getPosts();
         this.scrollToTop();
-        this.props.setNewPostAlertOff();
+        //this.props.setNewPostAlertOff();
     }
 
     // POSTS
@@ -67,12 +69,16 @@ class Home extends Component {
 
     // Get posts from user and those that user is following
     getPosts = () => {
+        this.props.setNewPostAlertOff();
         this.setState({
-            message: "Getting posts..."
+            message: "Getting posts...",
+            uploadNewPost: false
         });
+
 
         API.getFollowingsPosts(this.props.user.id)
             .then(res => {
+
                 var message = "";
 
                 if (res.data.length === 0) {
@@ -133,55 +139,71 @@ class Home extends Component {
         window.scrollTo(0, 0);
     }
 
+
+    removePostFromState = (postId) => {
+
+        for (var i = 0; i < this.state.posts.length; i++) {
+            if (this.state.posts[i].id === postId) {
+                this.setState({
+                    posts: this.state.posts.filter((_, j) => j !== i)
+                });
+            }
+        }
+    }
+
+
     render() {
         
         return (
-            <div className={`container bg-${this.props.theme} rounded`} id="post-container">
-                {this.state.uploadNewPost === true
-                    ? 
-         
-                    <div className={`col rounded sticky-${this.props.theme}`}
-                        onClick={() => (this.updatePage())}
-                    >
-                        New post <FontAwesomeIcon icon="arrow-up" /></div>
+            <div className={`container bg-${this.props.theme} rounded`} id="post-container" >
+                {
+                    this.state.uploadNewPost === true
+                        ?
 
-                    : null
+                        <div className={`col rounded sticky-${this.props.theme}`}
+                            onClick={() => (this.updatePage())}
+                        >
+                            New post <FontAwesomeIcon icon="arrow-up" /></div>
+
+                        : null
                 }
-                <Row>
-                    {this.state.posts.length > 0
-                        ? (
-                            <Container>
-                                {this.state.posts.map(post => (
-                                    <Post
-                                        key={post.id}
-                                        userId={post.postedBy}
-                                        userName={post.userName}
-                                        userImage={post.userImage}
-                                        date={moment(post.createdAt).format("LLL")}
-                                        podcastId={post.podcastId}
-                                        podcastName={post.podcastName}
-                                        podcastLogo={post.podcastLogo}
-                                        episodeId={post.episodeId}
-                                        episodeName={post.episodeName}
-                                        description={post.description}
-                                        audioLink={post.audioLink}
-                                        userMessage={post.userMessage}
-                                        numLikes={post.numberOfLikes}
-                                        numComments={post.numberOfComments}
-                                        postId={post.id}
-                                        updateParentState={this.getPosts}
-                                        toHomeAndProfile={this.toHomeAndProfile}
-                                        theme={this.props.theme}
-                                    />
-                                ))}
-                            </Container>
-                        )
-                        :
-                        (
-                            <h4 className="text-center">{this.state.message}</h4>
-                        )}
-                </Row>
-            </div>
+                < Row >
+                    {
+                        this.state.posts.length > 0
+                            ? (
+                                <Container>
+                                    {this.state.posts.map(post => (
+                                        <Post
+                                            key={post.id}
+                                            userId={post.postedBy}
+                                            userName={post.userName}
+                                            userImage={post.userImage}
+                                            date={moment(post.createdAt).format("LLL")}
+                                            podcastId={post.podcastId}
+                                            podcastName={post.podcastName}
+                                            podcastLogo={post.podcastLogo}
+                                            episodeId={post.episodeId}
+                                            episodeName={post.episodeName}
+                                            description={post.description}
+                                            audioLink={post.audioLink}
+                                            userMessage={post.userMessage}
+                                            numLikes={post.numberOfLikes}
+                                            numComments={post.numberOfComments}
+                                            postId={post.id}
+                                            updateParentState={this.removePostFromState}
+                                            toHomeAndProfile={this.toHomeAndProfile}
+                                            theme={this.props.theme}
+                                        />
+                                    ))}
+                                </Container>
+                            )
+                            :
+                            (
+                                <h4 className="text-center">{this.state.message}</h4>
+                            )
+                    }
+                </Row >
+            </div >
         );
     }
 }

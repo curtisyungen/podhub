@@ -269,7 +269,6 @@ class App extends Component {
 
   // Log the user into the site
   handleUser = (userData) => {
-    console.log("App", userData);
     this.initializeSocket(userData.id);
 
     this.setState({
@@ -503,7 +502,7 @@ class App extends Component {
                               user={this.state.user}
                               toApp={this.toApp}
                               theme={this.state.theme}
-                              newPost={this.state.newPost}	
+                              newPost={this.state.newPost}
                               setNewPostAlertOff={this.setNewPostAlertOff}
                             />
                           </div>

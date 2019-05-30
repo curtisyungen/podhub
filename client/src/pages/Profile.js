@@ -40,7 +40,7 @@ class Profile extends Component {
 
   // Load user profile information
   componentDidMount() {
-    this.getAwsImageUrl();
+    this.getAwsImageUrl()
     this.getFavorites();
     this.getPostsOnlyByUser();
     this.setState({
@@ -51,7 +51,7 @@ class Profile extends Component {
   // Update profile information if subject user changes
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.location.state.user.id !== this.props.location.state.user.id) {
-      this.getAwsImageUrl();
+      this.getAwsImageUrl()
       this.getFavorites();
       this.getPostsOnlyByUser();
       this.setState({
@@ -59,48 +59,6 @@ class Profile extends Component {
       });
     }
   }
-
-  getAwsImageUrl = () => {
-    API.getAwsImageUrl(this.props.location.state.user.id)
-      .then(res => {
-        this.setState({
-          awsImageUrl: res.data.url,
-        });
-      });
-  }
-
-  // AWS S3 Image upload
-  handleFileUpload = (file) => {
-    this.setState({
-      file: file,
-    });
-  };
-
-  submitFile = () => {
-
-    const formData = new FormData();
-    
-    if (this.state.file) {
-
-      formData.append("file", this.state.file[0]);
-
-      let header = {
-        headers: {
-          "Content-Type": "multipart/form-data"
-        }
-      };
-
-      API.uploadImageAWS(this.state.user.id, formData, header)
-        .then((res) => {
-          this.setState({
-            awsImageUrl: res.data.Location,
-          }, () => {window.location.reload();});
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
-  };
 
   // POPULATE POST & FAVORITE INFORMATION
   // ===============================================
@@ -113,7 +71,17 @@ class Profile extends Component {
       });
     });
   };
-
+  getAwsImageUrl = () => {
+    API.getAwsImageUrl(this.props.location.state.user.id)
+      .then(res => {
+        //console.log(res.data.url)
+        // console.log(this)
+        this.setState({
+          awsImageUrl: res.data.url,
+        });
+        //console.log(this.state.awsImageUrl)
+      })
+  }
   // Get user's FAVORITES
   getFavorites = () => {
     API.getFavorites(this.props.location.state.user.id)
@@ -275,8 +243,6 @@ class Profile extends Component {
                 numPosts={this.state.posts.length}
                 numFavs={this.state.favorites.length}
                 theme={this.props.theme}
-                handleFileUpload={this.handleFileUpload}
-                submitFile={this.submitFile}
               />
 
               {/* FAVORITES SECTION */}
