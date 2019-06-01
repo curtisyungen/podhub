@@ -243,6 +243,7 @@ class Profile extends Component {
                 numPosts={this.state.posts.length}
                 numFavs={this.state.favorites.length}
                 theme={this.props.theme}
+                refreshUserData={this.props.refreshUserData}
               />
 
               {/* FAVORITES SECTION */}
