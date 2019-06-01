@@ -372,6 +372,7 @@ class Profile extends Component {
                         userId={post.postedBy}
                         userName={this.props.location.state.user.name}
                         userImage={this.props.location.state.user.profileImage}
+                        awsImageUrl={this.props.location.state.user.awsImageUrl}
                         date={moment(post.createdAt).format("LLL")}
                         podcastId={post.podcastId}
                         podcastName={post.podcastName}
