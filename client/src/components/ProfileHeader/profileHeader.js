@@ -378,7 +378,7 @@ class ProfileHeader extends Component {
 
                         {/* EDIT PROFILE IMAGE BUTTON */}
 
-                        {this.state.showEditImgBtn && this.state.user.id === JSON.parse(localStorage.getItem("user")).id ? (
+                        {this.state.showEditImgBtn && this.props.user.id === JSON.parse(localStorage.getItem("user")).id ? (
                             <div
                                 id="editImgBtn"
                                 onClick={this.showEditImgModal}
