@@ -15,7 +15,7 @@ class ProfileHeader extends Component {
         //console.log("ProfileHeader Constructing", props.user);
 
         this.state = {
-            user: props.user,
+            user: null,
             userName: null,
             newUsername: null,
             userBio: null,
@@ -378,7 +378,7 @@ class ProfileHeader extends Component {
 
                         {/* EDIT PROFILE IMAGE BUTTON */}
 
-                        {this.state.showEditImgBtn ? (
+                        {this.state.showEditImgBtn && this.state.user.id === JSON.parse(localStorage.getItem("user")).id ? (
                             <div
                                 id="editImgBtn"
                                 onClick={this.showEditImgModal}
