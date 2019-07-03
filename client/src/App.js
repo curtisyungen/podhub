@@ -1,640 +1,674 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import BannerAd from "./components/BannerAd/bannerAd";
 import Navbar from "./components/Navbar/navbar";
-import PodcastSearch from "./components/PodcastSearch/podcastSearch";
+import Login from "./pages/Login";
+import ForgotPassword from "./pages/ForgotPassword";
+import Reset from "./pages/Reset";
+import CreatePassword from "./pages/CreatePassword";
+import Signup from "./pages/Signup";
+import SlideInMenu from "./components/SlideInMenu/slideInMenu";
 import Home from "./pages/Home";
-import Profile from "./pages/Profile";
-import PodcastSearchPage from "./pages/PodcastSearch";
-import EpisodeList from "./pages/EpisodeList";
-import Listen from "./pages/Listen";
-import UserSearch from "./pages/UserSearch";
-import API from "./utils/API";
-import Login from './pages/Login';
-import Settings from "./pages/Settings";
+import About from "./pages/About";
+import Gallery from "./pages/Gallery";
+import Contact from "./pages/Contact";
+import Orders from "./pages/Orders";
+import Cart from "./pages/Cart";
 import Error from "./pages/Error";
-import Notifications from "./pages/Notifications";
-import AboutUs from "./pages/AboutUs";
-
-import "./pages/Listen.css";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { Zoom } from 'react-toastify';
-
-import moment from "moment";
-import "./App.css";
-
-import io from "socket.io-client";
-
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
-library.add(faArrowUp);
+import Success from "./pages/Success";
+import API from "./utils/API";
+import './App.css';
 
 class App extends Component {
 
-  _isMounted = false;
-
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
+      books: [],
+      bookSearch: "",
+      message: "",
       user: null,
-      podcastSearch: "",
-      podcasts: [],
-      showPodcasts: "hidePodcasts",
-      logout: false,
-      showAudioInNavbar: null,
-      audioLink: null,
-      rawCurrentTime: 0,
-      podcastName: null,
-      episodeName: null,
-      isMounted: false,
-      isPlaying: false,
-      theme: "dark",
-      socket: null,
-      APICalls: 0,
-      notificationAlert: "",
-      newPost: false,
-      newNotification: null,
-    };
-  }
-
-  componentWillUnmount = () => {
-    this._isMounted = false;
-  }
-
-  // Load user from local storage
-  // Check Session Storage for Audio Settings every 500ms to display audio player in navbar
-  componentDidMount = () => {
-    this._isMounted = true;
-    this.loadUserFromlocalStorage();
-  }
-
-  refreshUserData = () => {
-    console.log(this.state.user);
-    API.getUser(this.state.user.id)
-      .then((res) => {
-        console.log("App, user", res);
-        this.setState({
-          user: res.data
-        });
-
-        localStorage.setItem("user", JSON.stringify(this.state.user));
-      });
-  }
-
-  // Set notification alert to off 
-  setNotificationAlertOff = () => {
-    this.setState({
-      notificationAlert: "off"
-    });
-
-    localStorage.setItem("notificationAlert", "off")
-
-    API.lastCheckedNotification(this.state.user.id, { notificationsSeen: moment().format() })
-      .then(res => { })
-  }
-
-  setNotificationAlertOn = () => {
-    if (window.location.pathname !== "/notifications") {
-      this.setState({
-        notificationAlert: "on"
-      });
-
-      localStorage.setItem("notificationAlert", "on")
+      isLoggedIn: false,
+      userSearch: "",
+      cart: [],
+      redirectToHome: false,
+      redirectToLogin: false,
+      redirectToSignUp: false,
+      redirectToPasswordReset: false,
+      redirectToCreatePassword: false,
+      showSlideInMenu: "hide",
+      showFiltersMenu: "hide",
+      resetEmail: null,
     }
   }
 
-  // Get date & time of the latest notification record in the user's notification history to know if we should alert user about new notifications or not  
-  isNewNotification = (id) => {
-    API.isNewNotification(this.state.user.id)
-      .then(res => {
-        if (res.data > 0) {
-          this.setNotificationAlertOn();
-          if (id === "toast") {
-            if (res.data === 1) {
-              toast("You have " + res.data + " new notification", {
-                className: 'toast-container-notif',
-                bodyClassName: "toast-text",
+  componentDidMount = () => {
+
+    this.setState({
+      redirectToHome: false,
+      redirectToLogin: false,
+      redirectToSignUp: false,
+      redirectToPasswordReset: false,
+      redirectToCreatePassword: false,
+    });
+
+    this.getAllBooks();
+    this.loadUserFromLocalStorage();
+  }
+
+  loadUserFromLocalStorage = () => {
+    if (localStorage.getItem("isLoggedIn") === "true" && localStorage.getItem("user") !== null) {
+      this.setState({
+        user: JSON.parse(localStorage.getItem("user")),
+        isLoggedIn: true,
+      }, () => {
+        this.getBooksInCart(this.state.user.email);
+      });
+    }
+    else {
+      this.getBooksInCart("");
+    }
+  }
+
+  // REDIRECT HANDLING
+  // ========================================= 
+
+  setRedirectToHome = () => {
+    this.setState({
+      redirectToHome: true,
+    });
+  }
+
+  setRedirectToLogin = () => {
+    this.setState({
+      redirectToLogin: true,
+    });
+  }
+
+  setRedirectToSignUp = () => {
+    this.setState({
+      redirectToSignUp: true,
+    });
+  }
+
+  setRedirectToPasswordReset = () => {
+    this.setState({
+      redirectToPasswordReset: true,
+    });
+  }
+
+  setRedirectToCreatePassword = () => {
+    this.setState({
+      redirectToCreatePassword: true,
+    });
+  }
+
+  redirectToHome = () => {
+    return <Redirect to="/" />
+  }
+
+  redirectToLogin = () => {
+    return <Redirect to="/login" />
+  }
+
+  redirectToSignUp = () => {
+    return <Redirect to="/signup" />
+  }
+
+  redirectToPasswordReset = () => {
+    return <Redirect to="/reset" />
+  }
+
+  redirectToCreatePassword = () => {
+    return <Redirect to="/createPassword" />
+  }
+
+  updateParentState = () => {
+    this.setState({
+      redirectToHome: false,
+      redirectToLogin: false,
+    });
+  }
+
+  // USER HANDLING
+  // =========================================
+
+  createNewUser = (name, email, password) => {
+
+    // Check to see if user email already exists in database
+    API.findExistingUser(email)
+      .then((res) => {
+
+        // If email not found in database, create new user
+        if (res.data.length === 0) {
+          API.createNewUser(name, email, password)
+            .then((res) => {
+
+              let userData = {
+                name: res.data.name,
+                email: res.data.email,
+              }
+
+              // Save new user in local storage
+              localStorage.setItem("user", JSON.stringify(userData));
+
+              // Save login status in local storage
+              localStorage.setItem("isLoggedIn", true);
+
+              // Save new user in state
+              this.setState({
+                user: userData,
+                isLoggedIn: true,
+              }, () => {
+                this.transferGuestCartToUser();
+                this.setRedirectToHome();
               });
-            }
-            else {
-              toast("You have " + res.data + " new notifications", {
-                className: 'toast-container-notif',
-                bodyClassName: "toast-text",
-              });
-            }
+            });
+        }
+        else {
+          alert("An account already exists for this email address.");
+
+          // Redirect to Login page
+          this.setRedirectToLogin();
+        }
+      });
+  }
+
+  loginUser = (email, password) => {
+
+    // Check to see if user email exists in database
+    API.findExistingUser(email)
+      .then((res) => {
+
+        // If email not found in database, redirect to Sign Up page
+        if (res.data.length === 0) {
+          alert("No user found with this email address.");
+
+          this.setRedirectToSignUp();
+        }
+        // Otherwise update login status
+        else {
+
+          API.loginUser(email, password)
+            .then((res) => {
+
+              if (res.data !== "Incorrect password.") {
+
+                // Save login status in Local Storage
+                localStorage.setItem("isLoggedIn", true);
+
+                let userData = {
+                  name: res.data.name,
+                  email: res.data.email,
+                }
+
+                // Save user data in Local Storage
+                localStorage.setItem("user", JSON.stringify(userData));
+
+                // Save user cart in state
+                this.setState({
+                  isLoggedIn: true,
+                  user: res.data,
+                });
+
+                // Get user's cart
+                this.transferGuestCartToUser();
+                this.getBooksInCart(res.data.email);
+
+                // Redirect to Home Page
+                this.setRedirectToHome();
+              }
+              else {
+                alert("Incorrect password.");
+              }
+
+            });
+        }
+      });
+  }
+
+  logoutUser = () => {
+    localStorage.setItem("isLoggedIn", false);
+    localStorage.setItem("user", null);
+    sessionStorage.setItem("cart", null);
+
+    this.setState({
+      isLoggedIn: false,
+    });
+
+    this.setRedirectToHome();
+    window.location.reload();
+  }
+
+  // BOOK FILTERING
+  // =========================================
+
+  getAllBooks = () => {
+
+    this.setState({
+      message: "Loading...",
+    });
+
+    API.getAllBooks()
+      .then((res) => {
+        this.setState({
+          books: res.data,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+
+        this.setState({
+          message: "Error loading books.",
+        });
+      });
+  }
+
+  searchForBook = (userInput) => {
+    if (userInput !== "" && userInput !== null) {
+
+      if (window.location.href !== "/") {
+        this.setRedirectToHome();
+      }
+
+      API.searchForBook(userInput)
+        .then((res) => {
+          this.setState({
+            books: res.data,
+            userSearch: userInput,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+
+    else {
+      this.getAllBooks();
+    }
+  }
+
+  getFilteredBooks = (availFilter, formatFilter, subjectFilter) => {
+    API.getAllBooks()
+      .then((res) => {
+
+        let filteredBooks = res.data;
+
+        // Apply availability filter (available or unavailable)
+        if (availFilter !== null && availFilter !== "") {
+          if (availFilter === "unavail") {
+            filteredBooks = filteredBooks.filter(book => (
+              book.avail !== "avail"
+            ));
+          }
+          else {
+            filteredBooks = filteredBooks.filter(book => (
+              book.avail === availFilter
+            ));
+          }
+        }
+
+        // Apply format filter (hardcover or paperback)
+        if (formatFilter !== null && formatFilter !== "") {
+          filteredBooks = filteredBooks.filter(book => (
+            book.cover === formatFilter
+          ));
+        }
+
+        // Apply subject filter (biography, fiction, nonfiction, etc.)
+        if (subjectFilter !== null && subjectFilter !== "") {
+          filteredBooks = filteredBooks.filter(book => (
+            book.tags.indexOf(subjectFilter) > -1
+          ));
+        }
+
+        this.setState({
+          books: filteredBooks,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+
+        this.setState({
+          message: "Error loading books.",
+        });
+      });
+  }
+
+  // CART HANDLING
+  // =========================================
+
+  sendToCart = (book) => {
+
+    // Check if book is still available
+    API.checkBookAvail(book)
+      .then((res) => {
+        if (res.data.length > 0 && res.data[0].avail === "avail" && res.data[0].authorLast === book.authorLast) {
+
+          if (localStorage.getItem("isLoggedIn") === "true") {
+            this.addToCart(book);
+          }
+          else {
+            this.addToGuestCart(book);
           }
         }
         else {
-          this.setState({
-            notificationAlert: "off"
-          });
-          localStorage.setItem("notificationAlert", "off")
+          alert("Sorry, this book is no longer available.");
         }
-
       })
-  };
-
-  // Hide audio player in navbar
-  hideAudio = () => {
-    this.setState({
-      showAudioInNavbar: false,
-      isPlaying: false
-    });
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
+  addToGuestCart = (book) => {
+    let idx = -1;
+    let cart = [];
+    if (sessionStorage.getItem("cart") && JSON.parse(sessionStorage.getItem("cart")) !== null) {
+      cart = JSON.parse(sessionStorage.getItem("cart"));
 
-  // PODCAST SEARCH
-  // ==========================================
-
-  // Listen for when user enters text into Podcast search fields
-  handleInputChange = event => {
-    const { name, value } = event.target;
-
-    this.setState({
-      [name]: value,
-    },
-
-      this.debounce(() => {
-
-        // Show podcast search results
-        if (this.state.podcastSearch !== "") {
-          this.setState({
-            showPodcasts: "showPodcasts"
-          });
-
-          // Get podcasts that match user query
-          this.getPodcasts();
+      // Check if book is already in guest's cart to avoid duplicates
+      for (var item in cart) {
+        if (cart[item].title === book.title) {
+          idx = item;
         }
+      }
+    }
 
-        // Hide podcast search results
-        else if (this.state.podcastSearch === "") {
-          this.setState({
-            showPodcasts: "hidePodcasts"
-          });
-        }
+    // If not duplicate, add book to guest cart
+    if (idx !== -1 && cart !== []) {
+      alert("Book is already in cart.");
+    }
+    else {
+      cart.push(book);
 
-      }, 250));
-  };
-
-  // Debouncing function
-  // Delays execution of search operation to prevent it from firing too often
-  debounce = (func, wait, immediate) => {
-    var timeout;
-
-    return function executedFunction() {
-      var context = this;
-      var args = arguments;
-
-      var later = function () {
-        timeout = null;
-        if (!immediate) func.apply(context, args);
-      };
-
-      var callNow = immediate && !timeout;
-
-      clearTimeout(timeout);
-
-      timeout = setTimeout(later, wait);
-
-      if (callNow) func.apply(context, args);
-    };
-  };
-
-  // Search for podcasts by calling API
-  getPodcasts = () => {
-    API.getPodcasts(this.state.podcastSearch, 0)
-      .then(res => {
-        this.setState({
-          podcasts: res.data.results
-        })
-      })
-      .catch((error) => {
-        console.log("Error getting podcasts", error);
-        this.setState({
-          podcasts: [],
-          message: "We couldn't find a match."
-        })
+      this.setState({
+        cart: cart,
+      }, () => {
+        sessionStorage.setItem("cart", JSON.stringify(cart));
+        this.getBooksInCart("");
+        // window.location.reload();
       });
-  };
+    }
+  }
 
-  // This monitors the scroll position in Podcast Search results
-  // Loads more podcast results as user scrolls
-  checkScroll = () => {
-    let boundaryDiv = document.getElementById("boundary");
-    let totalScroll = boundaryDiv.scrollTop;
+  addToCart = (book) => {
+    API.addToCart(book, this.state.user.email)
+      .then((res) => {
+        this.getBooksInCart(this.state.user.email);
+        window.location.reload();
+      });
+  }
 
-    // Save current list of podcasts from state
-    let podcasts = this.state.podcasts;
-
-    if (totalScroll >= boundaryDiv.scrollHeight - boundaryDiv.clientHeight) {
-
-      API.getPodcasts(this.state.podcastSearch, this.state.podcasts.length)
-        .then(res => {
-          this.setState({
-            podcasts: podcasts.concat(res.data.results),
-            APICalls: this.state.APICalls + 1
-          }, () => {
-            console.log("API Calls: ", this.state.APICalls)
-          });
-
-          boundaryDiv.scrollTop = totalScroll;
-        })
-        .catch((error) => {
-          console.log("Error getting podcasts", error);
-          this.setState({
-            podcasts: [],
-            message: "We couldn't find a match."
-          })
+  deleteFromCart = (book) => {
+    if (this.state.isLoggedIn && localStorage.getItem("isLoggedIn") === "true") {
+      API.deleteFromCart(book)
+        .then((res) => {
+          this.getBooksInCart(this.state.user.email);
+          window.location.reload();
         });
     }
+    else {
+      let cart;
+
+      if (sessionStorage.getItem("cart") && sessionStorage.getItem("cart") !== null) {
+        cart = JSON.parse(sessionStorage.getItem("cart"));
+
+        for (var item in cart) {
+          if (cart[item].title === book.title) {
+            cart.splice(item, 1);
+          }
+        }
+
+        sessionStorage.setItem("cart", JSON.stringify(cart));
+        window.location.reload();
+      }
+    }
   }
 
-  // Hides podcast search results
-  hidePodcasts = () => {
-    this.setState({
-      showPodcasts: "hidePodcasts"
-    });
-  }
+  getBooksInCart = (email) => {
 
+    // Get books in guest cart from session storage
+    if (!this.state.isLoggedIn) {
+      let cart;
+      if (sessionStorage.getItem("cart") && sessionStorage.getItem("cart") !== null) {
+        cart = JSON.parse(sessionStorage.getItem("cart"));
 
-  // USER LOGIN/LOGOUT
-  // ==========================================
+        this.setState({
+          cart: cart,
+        });
+      }
+    }
 
-  // Check if user is logged in
-  isLoggedIn = () => this.state.user != null;
-
-  // Initialize Socket 
-  initializeSocket = (id) => {
-    const socket = io(window.location.protocol + `//` + window.location.host + `?userId=${id}`);
-
-    socket.on("share", this.onPostShared);
-    socket.on("comment", this.onCommented);
-    socket.on("follow", this.onFollow);
-    socket.on("post_like", this.onPostLiked);
-    socket.on("comment_like", this.onCommentLiked);
-
-    this.setState({
-      socket: socket
-    })
-  }
-
-
-  // Log the user into the site
-  handleUser = (userData) => {
-    this.initializeSocket(userData.id);
-
-    this.setState({
-      user: userData,
-      logout: false
-    }, () => this.isNewNotification("toast"));
-  }
-
-  //Receives notification about newly shared post
-  onPostShared = (postId, userId) => {
-    //console.log("New Post!", postId);
-    if (userId !== this.state.user.id) {
-      this.setState({
-        newPost: true
+    // Get books in logged in user's cart from database
+    else {
+      API.getBooksInCart(email)
+      .then((res) => {
+        this.setState({
+          cart: res.data,
+        });
       });
     }
   }
 
-  setNewPostAlertOff = () => {
-    this.setState({
-      newPost: false
-    })
-  }
-
-  onCommented = (name, comment, title) => {
-    toast(name + " commented: " + comment + " on your post: " + title, {
-      className: 'toast-container-notif',
-      bodyClassName: "toast-text",
-    });
-    this.setNotificationAlertOn();
-    this.setState({
-      newNotification: true
-    })
-  }
-
-  onCommentLiked = (name, comment) => {
-    toast(name + " likes your comment: " + comment, {
-      className: 'toast-container-notif',
-      bodyClassName: "toast-text",
-    });
-    this.setNotificationAlertOn();
-    this.setState({
-      newNotification: true
-    })
-  }
-
-  onPostLiked = (name, title) => {
-    toast(name + " likes your post: " + title, {
-      className: 'toast-container-notif',
-      bodyClassName: "toast-text",
-    });
-    this.setNotificationAlertOn();
-    this.setState({
-      newNotification: true
-    })
-  }
-
-  onFollow = (name) => {
-    toast(name + " is following you!", {
-      className: 'toast-container-notif',
-      bodyClassName: "toast-text",
-    });
-    this.setNotificationAlertOn();
-    this.setState({
-      newNotification: true
-    })
-  }
-
-  // Logout current user
-  logout = () => {
-
-    localStorage.clear();
-    localStorage.clear();
-    this.state.socket.disconnect();
-
-    this.setState({
-      user: null,
-      logout: true,
-      socket: null
-    });
-  }
-
-  // Load user from local storage if available
-  loadUserFromlocalStorage() {
-
-    if (this.state.user) {
-      this.initializeSocket(this.state.user.id);
-      this.isNewNotification("no-toast")
-      return;
+  // Pulls cart items from session storage and add to cart in database
+  // Called when guest logs in or signs up for account
+  transferGuestCartToUser = () => {
+    let guestCart;
+    if (sessionStorage.getItem("cart") && sessionStorage.getItem("cart") !== null) {
+      guestCart = JSON.parse(sessionStorage.getItem("cart"));
     }
 
-    if (localStorage.getItem("user")) {
-      this.setState({
-        user: JSON.parse(localStorage.getItem("user")),
-        notificationAlert: localStorage.getItem("notificationAlert")
-      }, () => this.isNewNotification("no-toast")
-      );
-      this.initializeSocket(JSON.parse(localStorage.getItem("user")).id);
+    if (guestCart !== null) {
+      for (var item in guestCart) {
+        this.addToCart(guestCart[item]);
+      }
     }
   }
 
-  // Updates showAudioInNavbar and audioLink using (True, Audio Link) from Home.js & Profile.js
-  toApp = (trueBool, link, podName, epName) => {
+  // RESPONSIVE VIEW
+  // =========================================
+
+  showSlideInMenu = () => {
     this.setState({
-      showAudioInNavbar: trueBool,
-      audioLink: link,
-      podcastName: podName,
-      episodeName: epName
+      showSlideInMenu: "show",
     });
   }
 
-  rawCurrentTime = (rawTime) => {
+  hideSlideInMenu = () => {
     this.setState({
-      rawCurrentTime: rawTime
+      showSlideInMenu: "hide",
+      showFiltersMenu: "hide",
     });
   }
 
-  itIsMountedApp = (bool) => {
+  toggleFiltersMenu = () => {
+    let status = "show";
+    if (this.state.showFiltersMenu === "show") {
+      status = "hide";
+    }
+
     this.setState({
-      isMounted: bool
+      showFiltersMenu: status,
     });
   }
 
-  isPlayingApp = (opposite) => {
+  setResetEmail = (resetEmail) => {
     this.setState({
-      isPlaying: opposite
-    });
-  }
-
-  // changeToPlay = (trueBool) => {
-  //   this.setState({
-  //     isPlaying: trueBool
-  //   });
-  //   console.log(this.state.isPlaying)
-  // }
-
-  darkTheme = () => {
-    this.setState({
-      theme: "dark",
-    });
-  }
-
-  lightTheme = () => {
-    this.setState({
-      theme: "light",
+      resetEmail: resetEmail,
     });
   }
 
   render() {
-    //console.log(this.state.socket)
-    //console.log(this.state.user)
-    //console.log(this.state.notificationAlert)
-
     return (
-
       <Router>
-        <div className={`wrapper appClass ${this.state.theme}`}>
+        <span>
 
-          {/* Redirect to Login page if user logged out */}
+          {/* HANDLE PAGE REDIRECTS */}
 
-          {this.state.logout && window.location.pathname !== "/" ? (
-            <Redirect
-              to={{
-                pathname: "/"
-              }}
-            />
+          {this.state.redirectToHome ? (
+            this.redirectToHome()
           ) : (
               <></>
-            )
-          }
+            )}
 
-          {/* Render Home page and navbar if user logged in */}
+          {this.state.redirectToLogin ? (
+            this.redirectToLogin()
+          ) : (
+              <></>
+            )}
 
-          {!this.isLoggedIn() ? (
+          {this.state.redirectToSignUp ? (
+            this.redirectToSignUp()
+          ) : (
+              <></>
+            )}
 
-            <Route
-              render={() =>
-                <Login
-                  handleUser={this.handleUser}
-                />
-              }
+          {this.state.redirectToPasswordReset ? (
+            this.redirectToPasswordReset()
+          ) : (
+            <></>
+          )}
+
+          {this.state.redirectToCreatePassword ? (
+            this.redirectToCreatePassword()
+          ) : (
+            <></>
+          )}
+
+          {/* SHOW OR HIDE NAVBAR */}
+
+          {(window.location.pathname !== "/login" && window.location.pathname !== "/signup" 
+          && window.location.pathname !== "/forgot" && window.location.pathname !== "/reset"
+          && window.location.pathname !== "/createPassword") ? (
+            <span>
+              <BannerAd />
+
+              <Navbar
+                bookSearch={this.state.bookSearch}
+                handleInputChange={this.handleInputChange}
+                searchForBook={this.searchForBook}
+                getAllBooks={this.getAllBooks}
+                logoutUser={this.logoutUser}
+                isLoggedIn={this.state.isLoggedIn}
+                showSlideInMenu={this.showSlideInMenu}
+                cart={this.state.cart}
+                setRedirectToLogin={this.setRedirectToLogin}
+              />
+            </span>
+          ) : (
+              <></>
+            )}
+
+          <SlideInMenu
+            showSlideInMenu={this.state.showSlideInMenu}
+            hideSlideInMenu={this.hideSlideInMenu}
+            isLoggedIn={this.state.isLoggedIn}
+            user={this.state.user}
+            logoutUser={this.logoutUser}
+            getAllBooks={this.getAllBooks}
+            getFilteredBooks={this.getFilteredBooks}
+            showFiltersMenu={this.state.showFiltersMenu}
+            toggleFiltersMenu={this.toggleFiltersMenu}
+            cart={this.state.cart}
+          />
+
+          {this.state.showSlideInMenu === "show" ? (
+            <div
+              className="overlay"
+              onClick={this.hideSlideInMenu}
+            ></div>
+          ) : (
+            <></>
+          )}
+
+          {/* COUNTDOWN TIMER */}
+
+          {/* <CountDown /> */}
+
+          {/* HANDLE PAGE ROUTING */}
+
+          <Switch>
+            <Route exact path="/login" render={() =>
+              <Login
+                loginUser={this.loginUser}
+              />
+            } />
+            <Route exact path="/forgot" render={() => 
+              <ForgotPassword 
+                setRedirectToPasswordReset={this.setRedirectToPasswordReset}
+                setResetEmail={this.setResetEmail}
+              />
+            } />
+            <Route exact path="/reset" render={() => 
+              <Reset 
+                email={this.state.resetEmail}
+                setRedirectToCreatePassword={this.setRedirectToCreatePassword}
+              />
+            } />
+            <Route exact path="/createPassword" render={() => 
+              <CreatePassword 
+                email={this.state.resetEmail}
+                setRedirectToLogin={this.setRedirectToLogin}
+              />
+            } />
+            <Route exact path="/signup" render={() =>
+              <Signup
+                createNewUser={this.createNewUser}
+              />
+            } />
+            <Route exact path="/" render={() =>
+              <Home
+                books={this.state.books}
+                getAllBooks={this.getAllBooks}
+                getFilteredBooks={this.getFilteredBooks}
+                userSearch={this.state.userSearch}
+                sendToCart={this.sendToCart}
+                updateParentState={this.updateParentState}
+                showSlideInMenu={this.state.showSlideInMenu}
+                hideSlideInMenu={this.hideSlideInMenu}
+              />
+            } />
+            <Route exact path="/about" component={About} />
+            <Route exact path="/gallery" component={Gallery} />
+            <Route exact path="/contact" render={() =>
+              <Contact
+                setRedirectToHome={this.setRedirectToHome}
+              />
+            } />
+            <Route exact path="/orders" render={() =>
+              <Orders
+                user={this.state.user}
+                sendToCart={this.sendToCart}
+              />
+            } />
+            <Route exact path="/cart" render={() =>
+              <Cart
+                deleteFromCart={this.deleteFromCart}
+                getBooksInCart={this.getBooksInCart}
+                cart={this.state.cart}
+                user={this.state.user}
+                setRedirectToSignUp={this.setRedirectToSignUp}
+                sendToCart={this.sendToCart}
+              />
+            } />
+            <Route exact path="/success" render={() =>
+              <Success
+                user={this.state.user}
+                cart={this.state.cart}
+              />
+            }
             />
 
-          ) : (
-
-              <>
-                <ToastContainer
-                  autoClose={5000}
-                  closeButton={false}
-                  transition={Zoom}
-                  hideProgressBar={true}
-                />
-
-                <Navbar
-                  podcastSearch={this.podcastSearch}
-                  handleInputChange={this.handleInputChange}
-                  hidePodcasts={this.hidePodcasts}
-                  logout={this.logout}
-                  user={this.state.user}
-                  showAudio={this.state.showAudioInNavbar}
-                  hideAudio={this.hideAudio}
-                  audioLink={this.state.audioLink}
-                  podcastName={this.state.podcastName}
-                  episodeName={this.state.episodeName}
-                  rawCurrentTime={this.state.rawCurrentTime}
-                  itIsMountedApp={this.itIsMountedApp}
-                  isPlayingApp={this.isPlayingApp}
-                  isItPlaying={this.state.isPlaying}
-                  isMounted={this.state.isMounted}
-                  theme={this.state.theme}
-                  notificationAlert={this.state.notificationAlert}
-                  setNotificationAlertOff={this.setNotificationAlertOff}
-                />
-
-                <PodcastSearch
-                  show={this.state.showPodcasts}
-                  hide={this.hidePodcasts}
-                  podcasts={this.state.podcasts}
-                  checkScroll={this.checkScroll}
-                />
-
-                <Switch>
-
-                  <Route exact path="/"
-                    render={(props) =>
-                      <div className="container">
-                        <div className="row">
-                          <div className="col-md-2 col-xs-0"></div>
-                          <div className="col-md-8 col-xs-12">
-                            <Home {...props}
-                              user={this.state.user}
-                              toApp={this.toApp}
-                              theme={this.state.theme}
-                              newPost={this.state.newPost}
-                              setNewPostAlertOff={this.setNewPostAlertOff}
-                            />
-                          </div>
-                          <div className="col-md-2 col-xs-0"></div>
-                        </div>
-                      </div>
-                    }
-                  />
-
-                  <Route exact path="/home"
-                    render={(props) =>
-                      <div className="container">
-                        <div className="row">
-                          <div className="col-md-2 col-xs-0"></div>
-                          <div className="col-md-8 col-xs-12">
-
-                            <Home {...props}
-                              user={this.state.user}
-                              toApp={this.toApp}
-                              theme={this.state.theme}
-                              newPost={this.state.newPost}
-                              setNewPostAlertOff={this.setNewPostAlertOff}
-                            />
-                          </div>
-                          <div className="col-md-2 col-xs-0"></div>
-                        </div>
-                      </div>
-                    }
-                  />
-
-                  <Route exact path="/profile"
-                    render={(props) =>
-                      <Profile {...props}
-                        toApp={this.toApp}
-                        theme={this.state.theme}
-                        refreshUserData={this.refreshUserData}
-                      />
-                    }
-                  />
-
-                  <Route exact path="/podcastSearch" render={(props) =>
-                    <PodcastSearchPage {...props}
-                      userQuery={this.state.podcastSearch}
-                      podcasts={this.state.podcasts}
-                      theme={this.state.theme}
-                    />
-                  }
-                  />
-
-                  <Route exact path="/episodeList" component={EpisodeList} />
-                  <Route exact path="/listen"
-                    render={(props) =>
-                      <Listen {...props}
-                        toApp={this.toApp}
-                        rawCurrentTime={this.rawCurrentTime}
-                        isMounted={this.state.isMounted}
-                        changeToPlay={this.changeToPlay}
-                        itIsPlaying={this.state.isPlaying}
-                        theme={this.state.theme}
-                      />
-                    }
-
-                  />
-
-                  <Route exact path="/userSearch"
-                    render={() =>
-                      <UserSearch
-                        user={this.state.user}
-                        theme={this.state.theme}
-                      />
-                    }
-                  />
-
-                  <Route exact path="/aboutUs"
-                    render={(props) =>
-                      <AboutUs {...props}
-                        user={this.state.user}
-                        theme={this.state.theme}
-                      />
-                    }
-                  />
-
-                  <Route exact path="/Settings"
-                    render={(props) =>
-                      <Settings {...props}
-                        darkTheme={this.darkTheme}
-                        lightTheme={this.lightTheme}
-                        theme={this.state.theme}
-                      />
-                    }
-                  />
-
-                  <Route exact path="/notifications"
-                    render={() =>
-                      <div className="container">
-                        <div className="row">
-                          <div className="col-md-2 col-xs-0"></div>
-                          <div className="col-md-8 col-xs-12">
-                            <Notifications
-                              user={this.state.user}
-                              theme={this.state.theme}
-                              newNotification={this.state.newNotification}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    }
-                  />
-
-                  <Route component={Error} />
-                </Switch>
-              </>
-            )
-          }
-
-        </div>
+            <Route component={Error} />
+            } />
+          </Switch>
+        </span>
       </Router>
     )
   }
+
 }
 
 export default App;
